@@ -17,7 +17,7 @@ var database = require("./database.js");
 
 // Test Database stuff
 
-var id = database.createHub("TheHubName", 2);
+var id = database.createHub("TheHubName", "the-hub-name", 2);
 /*database.getHubById(id).then(function (hub) {
     console.log("Hub found - getHubById()");
     console.log(hub.id);
@@ -40,6 +40,7 @@ database.getMyHubs(2).then(function (hubArray) {
 });
 database.deleteHubById("-KO0MT9YYCjFtbCtryh6", 2);
 
+database.updateHub("-KO2-ncySvtwK86N-tma", {name: "AwesomeHub"});
 
 /*
 var id = database.createHub("TheHubName", 2);

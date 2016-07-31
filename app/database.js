@@ -18,10 +18,11 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database();
 // ------------------- Hub Methods --------------------------- 
-exports.createHub = function (name, ownerUid) {
+exports.createHub = function (name, url, ownerUid) {
     var reference = database.ref(KEY_HUB + NODE_SEP).push({
         "name": name,
-        "ownerUid": ownerUid
+        "ownerUid": ownerUid,
+        "url": url
     });
     database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + reference.key).set(true);
     return reference.key;
@@ -58,6 +59,9 @@ exports.getMyHubIds = function (ownerUid) {
             });
         }
     );
+};
+exports.updateHub = function (id, updates) {
+    return database.ref(KEY_HUB + NODE_SEP + id).update(updates);
 };
 exports.getMyHubs = function (ownerUid) {
     return new Promise(

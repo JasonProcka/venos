@@ -85,7 +85,6 @@ exports.getMyHubs = function (ownerUid) {
         }
     );
 };
-exports.editHub = function () {};
 // ------------------- File Methods --------------------------- 
 exports.addFileToHub = function () {};
 exports.removeFileFromHub = function () {};

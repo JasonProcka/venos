@@ -15,7 +15,7 @@ var database = require("./database.js");
 
 
 
-// Test Database stuff
+// Test Database stuff, for explaination look in database.js we'll move the tests to mocka.js soon
 
 var id = database.createHub("TheHubName", "the-hub-name", 2);
 /*database.getHubById(id).then(function (hub) {

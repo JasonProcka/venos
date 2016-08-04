@@ -49,7 +49,7 @@ exports.deleteHubById = function (id, ownerUid) {
     database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + id).remove();
 };
 
-// Returns promise that retrieves an hub by id, variables are accessable as 
+// Returns promise that retrieves an hub by id, variables are accessable as object literal
 exports.getHubById = function (hubId) {
     return new Promise(
         function (resolve, reject) {

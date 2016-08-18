@@ -3,33 +3,101 @@
 /*jshint es5: false */
 /*jshint esnext: true */
 "use strict";
+
+
+
+// database node keys
 var KEY_HUB = "hub";
 var KEY_USER = "user";
 var NODE_SEP = "/";
-var firebase = require("firebase");
+
+
+var firebase = require("./initfirebase.js");
 var exports = module.exports = {};
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU",
-    authDomain: "project-mango-5d7d3.firebaseapp.com",
-    databaseURL: "https://project-mango-5d7d3.firebaseio.com",
-    storageBucket: "project-mango-5d7d3.appspot.com"
-};
-firebase.initializeApp(config);
+var schedule = require('node-schedule');
+
+
 var database = firebase.database();
+
+
 // ------------------- Hub Methods --------------------------- 
-exports.createHub = function (name, ownerUid) {
-    var reference = database.ref(KEY_HUB + NODE_SEP).push({
-        "name": name,
-        "ownerUid": ownerUid
+
+// used after a restart of the server
+exports.startAllHubDestructs = function () {};
+
+var startHubDesctruct = function (hubId, date) {
+    var j = schedule.scheduleJob(date, function () {
+        exports.deleteHubById(hubId);
     });
+};
+
+
+var getDestructDate = function (date, hours) {
+    var inMilliseconds = date.getTime();
+    inMilliseconds = inMilliseconds + (hours * 1000 * 60 * 60);
+    return new Date(inMilliseconds);
+};
+
+
+// Creates Hub, returns id of hub
+exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHours) {
+    
+    var creationTime = new Date(), object = {
+        "name": name,   // Name of hub
+        "ownerUid": ownerUid,   // Unique id of the owner of this hub
+        "url": url, // TODO specified url of the hub, needs to encoded because firebase doesn't allow every special character
+        "public": isPublic ? true : false,  // Is the hub public accessable
+        "creationTime": creationTime
+    }, reference = database.ref(KEY_HUB + NODE_SEP).push();
+    
+    
+    if (destructionTimeInHours) {
+        var destructionDate = getDestructDate(creationTime, destructionTimeInHours);
+        
+        object.destructionTimeInHours = destructionTimeInHours;
+        object.destructionDate = destructionDate;
+        
+        reference.set(object, function (error) {
+            startHubDesctruct(reference.key, destructionDate);
+        });
+    } else {
+        reference.set(object);
+    }
     database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + reference.key).set(true);
     return reference.key;
 };
-exports.deleteHubById = function (id, ownerUid) {
-    database.ref(KEY_HUB + NODE_SEP + id).remove();
-    database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + id).remove();
+
+
+// Deletes Hub, by it's id and owner id
+exports.deleteHubByIdAndUid = function (hubId, ownerUid) {
+    
+    var promises = [];
+    promises.push(database.ref(KEY_HUB + NODE_SEP + hubId).remove());
+    promises.push(database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + hubId).remove());
+    return Promise.all(promises);
 };
+
+exports.deleteHubById = function (hubId) {
+    var promises = [], deleteHubPromise = database.ref(KEY_HUB + NODE_SEP + hubId).remove(), deleteOwnerInHubPromise = new Promise(
+        function (resolve, reject) {
+            exports.getHubById(hubId).then(function (hub) {
+                console.log("callback reached");
+                console.log("hub ownerUid: " + hub.ownerUid);
+                console.log("statement: " + KEY_USER + NODE_SEP + hub.ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + hubId);
+                database.ref(KEY_USER + NODE_SEP + hub.ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + hubId).remove(function () {
+                    resolve();
+                });
+            }, function () {
+                reject();
+            });
+        }
+    );
+    promises.push(deleteHubPromise);
+    promises.push(deleteOwnerInHubPromise);
+    return Promise.all(promises);
+};
+
+// Returns promise that retrieves an hub by id, variables are accessable as object literal
 exports.getHubById = function (hubId) {
     return new Promise(
         function (resolve, reject) {
@@ -46,6 +114,8 @@ exports.getHubById = function (hubId) {
         }
     );
 };
+
+// Returns promie that returns all ids of hubs an user is assigned to
 exports.getMyHubIds = function (ownerUid) {
     return new Promise(
         function (resolve, reject) {
@@ -59,6 +129,13 @@ exports.getMyHubIds = function (ownerUid) {
         }
     );
 };
+
+// Returns promise when everything is updated, just pass an object literal to updates
+exports.updateHub = function (id, updates) {
+    return database.ref(KEY_HUB + NODE_SEP + id).update(updates);
+};
+
+// Returns promise that returns all hubs an user is assigned to
 exports.getMyHubs = function (ownerUid) {
     return new Promise(
         function (resolve, reject) {
@@ -81,7 +158,10 @@ exports.getMyHubs = function (ownerUid) {
         }
     );
 };
-exports.editHub = function () {};
 // ------------------- File Methods --------------------------- 
-exports.addFileToHub = function () {};
+exports.addFileToHub = function (id) {
+    
+    
+    
+};
 exports.removeFileFromHub = function () {};

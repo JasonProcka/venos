@@ -23,11 +23,17 @@ var database = firebase.database();
 // ------------------- Hub Methods --------------------------- 
 
 // used after a restart of the server
-exports.startAllHubDestructs = function () {};
+exports.startAllHubDestructs = function () {
+    
+    
+    
+};
 
 var startHubDesctruct = function (hubId, date) {
     var j = schedule.scheduleJob(date, function () {
-        exports.deleteHubById(hubId);
+        exports.deleteHubById(hubId).then(function () {
+            console.log("worked");
+        });
     });
 };
 
@@ -58,6 +64,7 @@ exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHo
         object.destructionDate = destructionDate;
         
         reference.set(object, function (error) {
+            console.log("hub id: " + reference.key);
             startHubDesctruct(reference.key, destructionDate);
         });
     } else {
@@ -78,13 +85,12 @@ exports.deleteHubByIdAndUid = function (hubId, ownerUid) {
 };
 
 exports.deleteHubById = function (hubId) {
-    var promises = [], deleteHubPromise = database.ref(KEY_HUB + NODE_SEP + hubId).remove(), deleteOwnerInHubPromise = new Promise(
+
+    var deleteOwnerInHubPromise = new Promise(
         function (resolve, reject) {
+            console.log("test: " + hubId);
             exports.getHubById(hubId).then(function (hub) {
-                console.log("callback reached");
-                console.log("hub ownerUid: " + hub.ownerUid);
-                console.log("statement: " + KEY_USER + NODE_SEP + hub.ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + hubId);
-                database.ref(KEY_USER + NODE_SEP + hub.ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + hubId).remove(function () {
+                exports.deleteHubByIdAndUid(hubId, hub.ownerUid).then(function () {
                     resolve();
                 });
             }, function () {
@@ -92,9 +98,7 @@ exports.deleteHubById = function (hubId) {
             });
         }
     );
-    promises.push(deleteHubPromise);
-    promises.push(deleteOwnerInHubPromise);
-    return Promise.all(promises);
+    return deleteOwnerInHubPromise;
 };
 
 // Returns promise that retrieves an hub by id, variables are accessable as object literal

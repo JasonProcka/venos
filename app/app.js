@@ -26,7 +26,7 @@ app.listen(3000, function () {
 
 
 // One hour destruction time
-database.createHub("Awesome Hub - 1", "http://marcadian.com", 1, true, 1);
+database.createHub("Awesome Hub - 1", "http://marcadian.com", 1, true, 10);
 
 
 // No destruction Time

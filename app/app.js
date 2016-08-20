@@ -16,25 +16,25 @@ app.listen(3000, function () {
 
 
 
+// Starts all hub destructs after server restart and listens for new hubs that will get destructed
+database.startAllHubDestructs();
 
 
+//      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+// ----    For testing all values are in currently set to seconds   ------
+//
+//      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// 40 hours destruction time
+database.createHub("Awesome Hub - 1", "http://marcadian.com", 1, true, 40);
 
 
+// 20 hours destruction time
+database.createHub("Awesome Hub - 2", "http://marcadian.io", 1, true, 20);
 
-
-
-
-
-// One hour destruction time
-database.createHub("Awesome Hub - 1", "http://marcadian.com", 1, true, 10);
-
-
-// No destruction Time
+// No destruction time
 database.createHub("Awesome Hub - 2", "http://marcadian.io", 1, true);
-
-
-
-
 
 
 /*

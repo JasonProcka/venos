@@ -12,6 +12,14 @@ var KEY_USER = "user";
 var NODE_SEP = "/";
 
 
+var KEY_DESTRUCTION_TIME_IN_HOURS = "destructionTimeInHours";
+var KEY_DESTRUCTION_DATE = "destructionTime";
+var KEY_NAME = "name";
+var KEY_OWNER_UID = "ownerUid";
+var KEY_PUBLIC = "public";
+var KEY_URL = "url";
+var KEY_CREATION_TIME = "creationTime";
+
 var firebase = require("./initfirebase.js");
 var exports = module.exports = {};
 var schedule = require('node-schedule');
@@ -26,46 +34,72 @@ var database = firebase.database();
 exports.startAllHubDestructs = function () {
     
     
-    
+    var reference = database.ref(KEY_HUB).orderByChild(KEY_DESTRUCTION_TIME_IN_HOURS);
+    reference.on('child_added', function (data) {
+        var milliseconds = data.val()[KEY_DESTRUCTION_DATE];
+        if(milliseconds){
+            startHubDesctruct(data.key, new Date(milliseconds));   
+        }
+    });
 };
 
+var isDateInPast = function (date) {
+    var now = new Date();
+    var offset = 5000; // 5 seconds
+    if(date.getTime() - offset <= now){   // returns a date in the future if the date passed in is not in the future
+        return true;
+    }else{
+        return false;
+    }
+}
+
 var startHubDesctruct = function (hubId, date) {
-    var j = schedule.scheduleJob(date, function () {
+    console.log("startHubDestruct for " + hubId + " on " + date);
+    var isPast = isDateInPast(date);
+    if(!isPast){
+        var j = schedule.scheduleJob(date, function () {
+            exports.deleteHubById(hubId).then(function () {
+                console.log("worked");
+            });
+        });
+    }else{
         exports.deleteHubById(hubId).then(function () {
             console.log("worked");
         });
-    });
+    }
 };
 
 
 var getDestructDate = function (date, hours) {
     var inMilliseconds = date.getTime();
-    inMilliseconds = inMilliseconds + (hours * 1000 * 60 * 60);
+    inMilliseconds = inMilliseconds + (hours * 1000 /* * 60 * 60 */);
     return new Date(inMilliseconds);
 };
 
 
 // Creates Hub, returns id of hub
 exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHours) {
+    var creationTime = new Date();
     
-    var creationTime = new Date(), object = {
-        "name": name,   // Name of hub
-        "ownerUid": ownerUid,   // Unique id of the owner of this hub
-        "url": url, // TODO specified url of the hub, needs to encoded because firebase doesn't allow every special character
-        "public": isPublic ? true : false,  // Is the hub public accessable
-        "creationTime": creationTime
-    }, reference = database.ref(KEY_HUB + NODE_SEP).push();
+    var object = {
+        [KEY_NAME]: name,   // Name of hub
+        [KEY_OWNER_UID]: ownerUid,   // Unique id of the owner of this hub
+        [KEY_URL]: url, // TODO specified url of the hub, needs to encoded because firebase doesn't allow every special character
+        [KEY_PUBLIC]: isPublic ? true : false,  // Is the hub public accessable
+        [KEY_CREATION_TIME]: creationTime.getTime()
+    };
+    
+    var reference = database.ref(KEY_HUB + NODE_SEP).push();
     
     
-    if (destructionTimeInHours) {
+    if (destructionTimeInHours !== null && destructionTimeInHours !== undefined) {
         var destructionDate = getDestructDate(creationTime, destructionTimeInHours);
         
-        object.destructionTimeInHours = destructionTimeInHours;
-        object.destructionDate = destructionDate;
+        object[KEY_DESTRUCTION_TIME_IN_HOURS] = destructionTimeInHours;
+        object[KEY_DESTRUCTION_DATE] = destructionDate.getTime();
         
         reference.set(object, function (error) {
-            console.log("hub id: " + reference.key);
-            startHubDesctruct(reference.key, destructionDate);
+           // startHubDesctruct(reference.key, destructionDate);
         });
     } else {
         reference.set(object);

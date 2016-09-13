@@ -27,11 +27,9 @@
             <div class="rightcontentcontainer">
                 <form ng-submit="addUser()" class="signupformwrapper">
                     <div class = "signupform">
-                        <div class="inputwrapper namewrapper">
-                            <label id="namelabel">
-                                <input id="fname" type="text" placeholder="Name">
-                                <span id="that">Name</span>
-                            </label>
+                        <label for="basic-url">First Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="fname" placeholder="First Name" aria-describedby="basic-addon3">
                         </div>
                         <div class="inputwrapper usernamewrapper">
                             <label id="usernamelabel" class="usernameinput">

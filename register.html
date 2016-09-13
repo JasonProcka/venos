@@ -1,0 +1,105 @@
+<HTML>
+    <head>
+        <title>Join Givly</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.orange-blue.min.css" />
+        <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="custom_inputs.css">
+        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="signupstyles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script defer src="inputs.js"></script>
+        <script src="angularApp.js"></script>
+    </head>
+    <body ng-app="mango" ng-controller="RegisterCtrl">
+        {{test}}
+        <!-- Left Column-->
+        <div class="left">
+            <div class="leftcontentcontainer">
+                <h1 class="signup">Welcome</h1>
+                <h4 class="introduction">Let's get started on creating your account! <i class="em em-grinning"></i></h4>
+                <!-- Mini FAB button -->
+                <button class="more-info mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                    <i class="material-icons bulbbutton">lightbulb_outline</i>
+                </button>
+            </div>
+        </div>
+        <!-- Right Column-->
+        <div class="right mdl-color--blue-500">
+            <div class="rightcontentcontainer">
+                <form ng-submit="addUser()" class="signupformwrapper">
+                    <div class = "signupform">
+                        <h1 class="signupformheader">Join Givly</h1>
+                        <h2 class="signupformheader">Get ready for some sharing   <i class="em em-two_men_holding_hands"></i></h2>
+                        <div class="inputwrapper namewrapper">
+                            <label id="namelabel">
+                                <input id="fname" type="text" placeholder="Name">
+                                <span id="that">Name</span>
+                            </label>
+                        </div>
+                        <div class="inputwrapper usernamewrapper">
+                            <label id="usernamelabel" class="usernameinput">
+                                <input ng-model="username" id="username" class="usernameinput" type="text" placeholder="Username"/>
+                                <span>Username</span>
+                            </label>
+                        </div>
+                        <div class="inputwrapper emailwrapper">
+                            <label id="emaillabel">
+                                <input ng-model="email" id="emailfield" type="email" placeholder="Email"/>
+                                <span>Email</span>
+                            </label>
+                        </div>
+                        <div class="inputwrapper password1wrapper">
+                            <label id="password1label">
+                                <input ng-model="password" id="password1" type="password" placeholder="Password"/>
+                                <span>Password</span>
+                            </label>
+                        </div>
+                        <div class="inputwrapper password2wrapper">
+                            <label id="password2label">
+                                <input id="password2" type="password" placeholder="Confirm Password"/>
+                                <span>Confirm Password</span>
+                            </label>
+                        </div>
+                        <form action="www.google.com">
+                            <button class="cancelform mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--grey-500" onclick="location.href='http://www.google.com'">CANCEL</button>
+                        </form>
+                        <button class="nextform mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--pink-500" type="submit">CONTINUE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Import the scripts you need, in our case authentication -->
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+        <script src="auth.js"></script>
+        <script>
+            // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU"
+                , authDomain: "project-mango-5d7d3.firebaseapp.com"
+                , databaseURL: "https://project-mango-5d7d3.firebaseio.com"
+                , storageBucket: "project-mango-5d7d3.appspot.com"
+                , serviceAccount: "MarcadianProjectMango-9e1b1341f4ac.json"
+        };
+firebase.initializeApp(config);
+var auth = new Auth(firebase);
+auth.registerAnonym();
+auth.listen(
+        function (user) {
+            console.log("user logged in");
+            console.log("uid: " + user.uid);
+            console.log("is anonym: " + user.isAnonymous);
+        },
+
+        function () {
+
+            console.log("user signed out");
+        }
+        );
+        </script>
+    </body>
+</html>i

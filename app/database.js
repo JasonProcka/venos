@@ -19,10 +19,22 @@ var KEY_OWNER_UID = "ownerUid";
 var KEY_PUBLIC = "public";
 var KEY_URL = "url";
 var KEY_CREATION_TIME = "creationTime";
+var KEY_HUB_OWNER = "hubOwner";
+var KEY_HUB_MEMBER = "hubMember";
+var KEY_EMAIL = "email";
+
+var KEY_ACCESS_EVERYONE = "everyone";   // hub access for everyone
+var KEY_ACCESS_ACCOUNT = "account"      // hub access for people with gively account
+var KEY_ACCESS_MEMBERS = "members"      // hub access only for one's self and all whitelisted admins and member
 
 var firebase = require("./initfirebase.js");
 var exports = module.exports = {};
 var schedule = require('node-schedule');
+
+
+exports.ACCESS_EVERYONE = KEY_ACCESS_EVERYONE;
+exports.ACCESS_ACCOUNT = KEY_ACCESS_ACCOUNT;
+exports.ACCESS_MEMBERS = KEY_ACCESS_MEMBERS;
 
 
 var database = firebase.database();
@@ -77,6 +89,10 @@ var getDestructDate = function (date, hours) {
 };
 
 
+
+
+
+
 // Creates Hub, returns id of hub
 exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHours) {
     var creationTime = new Date();
@@ -104,7 +120,7 @@ exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHo
     } else {
         reference.set(object);
     }
-    database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + reference.key).set(true);
+    database.ref(KEY_USER + NODE_SEP + KEY_HUB_OWNER + NODE_SEP + KEY_HUB + NODE_SEP + reference.key).set(true);
     return reference.key;
 };
 
@@ -114,7 +130,7 @@ exports.deleteHubByIdAndUid = function (hubId, ownerUid) {
     
     var promises = [];
     promises.push(database.ref(KEY_HUB + NODE_SEP + hubId).remove());
-    promises.push(database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB + NODE_SEP + hubId).remove());
+    promises.push(database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_OWNER + NODE_SEP + hubId).remove());
     return Promise.all(promises);
 };
 
@@ -135,6 +151,22 @@ exports.deleteHubById = function (hubId) {
     return deleteOwnerInHubPromise;
 };
 
+
+exports.isUserMemberOfHub = function (hubId, uid){
+    
+}
+
+
+exports.addMemberToHubByUsername = function (hubId, uid) {
+    return database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_MEMBER + NODE_SEP + KEY_USER + uid).set(true);    
+}
+
+
+exports.addUserByEmail = function (hubId, email) {
+    return database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_MEMBER + NODE_SEP + KEY_EMAIL + email).set(true);    
+}
+
+
 // Returns promise that retrieves an hub by id, variables are accessable as object literal
 exports.getHubById = function (hubId) {
     return new Promise(
@@ -154,10 +186,10 @@ exports.getHubById = function (hubId) {
 };
 
 // Returns promie that returns all ids of hubs an user is assigned to
-exports.getMyHubIds = function (ownerUid) {
+exports.getMyOwnedHubIds = function (ownerUid) {
     return new Promise(
         function (resolve, reject) {
-            database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB).once('value').then(function (snapshot) {
+            database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_OWNER).once('value').then(function (snapshot) {
                 if (snapshot === null || snapshot.val() === null) {
                     reject();
                 } else {
@@ -177,7 +209,7 @@ exports.updateHub = function (id, updates) {
 exports.getMyHubs = function (ownerUid) {
     return new Promise(
         function (resolve, reject) {
-            exports.getMyHubIds(ownerUid).then(function (hubIds) {
+            exports.getMyOwnedHubIds(ownerUid).then(function (hubIds) {
                 
                 var promises = [];
                 

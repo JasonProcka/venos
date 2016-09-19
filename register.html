@@ -1,0 +1,92 @@
+<HTML>
+    <head>
+        <title>Join Venos</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="custom_inputs.css">
+        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="signup.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script defer src="inputs.js"></script>
+        <script src="angularApp.js"></script>
+    </head>
+    <body ng-app="mango" ng-controller="RegisterCtrl">
+        {{test}}
+        <!-- Left Column-->
+        <div class="left">
+            <div class="leftcontentcontainer">
+                <h1 class="signup">Join Venos</h1>
+                <h4 class="introduction">The Greatest Way to Share. <i class="em em-grinning"></i></h4>
+            </div>
+        </div>
+        <!-- Right Column-->
+        <div class="right">
+            <div class="rightcontentcontainer">
+                <form ng-submit="addUser()" class="signupformwrapper">
+                    <div class = "signupform">
+                        <label for="basic-url">First Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="fname" placeholder="First Name" aria-describedby="basic-addon3">
+                        </div>
+                        <label for="basic-url">Username</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="username" ng-model="username" placeholder="Username" aria-describedby="basic-addon3">
+                        </div>
+                        <label for="basic-url">Email</label>
+                        <div class="input-group">
+                            <input ng-model="email" type="email" class="form-control" id="emailfield" placeholder="Email" aria-describedby="basic-addon3">
+                        </div>
+                        <label for="basic-url">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password1" placeholder="Password" aria-describedby="basic-addon3">
+                        </div>
+                        <label for="basic-url">Repeat Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password2" placeholder="Repeat Password" aria-describedby="basic-addon3">
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">
+                        Finish</button>
+                        <form action="www.venos.co">
+                            <button class="btn btn-block" type="button">
+                            Cancel</button>
+                        </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Import the scripts you need, in our case authentication -->
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+        <script src="auth.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script>
+            // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU"
+                , authDomain: "project-mango-5d7d3.firebaseapp.com"
+                , databaseURL: "https://project-mango-5d7d3.firebaseio.com"
+                , storageBucket: "project-mango-5d7d3.appspot.com"
+                , serviceAccount: "MarcadianProjectMango-9e1b1341f4ac.json"
+        };
+firebase.initializeApp(config);
+var auth = new Auth(firebase);
+auth.registerAnonym();
+auth.listen(
+        function (user) {
+            console.log("user logged in");
+            console.log("uid: " + user.uid);
+            console.log("is anonym: " + user.isAnonymous);
+        },
+
+        function () {
+
+            console.log("user signed out");
+        }
+        );
+        </script>
+    </body>
+</html>

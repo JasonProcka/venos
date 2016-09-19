@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "monitor": "nodemon app.js",
+    "deploy": "gcloud app deploy"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,8 @@
   "dependencies": {
     "express": "^4.14.0",
     "firebase": "^3.2.1"
+  },
+  "engines": {
+    "node": "0.12.0"
   }
 }

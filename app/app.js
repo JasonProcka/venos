@@ -15,6 +15,10 @@ app.listen(3000, function () {
 });
 
 
+app.get("/", function(req, res, next){
+    res.sendFile("../index.html");
+});
+
 
 // Starts all hub destructs after server restart and listens for new hubs that will get destructed
 database.startAllHubDestructs();

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "project-mango-5d7d3",
+  "private_key_id": "9e1b1341f4ac0e396865afca60f1d3979e007a62",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDHQ5LYERlam/22\nkZQyI/BFyjKj1Gzln7cPGSl9BC6xZ+YnJJTUcOwEiJU3lSfDu3n+TOEdHY3j7Hhi\nVTxfKJsc4BGCCutRaQ/NWupUZBlppPDXAA2+bTIawScYxLRB6rqIB5vRwaWqR3wU\nq4Luqixa0UjrULdAeQ2pWUMq/z73rMJmMhGM8C8CwYRzRDiZ6tNswJ/BJwQ1ir2n\nuGTeVrTV3jVCQstX4j0YDpLqCazFA9t+lJpVIOQdRmIteVMcWz2VgTFvOcqsaI62\nlm/gFIZGeW+6NDb+p0As3jWzBNatdiuFUELLNSSDkS7qhTZmY3OndadXLIJaKHcP\nsGpE2XmXAgMBAAECggEBAI0XJ66dzNn/gdH3mns2PzbrSJgAHWspf7DNHDdM8tLi\nwnAM0uTpX/SF0UId9p387RBG106KUqGEGmll+O1YDxyO+1ac7KokPfAl464Fgojv\nJSjW/ORM5SFUip5bCVdzIMiYupf3CZpcK1tnZbof/HABqCQWburTy/yRG6IiQS+U\nfiY4tRNT6tzxsmJW5khJ7xKWqqrzir7vlt8zaPFhh27TofsnR6/5fqEYDPIHlVMC\nUjPN6bDtbz3sard/k++hHxZuMqBnagYaX9iS5+agjXjpmaVkCN9GgddKj+FmWdG6\ngt/ff+k/FybG5ECcorlORKUBIQFzAhlachbREh41H0ECgYEA+tV2qlLs882CRasD\nj5xwo1KZOMiZSqakXwGhv1Imlqv18iW4Z+QOG1RTOcyvj8T6cLv5IHB7vwA15DXP\n+75qURXKqI9Vc8nzK5VECO3KvrFKu9kGC8mcnEOLGx2u5sqW7icbdW+DWSA+cm5S\nIVBBtaVhFbCPRqc/JvBtKrTE8O8CgYEAy140bEH5Lb4JpebDpZMApWK+tYr01blj\nXqIl30VLf6HH3P3nj+CoKPG0bgt5ilQBALdaPNcI19DvWAM2Q8DzP3k33SgKPLoN\nMqeVtD0oxEljHrCUU6jw8rP22JS6QhuPfGwpX2TV9dAJTWyjKiZYetcKL7P29drI\nlzFzWW3ssdkCgYEAk28O/dQaNL9xt/Np92qThlwRdZ/rAkbqzHEQGn118xAGUxs6\nxc31QLkS5iFae93i+opyR0/2XHEKPCYpJqZopVpysRr2tkVYqiBlSf5DMkzRSZKp\njBon9G17ASg0WrFvf3H7IM633JYoPmh729rplJQteWs6++NoKkIdWIHCVH8CgYB+\nFDs/2m7W8vgcSEKHBeninqNI/YrobXSzmKcOEnHKAMxdr3O9+TOHnsGTb728CnRM\ns19YVKAA3GFmGSetPZQQh+AgVdBy8Y15F/hxs3Dwr+apgiOS8ive679famVG0rtU\nEeJcZ7FWIdGClJVbbkZwcZy5EkNLDIZLZbbzfHi/kQKBgCJHN9ZKSIB75mCdoROj\nnOn6Z4itTz0exL8gkIuvMbJu3Xk0jrS28gjYqVGoELRVA3HS5J7xud7MB+ky6H5C\nd5Bd6wWAfAC5DkE7dj3hDbf3ZTB60MTjrHytw4DnZO+2s2fgYaZvGebzD726dq1k\nhyPidAS2OET7yICrSzmswFW+\n-----END PRIVATE KEY-----\n",
+  "client_email": "theserviceaccount@project-mango-5d7d3.iam.gserviceaccount.com",
+  "client_id": "100247491153619430128",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/theserviceaccount%40project-mango-5d7d3.iam.gserviceaccount.com"
+}

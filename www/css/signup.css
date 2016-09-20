@@ -1,0 +1,95 @@
+body {
+        font-family: 'Ubuntu', sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
+    .right{
+        overflow:hidden;
+        background-color: #fafafa;
+        height: 100%;
+    }
+    .left{
+        float:left;
+        width: 50%;
+        height: 100%;
+        background-image: url("https://s14.postimg.org/9mwpcgolt/hub_bg.png");
+        background-size: cover;
+        background-position: calc(50% + 40px);
+    }
+    .leftcontentcontainer {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .rightcontentcontainer {
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+    }
+    .signup {
+        text-align: center;
+        color: #fff;
+    }
+    .signupform {
+        width: 50%;
+        display: block;
+        margin: 0 auto;
+    }
+    .sidenoteheader {
+        margin-left: 2%;
+    }
+    .sidenote {
+        text-align: center;
+        word-wrap: break-word;
+        width: 95%;
+    }
+    .introduction {
+        font-family: 'Ubuntu', sans-serif;
+        text-align: center;
+        color: #fff;
+        padding-left: 8%;
+        padding-right: 8%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    .more-info {
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-top: 5px;
+    }
+    .signupformwrapper {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        border: 0;
+    }
+    .signupform {
+        box-shadow: none;
+        background: transparent;
+        border: 0;
+    }
+    .signupformheader {
+        font-family: 'Ubuntu', sans-serif;
+        color: #fff;
+    }
+    .inputwrapper {
+        background: transparent;
+        box-shadow: none;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    .nextform, .cancelform {
+        display: inline-block;
+        color: #fff;
+        width: 47%;
+    }
+    .nextform {
+        float: right;
+    }

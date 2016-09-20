@@ -1,0 +1,117 @@
+/* Modified Bootstrap components */
+
+.btn {
+    border: 0;
+    border-bottom: 3px solid;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.btn-wide {
+    max-width: 300px;
+    min-width: 200px;
+}
+
+/* Background styling */
+
+.bg-white {
+    background-color: #FFF;
+}
+
+.bg-blue {
+    background-color: #2196F3;
+}
+
+.bg-dark-blue {
+    background-color: #1976D2;
+}
+
+/* Border styling */
+
+.no-border {
+    border: 0;
+}
+
+.border-gray {
+    border-bottom-color: #EBEBEB;
+}
+
+.border-blue {
+    border-color: #0398db;
+}
+
+.border-blue:hover {
+    border-color: #0398db;
+}
+
+.border-dark-blue {
+    border-color: #1976D2;
+}
+
+.border-dark-blue:hover {
+    border-color: #1976D2;
+}
+
+/* Text styling */
+
+.txt-white {
+    color: #FFF;
+}
+
+.txt-white:hover {
+    color: #FFF;
+}
+
+.txt-blue {
+    color: #2196F3;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: none;
+}
+
+.smooth {
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Font Weights */
+
+.light {
+    font-weight: 400;
+}
+
+.very-light {
+    font-weight: 300;
+}
+
+/* Margin and padding styling */
+
+.margin-auto {
+    margin: auto;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+/* Display styling */
+
+.display-block {
+    display: block;
+}
+
+.display-inline-block {
+    display: inline-block;
+}

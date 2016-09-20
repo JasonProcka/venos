@@ -7,52 +7,48 @@
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="custom_inputs.css">
         <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+        <link rel="stylesheet" href="../components.css" type="text/css" />
         <link rel="stylesheet" type="text/css" href="signup.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script defer src="inputs.js"></script>
         <script src="angularApp.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body ng-app="mango" ng-controller="RegisterCtrl">
-        {{test}}
         <!-- Left Column-->
         <div class="left">
+            <a class="" style="display: block; margin-top: 20px; position: absolute;" href="#"><img width="60px" height="60px" class="" src="../venos_logo.png"></a>
             <div class="leftcontentcontainer">
-                <h1 class="signup">Join Venos</h1>
-                <h4 class="introduction">The Greatest Way to Share. <i class="em em-grinning"></i></h4>
+                <h1 class="signup">Venos</h1>
+                <h4 class="introduction">The greatest way to share is here!  <i class="em em-grinning"></i></h4>
             </div>
         </div>
         <!-- Right Column-->
         <div class="right">
             <div class="rightcontentcontainer">
+                <h2 class="txt-center txt-white">Get Started</h2>
                 <form ng-submit="addUser()" class="signupformwrapper">
                     <div class = "signupform">
-                        <label for="basic-url">First Name</label>
+                        <label class="txt-white light" for="basic-url">Username or @</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="fname" placeholder="First Name" aria-describedby="basic-addon3">
+                            <input type="text" class="form-control" id="username" ng-model="username" placeholder="Example: @FordPrefect" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Username</label>
+                        <label class="txt-white light" for="basic-url">Email</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="username" ng-model="username" placeholder="Username" aria-describedby="basic-addon3">
+                            <input ng-model="email" type="email" class="form-control" id="emailfield" placeholder="Example: hitchhicker@galaxy.com" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Email</label>
+                        <label class="txt-white light" for="basic-url">Password</label>
                         <div class="input-group">
-                            <input ng-model="email" type="email" class="form-control" id="emailfield" placeholder="Email" aria-describedby="basic-addon3">
+                            <input type="password" class="form-control" id="password1" placeholder="6 characters minimum" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Password</label>
+                        <label class="txt-white light" for="basic-url">Repeat Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password1" placeholder="Password" aria-describedby="basic-addon3">
+                            <input type="password" class="form-control" id="password2" placeholder="Sorry, but you must repeat!" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Repeat Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="password2" placeholder="Repeat Password" aria-describedby="basic-addon3">
-                        </div>
-                        <button class="btn btn-primary btn-block" type="submit">
+                        <div class="g-recaptcha" style="margin: auto" data-sitekey="6LdcJCoTAAAAAAKH_IcryNy9LrNxJHRDTdsyaKL5"></div>
+                        <button class="btn btn-primary btn-block bg-blue border-dark-blue" type="submit">
                         Finish</button>
-                        <form action="www.venos.co">
-                            <button class="btn btn-block" type="button">
-                            Cancel</button>
-                        </form>
                     </div>
                 </form>
             </div>
@@ -81,9 +77,7 @@ auth.listen(
             console.log("uid: " + user.uid);
             console.log("is anonym: " + user.isAnonymous);
         },
-
         function () {
-
             console.log("user signed out");
         }
         );

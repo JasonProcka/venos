@@ -7,6 +7,11 @@
     font-size: 15px;
 }
 
+.btn:active, .btn:hover, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
 .btn-wide {
     max-width: 300px;
     min-width: 200px;
@@ -18,11 +23,31 @@
     background-color: #FFF;
 }
 
+.bg-white:hover {
+    background-color: #FFF;
+}
+
+.bg-pink {
+    background-color: rgb(249,127,105);
+}
+
+.bg-pink:hover {
+    background-color: rgb(249,127,105);
+}
+
 .bg-blue {
     background-color: #2196F3;
 }
 
+.bg-blue:hover {
+    background-color: #2196F3;
+}
+
 .bg-dark-blue {
+    background-color: #1976D2;
+}
+
+.bg-dark-blue:hover {
     background-color: #1976D2;
 }
 
@@ -33,10 +58,18 @@
 }
 
 .border-gray {
-    border-bottom-color: #EBEBEB;
+    border-bottom-color: #BDBDBD;
+}
+
+.border-gray:hover {
+    border-bottom-color: #BDBDBD;
 }
 
 .border-blue {
+    border-color: #0398db;
+}
+
+.border-blue:hover {
     border-color: #0398db;
 }
 
@@ -52,6 +85,14 @@
     border-color: #1976D2;
 }
 
+.border-pink {
+    border-color: #e5735e;
+}
+
+.border-pink:hover {
+    border-color: #e5735e;
+}
+
 /* Text styling */
 
 .txt-white {
@@ -62,7 +103,19 @@
     color: #FFF;
 }
 
+.txt-gray {
+    color: #9E9E9E;
+}
+
+.txt-gray:hover {
+    color: #9E9E9E;
+}
+
 .txt-blue {
+    color: #2196F3;
+}
+
+.txt-blue:hover {
     color: #2196F3;
 }
 

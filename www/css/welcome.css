@@ -14,7 +14,7 @@ body {
     height: 100%;
     max-width: 100%;
     -webkit-font-smoothing: antialiased;
-    background-image: url('welcome.jpg');
+    background-image: url('http://s17.postimg.org/j79rbha4v/welcome.jpg');
     background-size: cover;
     background-position: center;
 }

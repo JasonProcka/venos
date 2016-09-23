@@ -1,4 +1,3 @@
-Baileys-MacBook-Pro:fridge2.0 bay$ clear
 var app = angular.module('mango',[]);
 
 app.controller('AuthCtrl', [

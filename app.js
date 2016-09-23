@@ -25,6 +25,10 @@ app.get('/', function (req, res) {
 app.get('/login', function (req, res) {
   res.status(200).sendFile(__dirname + '/www/html/login.html');
 });
+
+app.get('/join', function (req, res) {
+  res.status(200).sendFile(__dirname + '/www/html/register.html');
+});
 // [END app]
 
 // Starts all hub destructs after server restart and listens for new hubs that will get destructed

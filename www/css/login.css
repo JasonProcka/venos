@@ -25,10 +25,7 @@ body {
     display: block;
     margin: auto;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
+    max-width: 360px;
 }
 
 .login_tile h2 {
@@ -40,23 +37,17 @@ body {
 }
 
 .signupform {
-    max-width: 400px;
-    display: block;
-    margin: 0 auto;
-}
-
-.signupform .input-group {
     width: 100%;
-    margin-bottom: 20px;
+    display: block;
+    margin-right: 10px;
+    margin-left: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
 }
 
-.signupform .input-group .form-control {
-    border: 0;
-    border-radius: 5px;
-    height: 40px;
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+.signupform .form-control {
+    margin-bottom: 10px;
 }
 
 .signupformwrapper {

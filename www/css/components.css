@@ -1,5 +1,15 @@
 /* Modified Bootstrap components */
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+    outline: 0;
+    outline: none;
+}
+
 .btn {
     border: 0;
     border-bottom: 3px solid;
@@ -21,13 +31,31 @@
     border-radius: 5px;
 }
 
-.input-group .form-control {
-    border: 0;
+.form-control {
+    border: 1px solid #FFF;
     border-radius: 5px;
     height: 40px;
     -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
     -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+}
+
+.form-control:active {
+    border: 1px solid #03A9F4;
+    border-radius: 5px;
+    height: 40px;
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+}
+
+.form-control:focus {
+    outline: none;
 }
 
 /* Background styling */
@@ -49,11 +77,11 @@
 }
 
 .bg-blue {
-    background-color: #2196F3;
+    background-color: #03A9F4;
 }
 
 .bg-blue:hover {
-    background-color: #2196F3;
+    background-color: #03A9F4;
 }
 
 .bg-dark-blue {
@@ -125,11 +153,11 @@
 }
 
 .txt-blue {
-    color: #2196F3;
+    color: #03A9F4;
 }
 
 .txt-blue:hover {
-    color: #2196F3;
+    color: #03A9F4;
 }
 
 .txt-center {

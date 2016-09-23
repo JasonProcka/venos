@@ -22,10 +22,13 @@ body {
 
 .login_tile {
     overflow: hidden;
-    display: block;
-    margin: auto;
+    max-width: 400px;
+    min-width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     position: absolute;
-    max-width: 360px;
+    display: block;
 }
 
 .login_tile h2 {
@@ -36,18 +39,14 @@ body {
     color: #FFFFFF;
 }
 
-.signupform {
+.signupform .login-input {
     width: 100%;
-    display: block;
-    margin-right: 10px;
-    margin-left: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    position: relative;
 }
 
-.signupform .form-control {
+.signupform .login-input .form-control {
     margin-bottom: 10px;
+    width: 100%;
+    display: block;
 }
 
 .signupformwrapper {

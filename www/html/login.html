@@ -4,7 +4,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="custom_inputs.css">
         <!-- Fonts and icon fonts -->
         <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -16,16 +15,18 @@
     </head>
     <body ng-app="mango" ng-controller="RegisterCtrl">
         <div class="venos_logo display-inline-block">
-            <a href="dashboard" class="link txt-center"><img src="../venos_logo.png" style="width: 50px; height: 50px; margin-left: 5px;"></a>
+            <a href="dashboard" class="link txt-center"><img src="../images/venos_logo.png" style="width: 50px; height: 50px; margin-left: 5px;"></a>
         </div>
         <div class="login_tile">
             <h2 class="txt-center txt-white">Login to Venos</h2>
             <div class = "signupform">
                 <form ng-submit="loginUser()" class="signupformwrapper">
+                    <div class="login-input">
                         <input type="text" class="form-control" id="username" ng-model="email" placeholder="Email" aria-describedby="basic-addon3">
                         <input type="password" class="form-control" id="password1" placeholder="Password" aria-describedby="basic-addon3">
                         <button class="submit-btn btn btn-block bg-blue txt-white no-border" type="submit">
                         Login</button>
+                    </div>
                 </form>
                 <a class="join-btn btn txt-white no-border" href="/join" role="button">Join Venos</a>
             </div>

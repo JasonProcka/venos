@@ -21,6 +21,10 @@ app.use(express.static(__dirname + '/www/'));
 app.get('/', function (req, res) {
   res.status(200).sendFile(__dirname + '/www/html/welcome.html');
 });
+
+app.get('/login', function (req, res) {
+  res.status(200).sendFile(__dirname + '/www/html/login.html');
+});
 // [END app]
 
 // Starts all hub destructs after server restart and listens for new hubs that will get destructed

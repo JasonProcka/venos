@@ -2,19 +2,18 @@
     <head>
         <title>Join Venos</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="custom_inputs.css">
-        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="signup.css">
+        <link rel="stylesheet" type="text/css" href="../css/register.css">
+        <link rel="stylesheet" type="text/css" href="../css/components.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script defer src="inputs.js"></script>
         <script src="angularApp.js"></script>
     </head>
     <body ng-app="mango" ng-controller="RegisterCtrl">
-        {{test}}
         <!-- Left Column-->
         <div class="left">
             <div class="leftcontentcontainer">
@@ -27,30 +26,26 @@
             <div class="rightcontentcontainer">
                 <form ng-submit="addUser()" class="signupformwrapper">
                     <div class = "signupform">
-                        <label for="basic-url">First Name</label>
+                        <label for="basic-url" class="txt-white txt-light">Username</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="fname" placeholder="First Name" aria-describedby="basic-addon3">
+                            <input type="text" class="form-control" id="username" ng-model="username" placeholder="Example @FordPrefect" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Username</label>
+                        <label for="basic-url" class="txt-white txt-light">Email</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="username" ng-model="username" placeholder="Username" aria-describedby="basic-addon3">
+                            <input ng-model="email" type="email" class="form-control" id="emailfield" placeholder="Example: arthurdent@email.com" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Email</label>
+                        <label for="basic-url" class="txt-white txt-light">Password</label>
                         <div class="input-group">
-                            <input ng-model="email" type="email" class="form-control" id="emailfield" placeholder="Email" aria-describedby="basic-addon3">
+                            <input type="password" class="form-control" id="password1" placeholder="8 characters minimum..." aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Password</label>
+                        <label for="basic-url" class="txt-white txt-light">Repeat Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password1" placeholder="Password" aria-describedby="basic-addon3">
+                            <input type="password" class="form-control" id="password2" placeholder="Repeat for security!" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url">Repeat Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="password2" placeholder="Repeat Password" aria-describedby="basic-addon3">
-                        </div>
-                        <button class="btn btn-primary btn-block" type="submit">
+                        <button class="btn btn-block bg-blue border-dark-blue txt-white" type="submit">
                         Finish</button>
                         <form action="www.venos.co">
-                            <button class="btn btn-block" type="button">
+                            <button class="btn btn-block bg-white border-gray txt-gray" type="button">
                             Cancel</button>
                         </form>
                     </div>

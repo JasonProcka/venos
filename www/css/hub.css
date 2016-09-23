@@ -1,0 +1,229 @@
+* {
+    overflow: hidden;
+}
+html {
+    height: 100%;
+    margin: 0;
+    max-width: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F9F9F9;
+    margin: 0;
+    height: 100%;
+    max-width: 100%;
+    -webkit-font-smoothing: antialiased;
+    position: fixed;
+}
+
+/* Page Components */
+
+.content {
+    min-width: 100%;
+    float: right;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: none;
+    -webkit-overflow-scrolling: touch;
+    margin-left: 250px;
+}
+
+.content::-webkit-scrollbar { 
+    display: none; 
+}
+
+.page-content {
+    min-width: calc(100% - 250px);
+    max-width: calc(100% - 250px);
+    min-height: 100%;
+    margin-top: 0;
+    overflow-y: scroll;
+    float: right;
+    overflow-x: hidden;
+}
+
+.drop-details {
+    height: 100%;
+    width: 350px;
+    z-index: 1000;
+    color: #FFF;
+    position: absolute;
+    right: -350px;
+    background-color: #FFF000;
+}
+
+/* Hub Top */
+
+.hub-jumbo {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('hub-bg.png');
+    background-size: cover;
+    background-position: center;
+    padding-top: 36px;
+    padding-bottom: 36px;
+    margin-bottom: 18px;
+    border-radius: 0;
+}
+
+.hub-header {
+    text-align: center;
+}
+
+.hub-header h2 {
+    margin-bottom: 0;
+}
+
+.hub-btns {
+    display: block;
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+.hub-btns .copy-link {
+    border-bottom-color: #EBEBEB;
+}
+
+.hub-btns .create-drop:hover {
+    background-color: #03a9f4;
+}
+
+.hub-btns .create-drop:focus {
+    background-color: #03a9f4;
+    border-bottom-color: #0398db;
+}
+
+.hub-btns a {
+    margin: 0 10px;
+}
+
+/* End of top */
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+    height: 10%;
+    min-width: 100%;
+    max-width: 100%;
+    margin-left: 4px;
+    overflow-y: auto;
+    margin-right: 0;
+}
+
+.ad-box {
+    width: 20%;
+    height: 250px;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    margin-right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #000000;
+    vertical-align: middle;
+}
+
+.ad-text {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.push-div {
+    height: 50px;
+}
+
+.five-column {
+    min-width: calc(20% - 20px);
+    padding: 0;
+    max-height: 194px;
+    display: inline-block;
+    margin: 0;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-bottom: 14px;
+}
+
+.row {
+    display: inline-block;
+    max-width: calc(80% - 14px);
+    margin: 0;
+    margin-left: 0;
+}
+
+/* Drop Styles */
+
+.drop {
+    width: 100%;
+    height: 180px;
+    background-color: #FFF;
+    border-bottom: 3px solid #EBEBEB;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.drop-image {
+    background-image: url('http://protiumdesign.com/wp-content/uploads/2015/03/Flat-Space-Wallpaper-1024.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.drop .name {
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: #FFF;
+    background-color: #03a9f4;
+    font-size: 1em;
+}
+
+.drop .icon {
+    height: 80px;
+    vertical-align: middle;
+    display: block;
+    margin: 0 auto;
+    margin-top: 32px;
+}
+
+/* SCALING */
+
+@media only screen and (max-width: 1400px) {
+    .five-column {
+        min-width: calc(25% - 20px);
+    }
+    .drop .name {
+        font-size: 1.10em;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .ad-box {
+        display: none;
+    }
+    .row {
+        max-width: calc(100% - 14px);
+    }
+    .five-column {
+        min-width: calc(33% - 20px);
+    }
+    .drop .name {
+        font-size: 1.20em;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .five-column {
+        min-width: calc(50% - 20px);
+    }
+    .drop .name {
+        font-size: 1.30em;
+    }
+    .user-name {
+        left: 7%;
+    }
+    .more-dropup {
+        left: 5%;
+    }
+    .user-image {
+        left: 2%;
+    }
+}

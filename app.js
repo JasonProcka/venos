@@ -16,18 +16,18 @@ var server = app.listen('80', function () {
   console.log('Press Ctrl+C to quit.');
 });
 
-//app.use(express.static(__dirname + '/www/'));
+app.use(express.static(__dirname + '/www/'));
 
 app.get('/', function (req, res) {
-  res.status(200).sendFile(path.join(__dirname + '/www/html/welcome.html'));
+  res.status(200).sendFile(path.join(__dirname, '/www/html/welcome.html'));
 });
 
 app.get('/login/', function (req, res) {
-  res.status(200).sendFile(path.join(__dirname + '/www/html/login.html'));
+  res.status(200).sendFile(path.join(__dirname, '/www/html/login.html'));
 });
 
 app.get('/join/', function (req, res) {
-  res.status(200).sendFile(path.join(__dirname + '/www/html/register.html'));
+  res.status(200).sendFile(path.join(__dirname, '/www/html/register.html'));
 });
 // [END app]
 

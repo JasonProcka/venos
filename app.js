@@ -22,11 +22,11 @@ app.get('/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname + '/www/html/welcome.html'));
 });
 
-app.get('/login', function (req, res) {
+app.get('/login/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname + '/www/html/login.html'));
 });
 
-app.get('/join', function (req, res) {
+app.get('/join/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname + '/www/html/register.html'));
 });
 // [END app]

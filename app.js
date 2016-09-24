@@ -18,7 +18,7 @@ var server = app.listen('80', function () {
 
 
 app.use('/static', express.static(__dirname + '/www/'));
-app.use('/', express.static(__dirname + '/www/html/'));
+app.use(express.static(__dirname + '/www/html/'));
 
 app.get('/', function (req, res) {
   res.status(200).sendFile(__dirname + '/www/html/welcome.html');

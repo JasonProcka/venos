@@ -1,72 +1,11 @@
-<!DOCTYPE HTML>
-    <head>
-        <title>Create a Hub</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="custom_inputs.css">
-        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-        <link rel="stylesheet" href="../components.css" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="create_hub.css">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script defer src="inputs.js"></script>
-        <script src="angularApp.js"></script>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-    </head>
-    <body ng-app="mango" ng-controller="RegisterCtrl">
-        <div class="create_tile">
-            <h2 class="txt-center txt-white">Create a new Hub</h2>
-            <div class = "createform">
-                <form ng-submit="" class="createformwrapper">
-                        <div class="input-group">
-                            <p class="input_instructions">Name your Hub</p>
-                            <input type="text" class="form-control" id="hubname" ng-model="hubname" placeholder="Hub Name" aria-describedby="basic-addon3">
-                        </div>
-                        <div class="input-group">
-                            <p class="input_instructions">Describe your Hub (Optional)</p>
-                            <input type="text" class="form-control" id="description" placeholder="Description (optional)" aria-describedby="basic-addon3">
-                        </div>
-                        <div class="input-group">
-                            <p class="input_instructions">Give your Hub a custom URL (Optional)</p>
-                            <input type="text" class="form-control" id="customurl" placeholder="venos.co/" aria-describedby="basic-addon3">
-                        </div>
-                        <button class="create-btn btn btn-primary bg-blue border-blue txt-white" type="submit">
-                        Create</button>
-                </form>
-            </div>
-        </div>
-        <!-- Import the scripts you need, in our case authentication -->
-        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
-        <script src="auth.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script>
-            // Initialize Firebase
-        /*    
-        var config = {
-            apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU"
-                , authDomain: "project-mango-5d7d3.firebaseapp.com"
-                , databaseURL: "https://project-mango-5d7d3.firebaseio.com"
-                , storageBucket: "project-mango-5d7d3.appspot.com"
-                , serviceAccount: "MarcadianProjectMango-9e1b1341f4ac.json"
-        };
-firebase.initializeApp(config);
-var auth = new Auth(firebase);
-auth.registerAnonym();
-auth.listen(
-        function (user) {
-            console.log("user logged in");
-            console.log("uid: " + user.uid);
-            console.log("is anonym: " + user.isAnonymous);
-        },
-        function () {
-            console.log("user signed out");
-        }
-        );
-        */
-        </script>
-    </body>
-</html>
+<!-- Header scripts and CSS-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:500,700" rel="stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="custom_inputs.css"> -->
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+<link rel="stylesheet" href="../components.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="create_hub.css">
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+

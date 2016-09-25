@@ -24,9 +24,10 @@ body {
     float: right;
     height: 100%;
     overflow-y: scroll;
-    overflow-x: none;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    margin: 0;
     margin-left: 250px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .content::-webkit-scrollbar { 
@@ -35,34 +36,40 @@ body {
 
 .page-content {
     min-width: calc(100% - 250px);
-    max-width: calc(100% - 250px);
     min-height: 100%;
-    margin-top: 0;
-    margin-left: 250px;
+    margin: 0;
+    margin-left: 500px;
     overflow-y: scroll;
     float: right;
     overflow-x: hidden;
 }
 
 .drop-details {
-    height: 100%;
-    width: 350px;
+    height: calc(100% - 400px);
+    width: calc(100% -400px)
     z-index: 1000;
     color: #FFF;
     position: absolute;
-    right: -350px;
-    background-color: #FFF000;
+    top: 50%;
+    transform: translateX(-50%);
+    background-color: #FFF;
+}
+
+.drop-details .close-details {
+    border: 0;
+    background: 0;
+    position: absolute;
 }
 
 /* Hub Top */
 
 .hub-jumbo {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('hub-bg.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('../images/hub-bg.png');
     background-size: cover;
     background-position: center;
     padding-top: 36px;
     padding-bottom: 36px;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
     border-radius: 0;
 }
 
@@ -106,7 +113,7 @@ body {
     height: 10%;
     min-width: 100%;
     max-width: 100%;
-    margin-left: 4px;
+    margin-left: 10px;
     overflow-y: auto;
     margin-right: 0;
 }
@@ -135,19 +142,19 @@ body {
 }
 
 .five-column {
-    min-width: calc(20% - 20px);
+    min-width: calc(20% - 60px);
     padding: 0;
     max-height: 194px;
     display: inline-block;
     margin: 0;
-    margin-left: 7px;
-    margin-right: 7px;
-    margin-bottom: 14px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .row {
     display: inline-block;
-    max-width: calc(80% - 14px);
+    min-width: calc(80% - 14px);
     margin: 0;
     margin-left: 0;
 }
@@ -157,31 +164,53 @@ body {
 .drop {
     width: 100%;
     height: 180px;
-    background-color: #FFF;
     display: block;
     margin: 0 auto;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+}
+
+.drop:hover {
+    cursor: pointer;
+    background-color: #FFF;
     border-radius: 5px;
 }
 
 .drop-image {
-    background-image: url('https://protiumdesign.com/wp-content/uploads/2015/03/Flat-Space-Wallpaper-1024.jpg');
+    background-image: url('http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg');
     background-size: cover;
     background-position: center;
+    width: 100%;
+    height: 140px;
+    margin: auto;
+    border-radius: 5px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+}
+
+.drop-image:hover {
+    border-radius: 0;
 }
 
 .drop .name {
-    height: 36px;
-    line-height: 36px;
+    height: 40px;
+    line-height: 40px;
     text-align: center;
-    font-size: 1em;
+    font-size: 0.7em;
 }
 
 .drop .icon {
     height: 80px;
     vertical-align: middle;
-    display: block;
+    display: table-cell;
     margin: 0 auto;
-    margin-top: 32px;
+    margin-top: 18px;
 }
 
 /* SCALING */
@@ -223,5 +252,11 @@ body {
     }
     .user-image {
         left: 2%;
+    }
+    .drop .icon {
+        height: 100px;
+        margin: 0 auto;
+        margin-top: calc(10% + 36px);
+        display: block;
     }
 }

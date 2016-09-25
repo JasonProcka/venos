@@ -47,6 +47,19 @@ body {
     margin: 35px 0 0 16px;
     position: absolute;
     color: #BDBDBD;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+}
+
+.nav-profile:hover {
+    color: #03A9F4;
+}
+
+.nav-profile i {
+    font-size: 0.6em;
 }
 
 .venos-logo {
@@ -63,21 +76,23 @@ body {
 }
 
 .nav-search {
-    margin: 35px 30px 0 0px;
+    margin: 35px 46px 0 0px;
     position: absolute;
-    color: #BDBDBD;
     right: 0;
+    color: #BDBDBD;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+}
+
+.nav-search:hover {
+    color: #03A9F4;
 }
 
 .nav-search i {
     font-size: 0.6em;
-}
-
-.nav-custom i {
-    color: #03A9F4;
-    vertical-align: middle;
-    font-size: .8em;
-    margin-right: 14px;
 }
 
 .inner-nav {
@@ -126,7 +141,7 @@ body {
 .nav-custom .upper-items .link {
     color: #FFF;
     letter-spacing: .5px;
-    border-radius: 5px;
+    border-radius: 0px;
     font-size: 13px;
 }
 
@@ -153,6 +168,15 @@ body {
     box-shadow: inset 2px 0px 0px 0px rgba(3,169,244,1);
 }
 
+
+.nav-custom .upper-items .link i {
+    vertical-align: middle;
+    margin-top: 4px;
+    font-size: .8em;
+    margin-right: 14px;
+    display: inline-block;
+    color: #03A9F4;
+}
 
 
 .nav-custom .show-hubs {

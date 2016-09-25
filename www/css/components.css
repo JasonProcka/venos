@@ -194,6 +194,14 @@ button:focus {
     text-decoration: none;
 }
 
+.no-decoration:active {
+    text-decoration: none;
+}
+
+.no-decoration:focus {
+    text-decoration: none;
+}
+
 /* Font Weights */
 
 .light {

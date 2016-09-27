@@ -1,5 +1,7 @@
 * {
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 html {
     height: 100%;
@@ -14,7 +16,22 @@ body {
     height: 100%;
     max-width: 100%;
     -webkit-font-smoothing: antialiased;
+    padding: 0;
+    opacity: 1;
+    transition: 0.5s opacity;
+}
+
+body .fade-out {
+    opacity: 0;
+    transition: none;
+}
+
+.small-nav {
+    width: 100%;
+    height: 50px;
+    background-color: #FFF;
     position: fixed;
+    display: none;
 }
 
 /* Page Components */
@@ -26,7 +43,6 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     margin: 0;
-    margin-left: 250px;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -39,19 +55,20 @@ body {
     min-height: 100%;
     margin: 0;
     margin-left: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
     float: right;
     overflow-x: hidden;
 }
 
 .drop-details {
-    height: calc(100% - 400px);
-    width: calc(100% -400px)
+    height: calc(100% - 200px);
+    width: calc(100% - 400px);
     z-index: 1000;
     color: #FFF;
     position: absolute;
     top: 50%;
-    transform: translateX(-50%);
+    left: calc(50% + 125px);
+    transform: translateX(-50%) translateY(-50%);
     background-color: #FFF;
 }
 
@@ -69,8 +86,9 @@ body {
     background-position: center;
     padding-top: 36px;
     padding-bottom: 36px;
-    margin-bottom: 15px;
+    margin-bottom: 0;
     border-radius: 0;
+    width: 100%;
 }
 
 .hub-header {
@@ -105,36 +123,91 @@ body {
     margin: 0 10px;
 }
 
+/* Hub options panel */
+
+.hub-options {
+    width: calc(100% - 280px);
+    margin-right: 0;
+    height: 40px;
+    padding: 0 20px 0 20px;
+    margin-bottom: 10px;
+}
+
+.hub-options .sort-label {
+    display: inline-block;
+    font-size: 0.8em;
+    line-height: 51px;
+    margin-right: 3px;
+    text-transform: uppercase;
+}
+
+.hub-options .sort-button {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.8em;
+    line-height: 32px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    vertical-align: top;
+}
+
 /* End of top */
 
 .container-fluid {
     padding: 0;
     margin: 0;
-    height: 10%;
+    height: 100%;
     min-width: 100%;
     max-width: 100%;
-    margin-left: 10px;
     overflow-y: auto;
-    margin-right: 0;
 }
 
-.ad-box {
-    width: 20%;
-    height: 250px;
+.tile {
+    width: 220px;
     display: inline-block;
-    margin: 0;
+    top: 0;
+    margin: 0px 20px 20px 10px;
     overflow: hidden;
     padding: 0;
-    margin-right: -14px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #000000;
-    vertical-align: middle;
+    border-radius: 2px;
+    background-color: #4FC3F7;
+    float: right;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
-.ad-text {
-    text-align: center;
-    color: #FFFFFF;
+.tile-text {
+    font-weight: 400;
+    margin: 20px;
+}
+
+.tile-image {
+    width: calc(100% - 100px);
+    display: block;
+    margin: auto;
+    border-radius: 2px;
+}
+
+.tile-button {
+    width: calc(100% - 40px);
+    position: relative;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+}
+
+.ad-button:hover {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
 }
 
 .push-div {
@@ -142,102 +215,165 @@ body {
 }
 
 .five-column {
-    min-width: calc(20% - 60px);
+    min-width: calc(25% - 20px);
+    max-width: calc(25% - 20px);
     padding: 0;
     max-height: 194px;
     display: inline-block;
-    margin: 0;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
+    margin: 0 10px 10px 10px;
+    overflow-x: hidden;
+    -o-transition:.3s;
+    -ms-transition:.3s;
+    -moz-transition:.3s;
+    -webkit-transition:.3s;
+    transition: .3s;
+}
+
+.five-column:hover {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .row {
     display: inline-block;
-    min-width: calc(80% - 14px);
+    min-width: calc(100% - 270px);
+    max-width: calc(100% - 270px);
     margin: 0;
-    margin-left: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow-x: hidden;
+    padding: 0;
 }
 
 /* Drop Styles */
 
 .drop {
-    width: 200px;
-    height: 180px;
+    min-width: 100%;
     display: block;
-    margin: 0 auto;
-    -o-transition:.5s;
-    -ms-transition:.5s;
-    -moz-transition:.5s;
-    -webkit-transition:.5s;
-    transition:.5s;
+    -o-transition:.3s;
+    -ms-transition:.3s;
+    -moz-transition:.3s;
+    -webkit-transition:.3s;
+    transition: .3s;
+    padding: 0;
+    margin: 0;
+    border-top-right-radius: 2px;
+    color: #BDBDBD;
+    position: relative;
 }
 
 .drop:hover {
     cursor: pointer;
     background-color: #FFF;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
-.drop-image {
-    background-image: url('http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg');
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 140px;
-    margin: auto;
-    border-radius: 5px;
-    -o-transition:.5s;
-    -ms-transition:.5s;
-    -moz-transition:.5s;
-    -webkit-transition:.5s;
-    transition:.5s;
+.drop:active {
+    background-color: #B3E5FC;
+    color: #29B6F6;
 }
 
-.drop-image:hover {
-    border-radius: 0;
-}
-
-.drop .name {
-    height: 40px;
-    line-height: 40px;
+.drop .drop-name {
+    height: 36px;
+    line-height: 36px;
     text-align: center;
-    font-size: 0.7em;
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0;
 }
 
 .drop .icon {
-    height: 80px;
-    vertical-align: middle;
-    display: table-cell;
+    height: calc(100% - 36px);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    border-radius: 2px;
+    border-bottom-right-radius: 2px;
+    text-align: center;
+    -o-transition:.3s;
+    -ms-transition:.3s;
+    -moz-transition:.3s;
+    -webkit-transition:.3s;
+    transition: .3s;
+}
+
+.drop .icon:hover {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.drop .dwnld-btn {
+    display: block;
+    width: 40px;
+    height: 40px;
     margin: 0 auto;
-    margin-top: 18px;
+    z-index: 10000;
+    position: absolute;
+    top: calc(50% - 36px);
+    left: calc(50% - 20px);
+    border-radius: 5px;
+}
+
+.dwnld-btn .dwnld-symbol {
+    margin: 0;
+    margin-left: -6px;
+    padding: 0;
+}
+
+.dwnld-btn:hover {
 }
 
 /* SCALING */
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1150px) {
     .five-column {
-        min-width: calc(25% - 20px);
+        min-width: calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
     }
     .drop .name {
         font-size: 1.10em;
     }
-}
-@media only screen and (max-width: 1200px) {
-    .ad-box {
+    .row {
+        min-width: calc(100% - 20px);
+    }
+    .tile {
         display: none;
     }
-    .row {
-        max-width: calc(100% - 14px);
+}
+
+@media only screen and (max-width: 899px) {
+    .nav-custom {
+        display: none;
     }
     .five-column {
-        min-width: calc(33% - 20px);
+        min-width: calc(50% - 20px);
+        max-width: calc(50% - 20px);
     }
     .drop .name {
         font-size: 1.20em;
     }
+    .page-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    .row {
+        margin: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 100%;
+    }
+    .small-nav {
+        display: block;
+    }
+    .content {
+        margin-top: 50px;
+    }
 }
-@media only screen and (max-width: 1000px) {
+
+@media only screen and (max-width: 500px) {
     .five-column {
         min-width: calc(50% - 20px);
     }
@@ -253,10 +389,9 @@ body {
     .user-image {
         left: 2%;
     }
-    .drop .icon {
-        height: 100px;
-        margin: 0 auto;
-        margin-top: calc(10% + 36px);
-        display: block;
+    .row {
+        width: 100%;
+        margin: auto;
+        margin-left: 10px;
     }
 }

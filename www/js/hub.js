@@ -39,10 +39,17 @@ $(function() {
     e.preventDefault();
   });
 
+  // initial scale
+  $(function() {
+    var dropWidth = $(".five-column").width();
+    $(".drop").css("height", dropWidth + 'px');
+    $(".five-column").css("min-height", dropWidth + 'px');
+    $(".page-content").css("margin-left", ($(".nav-custom").width()));
+  });
   // window resize
   $(window).resize(function() {
     var dropWidth = $(".five-column").width();
     $(".drop").css("height", dropWidth + 'px');
-    $(".five-column").css("min-height", dropWidth + 20 + 'px');
+    $(".five-column").css("min-height", dropWidth + 'px');
   });
 });

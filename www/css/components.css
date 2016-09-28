@@ -16,7 +16,6 @@ button:focus {
     border-radius: 2px;
     font-size: 14px;
     text-transform: uppercase;
-    height: 40px;
     transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
@@ -40,7 +39,6 @@ button:focus {
 .form-control {
     border: 1px solid #FFF;
     border-radius: 2px;
-    height: 40px;
     -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
     -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
@@ -63,6 +61,12 @@ button:focus {
 
 .form-control:focus {
     outline: none;
+}
+
+/* Input sizes */
+
+.input-large {
+    height: 40px !important;
 }
 
 /* Background styling */
@@ -239,4 +243,10 @@ button:focus {
 
 .display-inline-block {
     display: inline-block;
+}
+
+/* Shadow styling */
+
+.no-shadow {
+    box-shadow: none;
 }

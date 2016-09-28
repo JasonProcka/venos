@@ -17,13 +17,12 @@ body {
     max-width: 100%;
     -webkit-font-smoothing: antialiased;
     padding: 0;
-    opacity: 1;
-    transition: 0.5s opacity;
+    opacity: 0;
 }
 
-body .fade-out {
-    opacity: 0;
-    transition: none;
+.loaded {
+    opacity: 1;
+    transition: 0.75s;
 }
 
 .small-nav {
@@ -305,8 +304,17 @@ body .fade-out {
     border-bottom-right-radius: 0px;
 }
 
+.drop .drop-download {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
 .drop .dwnld-btn {
     display: block;
+    visibility: hidden;
     width: 40px;
     height: 40px;
     margin: 0 auto;
@@ -314,24 +322,32 @@ body .fade-out {
     position: absolute;
     top: calc(50% - 36px);
     left: calc(50% - 20px);
-    border-radius: 5px;
-}
-
-.dwnld-btn .dwnld-symbol {
-    margin: 0;
-    margin-left: -6px;
     padding: 0;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
 }
 
-.dwnld-btn:hover {
+.drop .dwnld-btn i:before {
+    margin-left: 0;
+    font-size: 1.3em;
+    padding: 0;
+    width: 40px;
+    text-align: center;
+    color: #BDBDBD;
+}
+
+.drop:hover > .dwnld-btn {
+    visibility: visible;
 }
 
 /* SCALING */
 
 @media only screen and (max-width: 1150px) {
     .five-column {
-        min-width: calc(33.33% - 20px);
-        max-width: calc(33.33% - 20px);
+        min-width: calc(25% - 20px);
+        max-width: calc(25% - 20px);
     }
     .drop .name {
         font-size: 1.10em;
@@ -339,7 +355,7 @@ body .fade-out {
     .row {
         min-width: calc(100% - 20px);
     }
-    .tile {
+    .ad-box {
         display: none;
     }
 }
@@ -349,8 +365,8 @@ body .fade-out {
         display: none;
     }
     .five-column {
-        min-width: calc(50% - 20px);
-        max-width: calc(50% - 20px);
+        min-width: calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
     }
     .drop .name {
         font-size: 1.20em;
@@ -361,6 +377,7 @@ body .fade-out {
     }
     .row {
         margin: 0;
+        margin-top: 20px;
         margin-left: 10px;
         margin-right: 10px;
         width: 100%;
@@ -373,7 +390,7 @@ body .fade-out {
     }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 750px) {
     .five-column {
         min-width: calc(50% - 20px);
     }
@@ -390,8 +407,7 @@ body .fade-out {
         left: 2%;
     }
     .row {
-        width: 100%;
         margin: auto;
-        margin-left: 10px;
+        margin-top: 20px;
     }
 }

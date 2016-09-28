@@ -1,4 +1,11 @@
-var app = angular.module('mango',[]);
+var app = angular.module('mango',['ngRoute']);
+//Routes
+app.config(function($routeProvider) {
+  $routeProvider
+  .when("/", {
+    templateUrl : "main.html"
+  });
+});
 
 app.controller('AuthCtrl', [
         '$scope',

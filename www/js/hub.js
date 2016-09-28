@@ -1,4 +1,10 @@
 $(function() {
+  
+  // fade the page in after it is loaded
+  $(document).ready(function() {
+      $('body').addClass('loaded');  
+  }); 
+  
   // five-column click
   var rightVal = -350; // base value
   $(".five-column").click(function() {
@@ -26,11 +32,6 @@ $(function() {
 
   // nav-custom touchmove
   $(".nav-custom").on('touchmove', function(e) {
-    e.preventDefault();
-  });
-
-  // content touchmove
-  $(".content").on('touchmove', function(e) {
     e.preventDefault();
   });
 

@@ -37,6 +37,11 @@ app.get('/create/', function (req, res) {
 app.get('/hub/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname, '/www/html/hub.html'));
 });
+
+app.get('/drive/', function (req, res) {
+  res.status(200).sendFile(path.join(__dirname, '/www/html/drive.html'));
+});
+
 // [END app]
 
 // Starts all hub destructs after server restart and listens for new hubs that will get destructed

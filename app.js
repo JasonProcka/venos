@@ -16,7 +16,12 @@ var server = app.listen('80', function () {
   console.log('Press Ctrl+C to quit.');
 });
 
-app.use(express.static(__dirname + '/www/'));
+
+
+
+
+app.use('/modules', express.static(__dirname + '/node_modules'));
+app.use('/www/', express.static(__dirname + '/www/'));
 
 app.get('/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname, '/www/html/welcome.html'));
@@ -36,6 +41,10 @@ app.get('/create/', function (req, res) {
 
 app.get('/hub/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname, '/www/html/hub.html'));
+});
+
+app.get('/example/', function (req, res) {
+  res.status(200).sendFile(path.join(__dirname, '/www/html/example.html'));
 });
 // [END app]
 

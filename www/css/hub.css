@@ -124,10 +124,21 @@ body {
     margin-bottom: 0;
     width: 100%;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .hub-btns .copy-link {
     border-bottom-color: #EBEBEB;
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+}
+
+.hub-btns .create-drop {
+    position: relative;
+    overflow: hidden;
+    width: 150px;
 }
 
 .hub-btns .create-drop:hover {
@@ -146,7 +157,7 @@ body {
 /* Hub options panel */
 
 .hub-options {
-    width: calc(100% - 280px);
+    width: 100%;
     margin-right: 0;
     height: 40px;
     padding: 0 20px 0 20px;
@@ -154,15 +165,28 @@ body {
 }
 
 .hub-options .sort-label {
-    display: inline-block;
+    display: inline;
     font-size: 0.8em;
     line-height: 51px;
     margin-right: 3px;
     text-transform: uppercase;
+    float: left;
 }
 
 .hub-options .sort-button {
-    display: inline-block;
+    display: inline;
+    margin-top: 10px;
+    font-size: 0.8em;
+    line-height: 32px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    vertical-align: top;
+    float: left;
+}
+
+.hub-options .admin-button {
+    display: inline;
+    float: right;
     margin-top: 10px;
     font-size: 0.8em;
     line-height: 32px;
@@ -363,7 +387,40 @@ body {
     visibility: visible;
 }
 
+.ink {
+	display: block; position: absolute;
+	background: hsl(180, 40%, 80%);
+	border-radius: 100%;
+	transform: scale(0);
+}
+/*animation effect*/
+.ink.animate {animation: ripple 0.65s linear;}
+@keyframes ripple {
+	/*scale the element to 250% to safely cover the entire link and fade it out*/
+	100% {opacity: 0; transform: scale(2.5);}
+}
+
 /* SCALING */
+
+@media only screen and (min-width: 1400px) {
+    .five-column {
+        min-width: calc(16.6666667% - 20px);
+        max-width: calc(16.6666667% - 20px);
+    }
+    .drop .name {
+        font-size: 1.20em;
+    }
+}
+
+@media only screen and (min-width: 1151px) {
+    .five-column {
+        min-width: calc(20% - 20px);
+        max-width: calc(20% - 20px);
+    }
+    .drop .name {
+        font-size: 1.20em;
+    }
+}
 
 @media only screen and (max-width: 1150px) {
     .five-column {
@@ -381,13 +438,13 @@ body {
     }
 }
 
-@media only screen and (max-width: 899px) {
+@media only screen and (max-width: 850px) {
     .nav-custom {
         display: none;
     }
     .five-column {
-        min-width: calc(33.33% - 20px);
-        max-width: calc(33.33% - 20px);
+        min-width: calc(20% - 20px);
+        max-width: calc(20% - 20px);
     }
     .drop .name {
         font-size: 1.20em;
@@ -398,7 +455,6 @@ body {
     }
     .row {
         margin: 0;
-        margin-top: 20px;
         margin-left: 10px;
         margin-right: 10px;
         width: 100%;
@@ -411,7 +467,21 @@ body {
     }
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 740px) {
+    .five-column {
+        min-width: calc(25% - 20px);
+        max-width: calc(25% - 20px);
+    }
+}
+
+@media only screen and (max-width: 699px) {
+    .five-column {
+        min-width: calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
+    }
+}
+
+@media only screen and (max-width: 500px) {
     .five-column {
         min-width: calc(50% - 20px);
     }
@@ -429,6 +499,9 @@ body {
     }
     .row {
         margin: auto;
-        margin-top: 20px;
+        margin-left: 10px;
+    }
+    .tile {
+        width: calc(100% - 40px);
     }
 }

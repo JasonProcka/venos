@@ -3,7 +3,10 @@ var app = angular.module('mango',['ngRoute']);
 app.config(function($routeProvider) {
   $routeProvider
   .when("/", {
-    templateUrl : "main.html"
+    templateUrl : "/www/html/main.html"
+  })
+  .when("/hubs", {
+    templateUrl : "hub.html"
   });
 });
 

@@ -143,6 +143,7 @@ body {
     letter-spacing: .5px;
     border-radius: 0px;
     font-size: 13px;
+    font-weight: 300;
 }
 
 .nav-custom .upper-items .link a {
@@ -171,9 +172,8 @@ body {
 
 .nav-custom .upper-items .link i {
     vertical-align: middle;
-    margin-top: 4px;
-    font-size: .8em;
-    margin-right: 14px;
+    margin: 10px 14px 10px 16px;
+    font-size: 1.6em;
     display: inline-block;
     color: #03A9F4;
 }
@@ -206,7 +206,6 @@ body {
     background-color: #24292d;
     z-index: 1000;
 }
-
 .nav-custom .nav-user .user-name {
     font-size: 16px;
     color: #FFF;
@@ -216,7 +215,6 @@ body {
     position: relative;
     left: 10%;
 }
-
 .nav-custom .nav-user .user-image {
     width: 30px;
     height: 30px;
@@ -229,7 +227,6 @@ body {
     position: relative;
     left: 4%;
 }
-
 .nav-user .nav-more-btn {
     color: #FFFFFF;
     margin: 0;
@@ -237,7 +234,6 @@ body {
     vertical-align: middle;
     outline: 0;
 }
-
 .nav-user .more-dropup {
     position: relative;
     left: 10%;
@@ -252,12 +248,10 @@ body {
     padding: 0;
     display: inline-block;
 }
-
 .more-dropup i {
     font-size: 16px;
     vertical-align: middle;
 }
-
 .nav-custom .more-menu {
     color: #2196F3;
     position: absolute;
@@ -277,7 +271,6 @@ body {
     visibility: hidden;
     opacity: 0;
 }
-
 .nav-custom .menuopen {
     -webkit-transition: opacity 0.25s ease-in;
     -moz-transition: opacity 0.25s ease-in;
@@ -288,25 +281,21 @@ body {
     opacity: 1;
     border-radius: 4px;
 } 
-
 .nav-custom .more-menu ul {
     width: 100%;
     list-style-type: none;
     margin: 0;
     padding: 5px 0 5px 0;
 }
-
 .nav-custom .more-menu ul li {
     padding: 0;
     margin: 0 5px;
     border-radius: 5px;
 }
-
 .nav-custom .more-menu ul li:hover {
     background-color: #D0D0D0;
     text-decoration: none;
 }
-
 .nav-custom .more-menu .more-menu-link {
     text-decoration: none;
     font-size: 1.05em;
@@ -317,9 +306,7 @@ body {
     margin-left: 5px;
     margin-right: 5px;
 }
-
 /*
-
 @media only screen and (max-height: 1000px) {
     .nav-custom {
         overflow-y: scroll;
@@ -338,5 +325,4 @@ body {
         overflow-y: scroll;
     }
 }
-
 */

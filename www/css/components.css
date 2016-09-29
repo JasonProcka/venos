@@ -28,8 +28,8 @@ button:focus {
 }
 
 .btn-wide {
-    max-width: 300px;
-    min-width: 200px;
+    max-width: 150px;
+    min-width: 150px;
 }
 
 .input-group {
@@ -63,6 +63,14 @@ button:focus {
     outline: none;
 }
 
+.divider {
+    width: 2px;
+    height: 6px;
+    color: black;
+    margin: 0;
+    display: inline-block;
+}
+
 /* Input sizes */
 
 .input-large {
@@ -92,6 +100,10 @@ button:focus {
 }
 
 .bg-blue:hover {
+    background-color: #29B6F6;
+}
+
+.bg-blue:focus {
     background-color: #29B6F6;
 }
 

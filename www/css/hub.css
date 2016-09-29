@@ -103,10 +103,21 @@ body {
     margin-bottom: 0;
     width: 100%;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .hub-btns .copy-link {
     border-bottom-color: #EBEBEB;
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+}
+
+.hub-btns .create-drop {
+    position: relative;
+    overflow: hidden;
+    width: 150px;
 }
 
 .hub-btns .create-drop:hover {
@@ -125,7 +136,7 @@ body {
 /* Hub options panel */
 
 .hub-options {
-    width: calc(100% - 280px);
+    width: 100%;
     margin-right: 0;
     height: 40px;
     padding: 0 20px 0 20px;
@@ -133,15 +144,28 @@ body {
 }
 
 .hub-options .sort-label {
-    display: inline-block;
+    display: inline;
     font-size: 0.8em;
     line-height: 51px;
     margin-right: 3px;
     text-transform: uppercase;
+    float: left;
 }
 
 .hub-options .sort-button {
-    display: inline-block;
+    display: inline;
+    margin-top: 10px;
+    font-size: 0.8em;
+    line-height: 32px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    vertical-align: top;
+    float: left;
+}
+
+.hub-options .admin-button {
+    display: inline;
+    float: right;
     margin-top: 10px;
     font-size: 0.8em;
     line-height: 32px;
@@ -340,6 +364,19 @@ body {
 
 .drop:hover > .dwnld-btn {
     visibility: visible;
+}
+
+.ink {
+	display: block; position: absolute;
+	background: hsl(180, 40%, 80%);
+	border-radius: 100%;
+	transform: scale(0);
+}
+/*animation effect*/
+.ink.animate {animation: ripple 0.65s linear;}
+@keyframes ripple {
+	/*scale the element to 250% to safely cover the entire link and fade it out*/
+	100% {opacity: 0; transform: scale(2.5);}
 }
 
 /* SCALING */

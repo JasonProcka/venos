@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
   rel="stylesheet"/>
     <!-- Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <!-- Mobile Optimization -->
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
     <!-- Custom styling -->
@@ -23,12 +22,30 @@
     <link rel="stylesheet" href="../css/components.css" type="text/css" />
     <!-- Imported Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+    
+    
+     <!-- 1. Load libraries -->
+    <!-- IE required polyfill -->
+    <script src="/jasonprocka1/venos-git/node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="/jasonprocka1/venos-git/node_modules/zone.js/dist/zone.js"></script>
+    <script src="/jasonprocka1/venos-git/node_modules/reflect-metadata/Reflect.js"></script>
+
+    <script src="/jasonprocka1/venos-git/node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="/jasonprocka1/venos-git/node_modules/@angular/core/bundles/core.umd.js"></script>
+    <script src="/jasonprocka1/venos-git/node_modules/@angular/common/bundles/common.umd.js"></script>
+    <script src="/jasonprocka1/venos-git/node_modules/@angular/compiler/bundles/compiler.umd.js"></script>
+    <script src="/jasonprocka1/venos-git/node_modules/@angular/platform-browser/bundles/platform-browser.umd.js"></script>
+    <script src="/jasonprocka1/venos-git/node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js"></script>
+
+    <!-- 2. Load our 'modules' -->
+    <script src='/jasonprocka1/venos-git/www/angular/app.component.js'></script>
+    <script src='/jasonprocka1/venos-git/www/angular/app.module.js'></script>
+    <script src='/jasonprocka1/venos-git/www/angular/main.js'></script>
 
 </head>
-<body ng-app="mango">
-<ng-include src="'../partials/nav.html'"></ng-include>
-<nav class="small-nav">
-</nav>
+<body>
+<v-navigation></v-navigation>
 <div class="content">
     <div class="page-content">
     <div class="jumbotron hub-jumbo">
@@ -39,50 +56,83 @@
             </div>
         </div>
         <div class="hub-btns">
-            <a class="copy-link btn btn-lg btn-wide bg-white txt-blue no-border" href="" role="button">Copy Link</a>
-            <a class="create-drop btn btn-lg btn-wide txt-white bg-blue no-border" href="" role="button">Create Drop</a>
+            <a class="copy-link btn btn-lg btn-wide bg-white txt-blue no-border" href="#" role="button">Copy Link</a>
+            <a class="create-drop btn btn-lg btn-wide txt-white bg-blue no-border" href="#" role="button">Create Drop</a>
         </div>
     </div>
+    
     <div class="hub-options">
         <span class="sort-label txt-gray">Sort By</span>
         <a class="sort-button txt-blue no-decoration txt-center" href="">Recent</a>
+        <div class="divider"></div>
+        <a class="admin-button txt-blue no-decoration txt-center" href="">ADMIN PANEL</a>
     </div>
         <div class="container-fluid">
         <div class="row">
         <div class="five-column">
             <div class="drop">
-                <img class="icon" src="http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg">
+<!-- <<<<<<< HEAD -->
+                
                 <!-- <button class="btn bg-white dwnld-btn"><i class="flaticon-cloud-computing dwnld-symbol"></i></button> -->
+<!-- ======= -->
+                <img class="icon" src="http://loremflickr.com/320/240?random=1">
+                <!-- <button class="btn bg-white dwnld-btn"><i class="flaticon-cloud-computing dwnld-symbol"></i></button> -->
+<!-- >>>>>>> 2de8eb71448e716ba38a3ddbeb3721a97d93af8d -->
                 <div class="drop-name">funny_park.gif</div>
             </div>
         </div><div class="five-column">
             <div class="drop">
-                <img class="icon" src="http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg">
+<!-- <<<<<<< HEAD -->
+                
+<!-- ======= -->
+                <img class="icon" src="http://loremflickr.com/320/240?random=2">
+                <!-- <button class="btn bg-white dwnld-btn"><i class="flaticon-cloud-computing dwnld-symbol"></i></button> -->
+<!-- >>>>>>> 2de8eb71448e716ba38a3ddbeb3721a97d93af8d -->
                 <div class="drop-name">funny_park.gif</div>
             </div>
         </div><div class="five-column">
             <div class="drop">
-                <img class="icon" src="http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg">
+<!-- <<<<<<< HEAD -->
+                
+<!-- ======= -->
+                <img class="icon" src="http://loremflickr.com/320/240?random=3">
+                <!-- <button class="btn bg-white dwnld-btn"><i class="flaticon-cloud-computing dwnld-symbol"></i></button> -->
+<!-- >>>>>>> 2de8eb71448e716ba38a3ddbeb3721a97d93af8d -->
                 <div class="drop-name">funny_park.gif</div>
             </div>
         </div><div class="five-column">
             <div class="drop">
-                <img class="icon" src="http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg">
+<!-- <<<<<<< HEAD -->
+                
+<!-- ======= -->
+                <img class="icon" src="http://loremflickr.com/320/240?random=4">
+<!-- >>>>>>> 2de8eb71448e716ba38a3ddbeb3721a97d93af8d -->
                 <div class="drop-name">funny_park.gif</div>
             </div>
         </div><div class="five-column">
             <div class="drop">
-                <img class="icon" src="http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg">
+<!-- <<<<<<< HEAD -->
+
+<!-- ======= -->
+                <img class="icon" src="http://loremflickr.com/320/240?random=5">
+<!-- >>>>>>> 2de8eb71448e716ba38a3ddbeb3721a97d93af8d -->
                 <div class="drop-name">funny_park.gif</div>
             </div>
         </div><div class="five-column">
             <div class="drop">
-                <img class="icon" src="http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg">
+<!-- <<<<<<< HEAD -->
+<!-- ======= -->
+                <img class="icon" src="http://loremflickr.com/320/240?random=6">
+<!-- >>>>>>> 2de8eb71448e716ba38a3ddbeb3721a97d93af8d -->
                 <div class="drop-name">funny_park.gif</div>
             </div>
         </div><div class="five-column">
             <div class="drop">
-                <img class="icon" src="http://www.all-famous-quotes.com/images/uploads/Family_sm.jpg">
+<!-- <<<<<<< HEAD -->
+                
+<!-- ======= -->
+                <img class="icon" src="http://loremflickr.com/320/240?random=7">
+<!-- >>>>>>> 2de8eb71448e716ba38a3ddbeb3721a97d93af8d -->
                 <div class="drop-name">funny_park.gif</div>
             </div>
         </div>
@@ -90,7 +140,7 @@
         <div class="tile">
             <h5 class="tile-text txt-white smooth txt-light txt-center">Get more out of Venos with Google Drive</h5>
             <img class="tile-image" src="http://s3.amazonaws.com/liberio/assets/images/write_illustration.png">
-            <a href="/drive" class="tile-button btn btn-lg no-border bg-white txt-blue smooth txt-center">Integrate Drive</a>
+            <a href="#" class="tile-button btn btn-lg no-border bg-white txt-blue smooth txt-center">Integrate Drive</a>
         </div> 
         </div>
     <div class="push-div"></div>
@@ -105,7 +155,8 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"></script>
-<script src="../js/angularApp.js"></script>
+<!--
+<script src="../js/angularApp.js"></script>-->
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 <script type="text/javascript" src="../js/hub.js"></script>

@@ -1,5 +1,6 @@
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    overflow: visible;
 }
 
 *::-webkit-scrollbar {
@@ -7,30 +8,33 @@
 }
 
 body {
-    background-color: #F9F9F9;
+
     font-family: 'Roboto', sans-serif;
 }
 
 /* Continued */
+v-navigation{
+    width: 250px;
+    float: left;
+     margin-left: -7px;
+ 
+}
 
 .nav-custom {
-    max-width: 250px;
-    min-width: 250px;
-    display: inline-block;
-    position: fixed;
-    height: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
+   
+    display: block;
+    width: 250px;
+    padding-top: 2em;
     background-color: #FFF; /* #2c3136 */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    float: left;
     /*
     background-image: url('http://static.teknoblog.com/wp-content/uploads/2014/12/material-design-wallpaper-301214-3.png');
     background-size: cover;
     background-position: 0 100px;
     */
-    z-index: 10000;
+    
     /*
     background-image: url('http://3.bp.blogspot.com/-Ur3aaws1M3Y/VGGX2TeOLRI/AAAAAAAAEHo/eKcX0DJd1DQ/s0/Material_Design_Wallpaper_WALLPAPERDNA%2B(23).png');
     background-size: cover;

@@ -1,0 +1,51 @@
+/* line 1, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+header {
+  background-color: #FFF;
+  display: block;
+  margin: 0em; }
+  /* line 6, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+  header nav {
+    max-width: 1100px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    padding: 0em;
+    height: 4em;
+    display: flex;
+    align-items: center; }
+  /* line 17, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+  header a {
+    display: inline-block; }
+    /* line 19, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+    header a:hover, header a:focus {
+      text-decoration: none;
+      cursor: pointer; }
+    /* line 23, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+    header a#header-corporate-name {
+      color: #111; }
+    /* line 27, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+    header a img#header-logo {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px; }
+  /* line 34, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+  header #header-sub {
+    background-color: #03A9F4;
+    text-align: center;
+    padding: 4em 5%;
+    padding-bottom: 4.5em; }
+    /* line 40, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+    header #header-sub > div {
+      max-width: 1100px;
+      margin-right: auto;
+      margin-left: auto; }
+      /* line 45, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+      header #header-sub > div h2 {
+        font-weight: bold; }
+
+/* line 54, C:/Users/phili/Documents/GitHub/venos/www/css/header.scss */
+#header-get-premium {
+  margin-left: auto;
+  color: #03A9F4; }
+
+/*# sourceMappingURL=header.css.map */

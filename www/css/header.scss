@@ -1,0 +1,57 @@
+header{
+    background-color: #FFF;
+    display: block;
+    margin: 0em;
+    
+    nav{
+        max-width: 1100px;
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        padding: 0em;
+        height: 4em;
+        display: flex;
+        align-items: center;
+        
+    }
+    a{
+        display: inline-block;
+        &:hover, &:focus{
+            text-decoration: none;
+            cursor: pointer;
+        }
+        &#header-corporate-name{
+            color: #111;
+        }
+        
+        img#header-logo{
+            width: 35px;
+            height: 35px;
+            margin-right: 10px;
+        }
+    }
+    
+    #header-sub{
+        background-color: #03A9F4;
+        text-align: center;
+        
+        padding: 4em 5%;
+        padding-bottom: 4.5em;
+        & > div{
+            max-width: 1100px;
+            margin-right: auto;
+            margin-left: auto;
+            
+            h2{
+                font-weight: bold;
+            }
+        }
+        
+    }
+}
+
+
+#header-get-premium{
+    margin-left: auto;
+    color: #03A9F4;
+}

@@ -133,9 +133,10 @@ body {
     margin-bottom: 0px;
     margin-left: 35px;
     letter-spacing: 0.5px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 0.8em;
     padding-bottom: 7px;
+    font-weight: 300;
 }
 
 .nav-custom .upper-items .link {
@@ -150,7 +151,7 @@ body {
     color: #BDBDBD;
     text-decoration: none;
     padding: 6px 16px;
-    line-height: 30px;
+    line-height: 40px;
     display: block;
     vertical-align: middle;
     -o-transition:.3s;
@@ -158,6 +159,7 @@ body {
     -moz-transition:.3s;
     -webkit-transition:.3s;
     transition: .3s;
+    position: relative;
 }
 
 .nav-custom .upper-items .link a:hover {
@@ -172,9 +174,13 @@ body {
 
 .nav-custom .upper-items .link i {
     vertical-align: middle;
-    margin: 10px 14px 10px 16px;
+    margin: 10px 24px 10px 16px;
     font-size: 1.6em;
     display: inline-block;
+    color: #9E9E9E;
+}
+
+.nav-custom .upper-items .link a:hover > .nav-custom .upper-items .link i {
     color: #03A9F4;
 }
 

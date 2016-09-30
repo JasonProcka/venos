@@ -48,6 +48,12 @@
 <v-navigation></v-navigation>
 <div class="content">
     <div class="page-content">
+    <div class="dropzonecontainer bg-blue">
+        <a href="#" class="closeadddrop">X</a>
+        <form action="/file-upload"
+            class="dropzone"
+            id="createdropzone"></form>
+    </div>
     <div class="jumbotron hub-jumbo">
         <div class="hub-header">
             <div class="container">
@@ -160,6 +166,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 <script type="text/javascript" src="../js/hub.js"></script>
+<script src="../js/dropzone.js"></script>
 <!-- Smooth Scroll -->
 <script>
 document.addEventListener("touchstart", function(){}, true);

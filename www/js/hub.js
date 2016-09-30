@@ -55,8 +55,22 @@ $(function() {
   });
   
   $(function() {
+    $(".create-drop").on("click", function(e) {
+      $(".dropzonecontainer").removeClass("dropzoneclosed");
+      $(".dropzonecontainer").addClass("dropzoneopen"); 
+    });  
+  });
+  
+  $(function() {
+    $(".closeadddrop").on("click", function(e) {
+      $(".dropzonecontainer").removeClass("dropzoneopen");
+      $(".dropzonecontainer").addClass("dropzoneclosed"); 
+    });  
+  });
+  
+  $(function() {
   var ink, d, x, y;
-    $(".btn").click(function(e){
+    $(".drop, .btn, .ripple-effect").click(function(e){
 	   element = $(this);
       ripplecolor = "rgba(0,0,0,0.2)";
 	  //create .ink element if it doesn't exist

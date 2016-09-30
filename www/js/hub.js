@@ -57,6 +57,7 @@ $(function() {
   $(function() {
     $(".create-drop").on("click", function(e) {
       $(".dropzonecontainer").removeClass("dropzoneclosed");
+      $("#overlay").css("visibility", "visible").delay(1000);
       $(".dropzonecontainer").addClass("dropzoneopen"); 
     });  
   });
@@ -64,6 +65,7 @@ $(function() {
   $(function() {
     $(".closeadddrop").on("click", function(e) {
       $(".dropzonecontainer").removeClass("dropzoneopen");
+      $("#overlay").css("visibility", "hidden").delay(1000);
       $(".dropzonecontainer").addClass("dropzoneclosed"); 
     });  
   });

@@ -5,8 +5,14 @@ app.config(function($routeProvider) {
   .when("/", {
     templateUrl : "/www/html/main.html"
   })
+  .when("/create-hub", {
+    templateUrl : "/www/html/create-hub.html"
+  })
+  .when("/register", {
+    templateUrl : "/www/html/register.html"
+  })
   .when("/hubs", {
-    templateUrl : "hub.html"
+    templateUrl : "/www/html/hub.html"
   });
 });
 

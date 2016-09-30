@@ -59,25 +59,41 @@ body {
     overflow-x: hidden;
 }
 
+#overlay {
+    visibility: hidden;
+    position:fixed;
+    z-index: 100;
+    top:0; 
+    left:0;
+    bottom:0; 
+    right:0;
+    background-color:rgba(0,0,0,0.4);   
+}
+
 .dropzonecontainer {
     display: none;
     z-index: 10001;
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: calc(50%);
     transform: translateX(-50%) translateY(-50%);
-    border-radius: 2px;
+    border-radius: 5px;
+    background-color: #F9F9F9;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
 }
 
 .closeadddrop {
     float: right;
-    font-size: 24px;
+    font-size: 28px;
     z-index: 10001;
     text-decoration: none;
     color: gray;
     margin-right: 2%;
+    margin-top: 2%;
 }
 
 .closeadddrop:hover {
@@ -105,6 +121,23 @@ body {
 .dropzoneclosed {
     display: none;
     transition: 1s;    
+}
+
+.uploadicon {
+    display: block;
+    width: 40%;
+    margin: auto;
+}
+
+.dz-message {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+    display: block;
+    position: absolute;
+    bottom: 2%;
+    left: calc(50%);
+    transform: translateX(-50%);
 }
 
 .drop-details {
@@ -260,11 +293,6 @@ body {
     display: block;
     margin: auto;
     border-radius: 2px;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
 }
 
 .tile-button {
@@ -303,13 +331,14 @@ body {
     -moz-transition:.3s;
     -webkit-transition:.3s;
     transition: .3s;
-    border-radius: 2px;
 }
 
 .five-column:hover {
     /* -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1); */
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .row {
@@ -363,26 +392,22 @@ body {
 .drop .icon {
     height: calc(100% - 36px);
     margin: 0;
-    margin-left: 2px;
     padding: 0;
     overflow-x: hidden;
     border-radius: 2px;
+    border-bottom-right-radius: 2px;
     text-align: center;
     -o-transition:.3s;
     -ms-transition:.3s;
     -moz-transition:.3s;
     -webkit-transition:.3s;
     transition: .3s;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
-    -khtml-user-select: none;
-    -o-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+    min-width: 100%;
+}
+
+.drop .icon:hover {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .drop .drop-download {
@@ -460,22 +485,6 @@ body {
 
 @media only screen and (max-width: 1150px) {
     .five-column {
-        min-width: calc(20% - 20px);
-        max-width: calc(20% - 20px);
-    }
-    .drop .name {
-        font-size: 1.10em;
-    }
-    .row {
-        min-width: calc(100% - 20px);
-    }
-    .tile {
-        display: none;
-    }
-}
-
-@media only screen and (max-width: 950px) {
-    .five-column {
         min-width: calc(25% - 20px);
         max-width: calc(25% - 20px);
     }
@@ -484,6 +493,9 @@ body {
     }
     .row {
         min-width: calc(100% - 20px);
+    }
+    .ad-box {
+        display: none;
     }
 }
 
@@ -516,14 +528,14 @@ body {
     }
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 740px) {
     .five-column {
         min-width: calc(25% - 20px);
         max-width: calc(25% - 20px);
     }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 699px) {
     .five-column {
         min-width: calc(33.33% - 20px);
         max-width: calc(33.33% - 20px);
@@ -573,8 +585,5 @@ body {
     
     .hub-btns .create-drop {
         width: 220px;
-    }
-    .row {
-        margin-bottom: 10px;
     }
 }

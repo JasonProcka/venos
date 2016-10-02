@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+    <head>
+        <title>Join Venos</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Fonts and icon fonts -->
+        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="../css/components.css" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="../css/login.css">
+        <!-- Mobile optimization -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    </head>
+    <body ng-app="mango" ng-controller="RegisterCtrl">
+        <div class="venos_logo display-inline-block">
+            <a href="dashboard" class="link txt-center"><img src="../images/venos_logo.png" style="width: 50px; height: 50px; margin-left: 5px;"></a>
+        </div>
+        <div class="login_tile">
+            <h2 class="txt-center txt-white">Login to Venos</h2>
+            <div class = "signupform">
+                <form ng-submit="loginUser()" class="signupformwrapper">
+                    <div class="login-input">
+                        <input type="text" class="form-control input-large" id="username" ng-model="email" placeholder="Email" aria-describedby="basic-addon3">
+                        <input type="password" class="form-control input-large" id="password1" placeholder="Password" aria-describedby="basic-addon3">
+                        <button class="submit-btn btn btn-block bg-blue txt-white no-border input-large" type="submit">
+                        Login</button>
+                    </div>
+                </form>
+                <a class="join-btn btn txt-white no-border no-shadow input-large" href="/join" role="button">Join Venos</a>
+            </div>
+        </div>
+        <!-- Import the scripts you need, in our case authentication -->
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+        <script src="auth.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- <script defer src="inputs.js"></script> -->
+        <script src="../js/angularApp.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script>
+            // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU"
+                , authDomain: "project-mango-5d7d3.firebaseapp.com"
+                , databaseURL: "https://project-mango-5d7d3.firebaseio.com"
+                , storageBucket: "project-mango-5d7d3.appspot.com"
+                , serviceAccount: "MarcadianProjectMango-9e1b1341f4ac.json"
+        };
+firebase.initializeApp(config);
+var auth = new Auth(firebase);
+auth.registerAnonym();
+auth.listen(
+        function (user) {
+            console.log("user logged in");
+            console.log("uid: " + user.uid);
+            console.log("is anonym: " + user.isAnonymous);
+        },
+        function () {
+            console.log("user signed out");
+        }
+        );
+        </script>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <title>Hub</title>
+    
+    <!-- Include header scripts -->
+    <ng-include src="'../partials/head.html"></ng-include>
+    <link rel="stylesheet" href="../css/create-hub.css" type="text/css" />
+</head>
+<body ng-app="mango" ng-controller="HubCtrl">
+<ng-include src="'../partials/nav.html'"></ng-include>
+<div class="content">
+    <div class="create_tile">
+    <h2 class="txt-center txt-white">Create a new Hub</h2>
+    <div class = "createform">
+        <form ng-submit="" class="createformwrapper">
+                <div class="input-group">
+                    <p class="input_instructions">Name your Hub</p>
+                    <input type="text" class="form-control" id="hubname" ng-model="hubname" placeholder="Hub Name" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group">
+                    <p class="input_instructions">Describe your Hub (Optional)</p>
+                    <input type="text" class="form-control" id="description" placeholder="Description (optional)" aria-describedby="basic-addon3">
+                </div>
+                <div class="input-group">
+                    <p class="input_instructions">Give your Hub a custom URL (Optional)</p>
+                    <input type="text" class="form-control" id="customurl" placeholder="venos.co/" aria-describedby="basic-addon3">
+                </div>
+                <button class="create-btn btn btn-primary bg-blue border-blue txt-white" type="submit">
+                Create</button>
+        </form>
+    </div>
+</div>
+<!-- Import the scripts you need, in our case authentication -->
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+<script src="/auth.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    // Initialize Firebase
+/*    
+var config = {
+    apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU"
+        , authDomain: "project-mango-5d7d3.firebaseapp.com"
+        , databaseURL: "https://project-mango-5d7d3.firebaseio.com"
+        , storageBucket: "project-mango-5d7d3.appspot.com"
+        , serviceAccount: "MarcadianProjectMango-9e1b1341f4ac.json"
+};
+firebase.initializeApp(config);
+var auth = new Auth(firebase);
+auth.registerAnonym();
+auth.listen(
+function (user) {
+    console.log("user logged in");
+    console.log("uid: " + user.uid);
+    console.log("is anonym: " + user.isAnonymous);
+},
+function () {
+    console.log("user signed out");
+}
+);
+*/
+</script>
+</div>
+<!-- Include header scripts -->
+<ng-include src="'../partials/head-scripts.html"></ng-include>
+</body>
+</html>

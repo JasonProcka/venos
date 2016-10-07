@@ -1,29 +1,33 @@
 {
-  "name": "venos",
-  "version": "1.0.0",
-  "description": "Venos.co",
-  "main": "index.js",
-  "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:dev": "webpack-dev-server --inline --content-base public/ --history-api-fallback",
-    "start:prod": "npm run build && node server.bundle.js",
-    "build:client": "webpack",
-    "build:server": "webpack --config webpack.server.config.js",
-    "build": "npm run build:client && npm run build:server"
-  },
+  "name": "todo-react-redux",
+  "version": "0.6.0",
+  "description": "Todo app with React, Redux, and Firebase",
+  "homepage": "https://github.com/r-park/todo-react-redux",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TheAncientMoonstone/ProjectMango/"
+    "url": "https://github.com/r-park/todo-react-redux.git"
   },
-  "author": "Marcadian",
-  "license": "ISC",
+  "author": {
+    "name": "Richard Park",
+    "email": "objectiv@gmail.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=6.4"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --display-chunks --progress",
+    "clean": "del-cli target",
+    "lint": "eslint -c .eslintrc.yml *.js src server",
+    "prebuild": "run-s clean lint test",
+    "server": "cross-env NODE_ENV=development nodemon -w 'server/**/*.*' server/main.js",
+    "server:dev": "cross-env NODE_ENV=development webpack-dev-server --progress",
+    "start": "npm run server:dev",
+    "test": "cross-env NODE_ENV=test karma start --single-run",
+    "test:watch": "cross-env NODE_ENV=test karma start"
+  },
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "compression": "^1.6.1",
-    "express": "^4.14.0",
-    "firebase": "^3.2.1",
-    "if-env": "^1.0.0",
-    "node-schedule": "^1.1.1",
     "babel-polyfill": "~6.13.0",
     "classnames": "~2.2.5",
     "immutable": "~3.8.1",
@@ -36,7 +40,7 @@
     "redux-thunk": "~2.1.0",
     "reselect": "~2.5.4"
   },
-  "devDependencies": {    
+  "devDependencies": {
     "autoprefixer": "~6.4.1",
     "babel-core": "~6.14.0",
     "babel-eslint": "~6.1.2",
@@ -75,9 +79,6 @@
     "webpack": "~1.13.2",
     "webpack-dev-server": "~1.16.1",
     "webpack-md5-hash": "~0.0.5",
-    "winston": "~2.2.0"  
-  },
-  "engines": {
-    "node": "~4.2"
+    "winston": "~2.2.0"
   }
 }

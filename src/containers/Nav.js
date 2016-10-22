@@ -6,4 +6,4 @@ class Nav extends React.Component {
   }
 }
 
-export default MyHubs;
+export default Nav;

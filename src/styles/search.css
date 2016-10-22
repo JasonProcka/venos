@@ -1,0 +1,212 @@
+html {
+    color: #000;
+}
+
+body {
+    min-width: 100%;
+    max-width: 100%;
+    font-family: 'PT Sans', sans-serif;
+    position: relative;
+    z-index: 1001;
+    background-color: #F2F2F2;
+}
+
+.max-width {
+    max-width: 960px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.content {
+    min-width: 100%;
+    z-index: 1001;
+}
+
+.lower-content {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 960px;
+}
+
+.sub-content {
+    padding-right: 20px;
+}
+
+.hub-jumbo {
+    width: 100%;
+    padding: 40px 0 40px 0;
+    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url('../images/hub-2.jpg');
+    background-size: cover;
+    background-position: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.jumbo-content {
+    padding: 0 20px 0 20px;
+}
+
+.jumbo-title {
+    font-size: 34px;
+    margin: 0;
+    text-align: center;
+    font-family: 'PT Sans', sans-serif;
+    color: #FFF;
+}
+
+.hub-jumbo .jumbo-description {
+    font-size: 16px;
+    margin: 0 0 30px 0;
+    text-align: center;
+    font-family: 'PT Sans', sans-serif;
+    color: #FFF;
+}
+
+.hub-jumbo .jumbo-search {
+    width: calc(100% - 40px);
+    margin-top: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hub-jumbo .jumbo-search form {
+    width: 100%;
+}
+
+.hub-jumbo .jumbo-search .search-bar {
+    width: 100%;
+    height: 50px;
+    border: 0;
+    border-radius: 4px;
+    text-indent: 20px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+}
+
+.grid-label {
+    margin-left: 20px;
+    color: #BDBDBD;
+    -webkit-font-smoothing: antialiased;
+}
+
+.admin-grid {
+    display: inline-block;
+    margin-top: 0px;
+}
+
+.admin-grid .col {
+    padding: 0 0 0 20px;
+}
+
+.admin-grid .hub {
+    background-color: black;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/halloween.jpeg') center / cover;
+}
+
+.admin-grid .hub-info {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.admin-grid .hub h4 {
+    margin: 0 20px 2px 20px;
+    text-align: center;
+    color: #FFF;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.admin-grid .hub p {
+    margin: 0 20px 0 20px;
+    text-align: center;
+    color: #FFF;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.right-col {
+    width: 210px;
+    margin: 20px 0 0 0px;
+    float: right;
+    padding: 0;
+    display: inline-block;
+}
+
+/*
+
+.hub-jumbo .hub-buttons {
+    text-align: center;
+}
+
+.hub-jumbo .hub-buttons .copy-link {
+    margin-right: 10px;
+    width: 160px;
+    font-weight: 400;
+    background-color: rgba(198, 0, 66, 1);
+}
+
+.hub-jumbo .hub-buttons .create-drop {
+    margin-left: 10px;
+    width: 160px;
+    font-weight: 400;
+    background-color: rgba(198, 0, 66, 1);
+}
+
+*/
+
+/*
+
+.myhubs-grid {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.myhubs-grid .col {
+
+}
+
+.myhubs-grid .col .admin-option {
+    width: 100%;
+    height: 210px;
+    background-color: #FFF;
+}
+
+.right-col {
+    width: 210px;
+    margin: 20px 0 0 0px;
+    float: right;
+    padding: 0;
+}
+
+.tile {
+    width: calc(100% - 20px);
+    height: 210px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 2px;
+    background-color: #4FC3F7;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.filler-card {
+    width: 100%;
+    height: 210px;
+    background-color: rgb(115, 115, 115);;
+    border-radius: 2px;
+}
+
+*/

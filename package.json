@@ -2,7 +2,7 @@
   "name": "venos",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://venos.co:3000",
+  "homepage": "http://venos.co",
   "devDependencies": {
     "react-scripts": "0.6.1"
   },

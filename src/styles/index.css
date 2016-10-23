@@ -1,0 +1,6 @@
+@media only screen and (max-width: 930px) {
+    .content {
+        min-width: 100%;
+        margin-left: 0;
+    }
+}

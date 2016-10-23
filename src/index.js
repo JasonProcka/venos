@@ -21,8 +21,11 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="signup" component={SignUp} />
         <Route path="signin" component={SignIn} />
+        <Route path="login" component={SignIn} />
+        <Route path="join" component={SignUp} />
+        <Route path="signup" component={SignUp} />
+        <Route path="register" component={SignUp} />
         <Route path="hub/:name" component={Hub} />
         <Route path="create" component={Create} />
         <Route path="admin" component={Admin} />

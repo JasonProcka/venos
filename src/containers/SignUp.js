@@ -64,8 +64,8 @@ class SignUp extends React.Component {
               { this.renderAuthenticationError() }
 
               <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-                <Field id="sample3" name="email" component={this.renderField} type="text" placeholder="Email" />
-                <Field id="sample4" name="password" component={this.renderField}  type="password" placeholder="Password"/>
+                <Field key={1} id="sample3" name="email" component={this.renderField} type="text" placeholder="Email" />
+                <Field key={2} id="sample4" name="password" component={this.renderField}  type="password" placeholder="Password"/>
 
                 <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-1">
                   <input type="checkbox" id="checkbox-1" className="mdl-checkbox__input" checked />

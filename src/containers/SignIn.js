@@ -51,7 +51,7 @@ class Login extends React.Component {
       <div className="join shadow">
           <div className="foyer-header">
                 <Link className="switch-method-sign-in-link" to="/signup"><button className="form-join mdl-button mdl-js-button mdl-js-ripple-effect mld-text--blue">
-                  Sign Up
+                  Join / Register
               </button></Link>
               <button className="mdl-button mdl-js-button mdl-button--icon">
                   <i className="material-icons">help_outline</i>
@@ -64,8 +64,8 @@ class Login extends React.Component {
               { this.renderAuthenticationError() }
 
               <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-                <Field id="sample3" name="email" component={this.renderField} type="text" placeholder="Email" />
-                <Field id="sample4" name="password" component={this.renderField}  type="password" placeholder="Password"/>
+                <Field key={1} id="sample3" name="email" component={this.renderField} type="text" placeholder="Email" />
+                <Field key={2} id="sample4" name="password" component={this.renderField}  type="password" placeholder="Password"/>
 
                 <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-1">
                   <input type="checkbox" id="checkbox-1" className="mdl-checkbox__input" checked />

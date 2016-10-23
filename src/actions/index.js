@@ -63,7 +63,7 @@ export function verifyAuth() {
 
 export function signOutUser()
 {
-  browserHistory.push('/');
+  // Do not uncomment this line it caused the rooting error browserHistory.push('/');
   return {
     type: SIGN_OUT_USER
   }

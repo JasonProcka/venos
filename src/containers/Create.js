@@ -146,7 +146,7 @@ class Create extends React.Component {
                     </div>
                 </div>
             </div>
-            <CreateDialog setNameInput={ () => this.setNameInput() } setDescribeInput={ () => this.setDescribeInput() } onNext={ () => this.onNext() }/>
+            <CreateDialog nameInput={ () => this.setNameInput() } setDescribeInput={ () => this.setDescribeInput() } onNext={ () => this.onNext() }/>
             <div className="overlay"></div>
         </div>
 

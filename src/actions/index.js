@@ -1,10 +1,15 @@
 import { browserHistory } from 'react-router';
 import Firebase from 'firebase';
+import * as Database from './database';
+
+
+
 
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
-
+export const CREATE_HUB_SUCCESS = 'CREATE_HUB_SUCCESS';
+export const CREATE_HUB_ERROR = 'CREATE_HUB_ERROR';
 
 const config = {
    apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU",
@@ -16,7 +21,7 @@ const config = {
 
 Firebase.initializeApp(config);
 
-
+Database.setDatabase(Firebase);
 
 
 export function signUpUser(credentials) {
@@ -84,4 +89,34 @@ export function authError(error) {
     type: AUTH_ERROR,
     payload: error
   }
+}
+
+
+export function createHubSend(error) {
+  if(error)
+    return {
+      type: CREATE_HUB_ERROR,
+      payload: error
+    }
+  else
+    return {
+      type: CREATE_HUB_SUCCESS
+      
+    }
+}
+
+
+
+export function createHub(data){
+   return function(dispatch) {
+    Database.createHub(data.name, data.url, data.ownerUid, data.isPublic, data.DestructHours)
+      .then(response => {
+        dispatch(createHubSend());
+      })
+      .catch(error => {
+        dispatch(createHubSend(error));
+      });
+  }
+  
+  
 }

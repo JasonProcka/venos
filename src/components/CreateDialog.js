@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../styles/hubcreated.css';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as Actions from '../actions';
 
 const STATUS_NAME_HUB = "STATUS_NAME_HUB";
 const STATUS_DESCRIBE_HUB = "STATUS_DESCRIBE_HUB";
@@ -70,6 +72,18 @@ class CreateDialog extends React.Component {
                 </div>
         );
         case STATUS_FINISHED:
+            
+            this.props.actions.createHub(
+                {
+                    name: "test",
+                    url: "url.de",
+                    ownerUid: "fsdf",
+                    isPublic: true,
+                    destructionTimeInHours: 5
+                    
+                });
+        
+            
             return (
                 <div className="dialog-special created shadow">
                     <div className="foyer-header">
@@ -131,4 +145,16 @@ class CreateDialog extends React.Component {
 }
 
 
-export default CreateDialog;
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateDialog);

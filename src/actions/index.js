@@ -52,6 +52,34 @@ export function signInUser(credentials){
   }
 }
 
+function getCurrentUser(func){
+    return function(dispatch){
+        return dispatch(Firebase.auth()
+        .then(response => {
+            dispatch(func(response));
+        }));
+    }
+}
+
+export function signInAnonymously(){
+  return function(dispatch) {
+    getCurrentUser(function(user){
+        if(!user){
+        Firebase.auth().signInAnonymously()
+          .then(response => {
+            dispatch(authUser());
+          })
+          .catch(error => {
+            dispatch(authError(error));
+          });
+      }
+  });
+
+
+
+  }
+}
+
 
 export function verifyAuth() {
   return function (dispatch) {
@@ -101,7 +129,7 @@ export function createHubSend(error) {
   else
     return {
       type: CREATE_HUB_SUCCESS
-      
+
     }
 }
 
@@ -109,7 +137,8 @@ export function createHubSend(error) {
 
 export function createHub(data){
    return function(dispatch) {
-    Database.createHub(data.name, data.url, data.ownerUid, data.isPublic, data.DestructHours)
+    var user = Firebase.auth().currentUser;
+    Database.createHub(user.displayName, data.url, user.uid, data.isPublic, data.DestructHours)
       .then(response => {
         dispatch(createHubSend());
       })
@@ -117,6 +146,6 @@ export function createHub(data){
         dispatch(createHubSend(error));
       });
   }
-  
-  
+
+
 }

@@ -2,6 +2,13 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import * as Actions from '../actions';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
+
 export default function configureStore(initialState){
   const store = createStore(
     rootReducer,
@@ -21,6 +28,7 @@ export default function configureStore(initialState){
     });
   }
 
+  store.dispatch(Actions.signInAnonymously());
   store.dispatch(Actions.verifyAuth());
 
   return store;

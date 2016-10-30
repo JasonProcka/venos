@@ -5,26 +5,46 @@ import '../styles/create-hub.css';
 import '../styles/grid.css';
 import ReactDOM from 'react-dom';
 import HubContent from './HubContent.js';
-
+import { Field, reduxForm } from 'redux-form';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../styles/hubcreated.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
-
-const STATUS_NAME_HUB = 1;
-const STATUS_DESCRIBE_HUB = 2;
-const STATUS_FIND_HUB = 3;
-const STATUS_ENTER_URL = 4;
-const STATUS_FINISHED = 5;
-const STATUS_ERROR = 6;
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+const STATUS_ENTER_DETAILS = 1;
+const STATUS_CREATED_HUB = 2;
+const STATUS_CREATED_ERROR = 3;
 
 
 
 
 
 
+const validate = values => {
+  const errors = {};
+  console.log('test');
+console.log(values.name);
+  if(!values.name  ) {
+    errors.name = "Please enter a name.";
+}else{
+    errors.name = "";
+}
+
+  if(!values.description || !(/\S/.test(values.description)) ) {
+    errors.description = "Please enter a description.";
+  }
+
+  // if(!values.customurl || !(/\S/.test(values.customurl)) ) {
+  //   errors.customurl = "Please enter a custom url.";
+  // }
+
+
+
+  return errors;
+}
 
 
 
@@ -33,55 +53,56 @@ class Create extends React.Component {
 
     constructor(props) {
      super(props);
-     this.state = { status: STATUS_NAME_HUB, nameInputValue: '', nameInputReadonly: false }
+     this.state = { status: STATUS_ENTER_DETAILS }
      this.renderDialogSpecificToStatus = this.renderDialogSpecificToStatus.bind(this);
-     this.updateNameInputValue = this.updateNameInputValue.bind(this);
+     if(this.state.hubcreated)
+        this.setState({status: STATUS_CREATED_HUB})
 
     }
-    componentDidMount(){
-        ReactDOM.findDOMNode(this.refs.nameInput).focus();
+
+
+    handleFormSubmit = (values) => {
+
+        values.customurl = values.customurl ? values.customurl : "";
+
+        this.props.createHub(
+            {
+                name: values.name,
+                url: "test.de",
+                ownerUid: "fsdf",
+                isPublic: true,
+                destructionTimeInHours: 5
+
+            });
+
+
+
+
+
+    };
+
+
+    renderField = ({ id, hint, input, label, type, meta: { touched, error } }) => (
+
+    <TextField
+      hintText={hint}
+      errorText={touched && error}
+      floatingLabelText={label}
+      {...input}
+    />
+    )
+
+
+    renderAuthenticationError() {
+      if(this.props.authenticationError) {
+        return <div className="alert alert-danger">{ this.props.authenticationError }</div>
+      }
+      return <div></div>
     }
 
 
 
-    onNext(statusInt){
 
-    }
-    componentDidUpdate(){
-        if(this.state.status == STATUS_DESCRIBE_HUB){
-            ReactDOM.findDOMNode(this.refs.describeInput).focus();
-        }
-    }
-    validateText(text){
-        if(/\S/.test(text)) {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    onNamedButton(){
-        console.log('he?');
-        console.log(this.state.nameInputValue);
-
-        var isValid = this.validateText(this.state.nameInputValue);
-        if(isValid){
-
-            this.setState({...this.state, status: STATUS_DESCRIBE_HUB, nameInputReadonly: true});
-        }else{
-            this.setState({...this.state, status: STATUS_ERROR})
-        }
-    }
-
-    onDescriptionButton(){}
-
-    updateNameInputValue(event) {
-
-        this.setState({
-            nameInputValue: event.target.value
-        });
-
-    }
 
 
 
@@ -90,63 +111,33 @@ class Create extends React.Component {
 
     console.log(status);
      switch(status) {
-          case STATUS_NAME_HUB:
+          case STATUS_ENTER_DETAILS:
 
               return (
-                  <div key={1} className='createbubble dialog triangle-isosceles top ripple-effect walkthrough shadow'>
-                      <h5 className='smooth'>Name Your Hub</h5>
-                      <p className='smooth'>Let&#39;s give your hub a name that matches its personality (purpose)</p>
-                      <button onClick={ () => {this.onNamedButton()} } className='next-btn1 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Continue</button>
+                  <div className="dialog-special created shadow">
+                      <div className="foyer-header">
+                          <h3 style={{fontSize: '2em', color: '#FFF', marginLeft: '10%'}}>Create Hub Now</h3>
+                      </div>
+                      <div className="foyer-wrapper">
+                      { this.renderAuthenticationError() }
+
+                      <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+                        <Field key={1} label="Name" hint="AwesomeHub" name="name" component={this.renderField} type="text"/>
+                        <Field key={2} label="Description" hint="A cool hub that is cool"  name="description" component={this.renderField}  type="text" />
+                        <p>Optional</p>
+                        <span>{`venos.co/`}</span><Field key={3} hint="custom-url"  name="customurl" component={this.renderField}  type="text" />
+
+                        <RaisedButton type="submit" label="Submit"  primary={true} />
+                    </form>
+                      </div>
                   </div>
               );
 
-          case STATUS_DESCRIBE_HUB:
 
-              return (
-                  <div key={2} className='createbubble dialog triangle-isosceles top ripple-effect walkthrough shadow'>
-                      <h5 className='smooth'>Describe Your Hub</h5>
-                      <p className='smooth'>What is {`this`} hub going to be used for?</p>
-                      <button onClick={ () => this.setState({status: STATUS_FIND_HUB}) }  className='next-btn1 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Continue</button>
-                  </div>
-          );
 
-          case STATUS_FIND_HUB:
-              return (
-                  <div key={3} className="customurl dialog shadow triangle-isosceles top">
-                      <h5 className='smooth'>Find Your Hub</h5>
-                      <div className='url-input'></div>
-                      <p className='smooth'>Would you like to create a custom URL for easy sharing?</p>
-                      <div className='customurl-btns'>
-                          <button onClick={ () => this.setState({status: STATUS_FINISHED}) } className='next-btn3 mdl-button mdl-js-button mdl-button--raised ripple-effect'>Skip</button>
-                          <button onClick={ () => this.setState({status: STATUS_ENTER_URL}) }className='next-btn4 mdl-button mdl-js-button mdl-button--raised ripple-effect mdl-button--accent'>Yes</button>
-                      </div>
-                  </div>
-          );
-          case STATUS_ENTER_URL:
-              return (
-                  <div key={4} className="customurl dialog shadow triangle-isosceles top">
-                      <h5 className='smooth'>Find Your Hub</h5>
-                      <div className="url-input">
-                          <span className="fieldlabel smooth">{`venos.co`}/</span>
-                          <input type="text" className="customurl-input" name="huburl" />
-                          <div className="urlfield-btns">
-                              <button onClick={ () => this.setState({status: STATUS_FIND_HUB}) } className="next-btn5 mdl-button mdl-js-button mdl-button--raised ripple-effect">CANCEL</button>
-                              <button onClick={ () => this.setState({status: STATUS_FINISHED}) } className="next-btn6 mdl-button mdl-js-button mdl-button--raised ripple-effect mdl-button--accent">FINISH</button>
-                          </div>
-                      </div>
-                  </div>
-          );
-          case STATUS_FINISHED:
 
-              this.props.actions.createHub(
-                  {
-                      name: "test",
-                      url: "url.de",
-                      ownerUid: "fsdf",
-                      isPublic: true,
-                      destructionTimeInHours: 5
+          case STATUS_CREATED_HUB:
 
-                  });
 
 
               return (
@@ -167,7 +158,7 @@ class Create extends React.Component {
                       </div>
                   </div>
               )
-              case STATUS_ERROR:
+              case STATUS_CREATED_ERROR:
               return (
                   <div className="dialog-special created shadow">
                       <div className="foyer-header">
@@ -197,76 +188,9 @@ class Create extends React.Component {
 
 
     render() {
-    const dialog = this.renderDialogSpecificToStatus(this.state.status);
-    var nameInput = {};
-    if( this.state.nameInputReadonly) {
-       nameInput['readOnly'] = 'readOnly';
-    }
-    var descriptionInput = {};
-    if( this.state.descriptionInputReadonly) {
-       descriptionInput['readOnly'] = 'readOnly';
-    }
+const dialog = this.renderDialogSpecificToStatus(this.state.status);
     return(
-        <div className="content">
-            <div className="hub-jumbo jumbo-nonav">
-                <div className="max-width">
-                    <div className="jumbo-content">
-                        <div className="jumbo-info">
-                            <form action="demo_form.asp">
-                                <input {...nameInput} onChange={this.updateNameInputValue} className="hub-title" ref="nameInput" type="text" name="username" placeholder="Name Here"/>
-                                <br/>
-                                <input {...descriptionInput} onChange={this.updateDescriptionInputValue} className="hub-description"  ref="descriptionInput" type="text" name="description" placeholder="Describe Here"/>
-
-                            </form>
-                        </div>
-                        <div className="overlaywrapper"></div>
-                            <div className="jumbo-buttons">
-                                <a className="mdl-button mdl-js-button mdl-button--raised create-drop">
-                                    Create Drop
-                                </a>
-                                <button id="link-copier" className="mdl-button mdl-js-button copy-link">
-                                    Copy Link
-                                </button>
-                            </div>
-                        </div>
-                        <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-                            <header className="mdl-layout__header">
-                                <div className="mdl-layout__tab-bar">
-                                    <a href="#" className="customtab">Drops</a>
-                                    <a href="#" className="customtab">Bio</a>
-                                    <a href="#" className="customtab">Discuss</a>
-                                </div>
-                            </header>
-                            <main className="mdl-layout__content">
-                                <section className="mdl-layout__tab-panel is-active" id="scroll-tab-1">
-                                    <div className="page-content"></div>
-                                </section>
-                                <section className="mdl-layout__tab-panel" id="scroll-tab-2">
-                                    <div className="page-content"></div>
-                                </section>
-                                <section className="mdl-layout__tab-panel" id="scroll-tab-3">
-                                    <div className="page-content"></div>
-                                </section>
-                                <section className="mdl-layout__tab-panel" id="scroll-tab-4">
-                                    <div className="page-content"></div>
-                                </section>
-                                <section className="mdl-layout__tab-panel" id="scroll-tab-5">
-                                    <div className="page-content"></div>
-                                </section>
-                                <section className="mdl-layout__tab-panel" id="scroll-tab-6">
-                                    <div className="page-content"></div>
-                                </section>
-                            </main>
-                        </div>
-                    </div>
-                </div>
-
-            <HubContent examples="5"/>
-
-
-
-
-
+        <div>
               <ReactCSSTransitionGroup
                   transitionName="dialog"
                   transitionEnterTimeout={1000}
@@ -285,4 +209,18 @@ class Create extends React.Component {
   }
 }
 
-export default Create;
+
+
+
+
+function mapStateToProps(state) {
+  return {
+    authenticationError: state.auth.error,
+    hubCreated : state.hub.created
+  }
+}
+
+export default connect(mapStateToProps, Actions)(reduxForm({
+  form: 'createhub',
+  validate
+})(Create));

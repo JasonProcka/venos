@@ -1,151 +1,214 @@
-import { browserHistory } from 'react-router';
+import {
+    browserHistory
+} from 'react-router';
 import Firebase from 'firebase';
 import * as Database from './database';
 
 
 
+export const AUTH_USER_ANONYM = 'AUTH_USER_ANONYM';
+export const AUTH_USER_FULL = 'AUTH_USER_FULL';
 
-export const AUTH_USER = 'AUTH_USER';
+
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
+
 export const CREATE_HUB_SUCCESS = 'CREATE_HUB_SUCCESS';
 export const CREATE_HUB_ERROR = 'CREATE_HUB_ERROR';
 
 const config = {
-   apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU",
-   authDomain: "project-mango-5d7d3.firebaseapp.com",
-   databaseURL: "https://project-mango-5d7d3.firebaseio.com",
-   storageBucket: "project-mango-5d7d3.appspot.com",
-   messagingSenderId: "663419739417"
- };
+    apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU",
+    authDomain: "project-mango-5d7d3.firebaseapp.com",
+    databaseURL: "https://project-mango-5d7d3.firebaseio.com",
+    storageBucket: "project-mango-5d7d3.appspot.com",
+    messagingSenderId: "663419739417"
+};
 
 Firebase.initializeApp(config);
-
 Database.setDatabase(Firebase);
 
 
-export function signUpUser(credentials) {
-  return function(dispatch) {
-    Firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-      .then(response => {
-        dispatch(authUser());
-        browserHistory.push('/dashboard');
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch(authError(error));
-      })
-  }
-}
-
-
-export function signInUser(credentials){
-  return function(dispatch) {
-    Firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(response => {
-        dispatch(authUser());
-        browserHistory.push('/dashboard');
-      })
-      .catch(error => {
-        dispatch(authError(error));
-      });
-  }
-}
-
-function getCurrentUser(func){
-    return function(dispatch){
-        return dispatch(Firebase.auth()
-        .then(response => {
-            dispatch(func(response));
-        }));
+export function signInUser(credentials) {
+    return function(dispatch) {
+        Firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+            .then(response => {
+                dispatch(authUserFull());
+                browserHistory.push('/dashboard');
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(authError(error));
+            });
     }
 }
 
-export function signInAnonymously(){
-  return function(dispatch) {
-    getCurrentUser(function(user){
-        if(!user){
-        Firebase.auth().signInAnonymously()
-          .then(response => {
-            dispatch(authUser());
-          })
-          .catch(error => {
-            dispatch(authError(error));
-          });
-      }
-  });
 
 
 
-  }
+export function signUpUser(credentials) {
+    return function(dispatch) {
+        getCurrentUser()
+        .then(
+            function(user) {
+                // get current hubs and assign them the new user
+                if(user != null){
+                    Firebase.auth().signOut();
+                    user.delete();
+                }
+
+                Firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
+                    .then(response => {
+                        dispatch(authUserFull());
+                        browserHistory.push('/dashboard');
+                    })
+                    .catch(error => {
+                        dispatch(authError(error));
+                    });
+
+            });
+    }
 }
+
+
+// always dispatch error and resolve
+function getCurrentUser() {
+    return new Promise(function(resolve, reject) {
+        Firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                resolve(user);
+            } else {
+                resolve();
+            }
+        });
+    });
+}
+
+// export function signInAnonymously() {
+//     return function(dispatch) {
+//         getCurrentUser(function(user) {
+//             if (!user) {
+//                 Firebase.auth().signInAnonymously()
+//                     .then(response => {
+//                         dispatch(authUser());
+//                     })
+//                     .catch(error => {
+//                         dispatch(authError(error));
+//                     });
+//             }
+//         });
+//
+//
+//
+//     }
+// }
 
 
 export function verifyAuth() {
-  return function (dispatch) {
-    Firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        dispatch(authUser());
-      } else {
-        dispatch(signOutUser());
-      }
-    })
-  }
+    return function(dispatch) {
+        Firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                dispatch(authUserAnonym());
+            } else {
+                dispatch(signOutUser());
+            }
+        })
+    }
+}
+
+export function initialAuth() {
+    return function(dispatch) {
+        getCurrentUser().then(
+            function(user) {
+                if(user == null){
+                Firebase.auth().signInAnonymously()
+                    .then(response => {
+                        dispatch(authUserAnonym());
+                    })
+                    .catch(error => {
+                        dispatch(authError(error));
+                    });
+                }
+                Firebase.auth().onAuthStateChanged(user => {
+                    if (user) {
+                        if(user.isAnonymous)
+                            dispatch(authUserAnonym());
+                        else {
+                            dispatch(authUserFull());
+                        }
+                    } else {
+                        dispatch(signOutUser());
+                    }
+                })
+            }
+        );
+
+
+    }
 }
 
 
 
-export function signOutUser()
-{
-  // Do not uncomment this line it caused the rooting error browserHistory.push('/');
-  return {
-    type: SIGN_OUT_USER
-  }
+
+
+export function signOutUser() {
+    // Do not uncomment this line it caused the rooting error browserHistory.push('/');
+    Firebase.auth().signOut();
+    return {
+        type: SIGN_OUT_USER
+    }
 }
 
 
 
 
-export function authUser() {
-  return {
-    type: AUTH_USER
-  }
+
+
+export function authUserFull() {
+    return {
+        type: AUTH_USER_FULL
+    }
+}
+
+export function authUserAnonym() {
+    return {
+        type: AUTH_USER_ANONYM
+    }
 }
 
 export function authError(error) {
-  return {
-    type: AUTH_ERROR,
-    payload: error
-  }
+    return {
+        type: AUTH_ERROR,
+        payload: error
+    }
 }
 
 
 export function createHubSend(error) {
-  if(error)
-    return {
-      type: CREATE_HUB_ERROR,
-      payload: error
-    }
-  else
-    return {
-      type: CREATE_HUB_SUCCESS
+    if (error)
+        return {
+            type: CREATE_HUB_ERROR,
+            payload: error
+        }
+    else
+        return {
+            type: CREATE_HUB_SUCCESS
 
-    }
+        }
 }
 
 
 
-export function createHub(data){
-   return function(dispatch) {
-    var user = Firebase.auth().currentUser;
-    Database.createHub(user.displayName, data.url, user.uid, data.isPublic, data.DestructHours)
-      .then(response => {
-        dispatch(createHubSend());
-      })
-      .catch(error => {
-        dispatch(createHubSend(error));
-      });
-  }
+export function createHub(data) {
+    return function(dispatch) {
+        var user = Firebase.auth().currentUser;
+        Database.createHub(user.displayName, data.url, user.uid, data.isPublic, data.DestructHours)
+            .then(response => {
+                dispatch(createHubSend());
+            })
+            .catch(error => {
+                dispatch(createHubSend(error));
+            });
+    }
 
 
 }

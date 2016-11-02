@@ -30,7 +30,7 @@ export default function(WrappedComponent) {
   }
 
   function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated };
+    return { authenticated: state.auth.authenticatedFull };
   }
 
   return connect(mapStateToProps)(Auth);

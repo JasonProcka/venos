@@ -12,6 +12,8 @@ class Nav extends React.Component {
   }
 
   renderNavContent() {
+      console.log('authenticated');
+      console.log(this.props.authenticated);
     if (this.props.authenticated) {
       return [
         <ul key={1} className="upper-items smooth">
@@ -51,7 +53,7 @@ class Nav extends React.Component {
         </ul>,
         <ul key={2} className="upper-items smooth">
           <NavLabel>ACCESS</NavLabel>
-          <NavLink key={1} to="join" icon="assignment">Join/Register</NavLink>
+          <NavLink key={1} to="join" icon="assignment">Join / Register</NavLink>
           <NavLink key={2} to="login" icon="account_circle">Login</NavLink>
         </ul>,
         <ul  key={3} className="upper-items smooth">
@@ -81,7 +83,7 @@ class Nav extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticatedFull
   }
 }
 

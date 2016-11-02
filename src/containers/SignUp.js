@@ -26,7 +26,9 @@ const validate = values => {
 
 class SignUp extends React.Component {
   handleFormSubmit = (values) => {
-    this.props.signInUser(values);
+      console.log('test');
+      console.log(values);
+    this.props.signUpUser(values);
   };
 
 
@@ -71,7 +73,7 @@ class SignUp extends React.Component {
                   <input type="checkbox" id="checkbox-1" className="mdl-checkbox__input" checked />
                   <span className="mdl-checkbox__label">Remember me</span>
                 </label>
-                <input className="form-login mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Login" />
+                <input className="form-login mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Sign Up" />
             </form>
           </div>
         </div>

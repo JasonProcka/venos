@@ -1,6 +1,5 @@
 import React from 'react';
 import Nav from '../containers/Nav';
-import { Link } from 'react-router';
 import Footer from '../containers/Footer';
 
 

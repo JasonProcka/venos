@@ -28,8 +28,7 @@ export default function configureStore(initialState){
     });
   }
 
-  store.dispatch(Actions.signInAnonymously());
-  store.dispatch(Actions.verifyAuth());
+  store.dispatch(Actions.initialAuth());
 
   return store;
 }

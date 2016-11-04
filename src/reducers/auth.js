@@ -2,7 +2,8 @@ import { AUTH_USER_ANONYM, AUTH_USER_FULL, SIGN_OUT_USER, AUTH_ERROR } from '../
 
 
 const initialState = {
-  authenticated: false,
+  authenticatedFull: false,
+  authenticatedAnonym: false,
   error: null
 };
 

@@ -1,24 +1,31 @@
 import React from 'react';
-import HubHeader from './HubHeader.js';
-import HubContent from './HubContent.js';
+
 
 class Hub extends React.Component {
+
+    constructor(props) {
+     super(props);
+     console.log(this.props.hub);
+
+
+  }
+
     render() {
-    return
+    return (
     <div>
         <div className="hub-jumbo jumbo-nonav">
             <div className="max-width">
                 <div className="jumbo-content">
                     <div className="jumbo-info">
-                        <h3 className="jumbo-title">Mr. Prockas English 12</h3>
-                        <p className="jumbo-description">Drop your recent slideshows here!</p>
+                        <h3 className="jumbo-title">{this.props.hub.name}</h3>
+                        <p className="jumbo-description">{this.props.hub.description}</p>
                     </div>
                     <div className="jumbo-buttons">
                         <a className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent create-drop">
                             Create Drop
                         </a>
-                        <button id="link-copier" className="mdl-button mdl-js-button mdl-js-ripple-effect" style="color: #FFF;">
-                            Copy Link
+                        <button id="link-copier" className="mdl-button mdl-js-button mdl-js-ripple-effect" style={{color: '#FFF'}}>
+                            Copy
                         </button>
                     </div>
                 </div>
@@ -40,8 +47,8 @@ class Hub extends React.Component {
                 </div>
             </div>
         </div>
-        <HubContent />
     </div>
+)
   }
 }
 

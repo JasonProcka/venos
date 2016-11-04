@@ -14,10 +14,12 @@ import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 const STATUS_ENTER_DETAILS = 1;
 const STATUS_CREATED_HUB = 2;
 const STATUS_CREATED_ERROR = 3;
-
+import Firebase from 'firebase';
+import shortid from 'shortid';
 
 
 
@@ -25,8 +27,7 @@ const STATUS_CREATED_ERROR = 3;
 
 const validate = values => {
   const errors = {};
-  console.log('test');
-console.log(values.name);
+
   if(!values.name  ) {
     errors.name = "Please enter a name.";
 }else{
@@ -63,17 +64,20 @@ class Create extends React.Component {
 
     handleFormSubmit = (values) => {
 
-        values.customurl = values.customurl ? values.customurl : "";
+        values.customurl = values.customurl ? values.customurl : shortid.generate();
 
-        this.props.createHub(
-            {
-                name: values.name,
-                url: "test.de",
-                ownerUid: "fsdf",
-                isPublic: true,
-                destructionTimeInHours: 5
+var m = {
+    name: values.name,
+    description: values.description,
+    url: values.customurl,
+    isPublic: true,
+    destructionTimeInHours: 48
 
-            });
+};
+
+        this.props.createHub(m);
+
+
 
 
 
@@ -109,7 +113,7 @@ class Create extends React.Component {
 
     renderDialogSpecificToStatus(status) {
 
-    console.log(status);
+
      switch(status) {
           case STATUS_ENTER_DETAILS:
 
@@ -126,7 +130,6 @@ class Create extends React.Component {
                         <Field key={2} label="Description" hint="A cool hub that is cool"  name="description" component={this.renderField}  type="text" />
                         <p>Optional</p>
                         <span>{`venos.co/`}</span><Field key={3} hint="custom-url"  name="customurl" component={this.renderField}  type="text" />
-
                         <RaisedButton type="submit" label="Submit"  primary={true} />
                     </form>
                       </div>
@@ -208,7 +211,6 @@ const dialog = this.renderDialogSpecificToStatus(this.state.status);
     );
   }
 }
-
 
 
 

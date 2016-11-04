@@ -1,8 +1,11 @@
 import {
     browserHistory
 } from 'react-router';
-import Firebase from 'firebase';
-import * as Database from './database';
+
+import Firebase from './firebaseinit';
+import Database from './database';
+
+
 
 
 
@@ -16,16 +19,7 @@ export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 export const CREATE_HUB_SUCCESS = 'CREATE_HUB_SUCCESS';
 export const CREATE_HUB_ERROR = 'CREATE_HUB_ERROR';
 
-const config = {
-    apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU",
-    authDomain: "project-mango-5d7d3.firebaseapp.com",
-    databaseURL: "https://project-mango-5d7d3.firebaseio.com",
-    storageBucket: "project-mango-5d7d3.appspot.com",
-    messagingSenderId: "663419739417"
-};
 
-Firebase.initializeApp(config);
-Database.setDatabase(Firebase);
 
 
 export function signInUser(credentials) {
@@ -200,15 +194,40 @@ export function createHubSend(error) {
 
 export function createHub(data) {
     return function(dispatch) {
-        var user = Firebase.auth().currentUser;
-        Database.createHub(user.displayName, data.url, user.uid, data.isPublic, data.DestructHours)
-            .then(response => {
-                dispatch(createHubSend());
-            })
-            .catch(error => {
-                dispatch(createHubSend(error));
-            });
+        getCurrentUser().then(function(user) {
+            console.log("create2");
+            if(user != null){
+                console.log("create");
+            Database.createHub(data.name,  data.description, data.url, user.uid, data.isPublic, data.destructionTimeInHours)
+                .then(response => {
+                    dispatch(createHubSend());
+                })
+                .catch(error => {
+                    dispatch(createHubSend(error));
+                });
+            }else{
+                dispatch(createHubSend("User is not logged in"));
+            }
+
+
+        })
+
+
     }
 
 
 }
+
+// export function createHub(data){
+//     return function(dispatch) {
+// -       console.log('test5');
+// +
+// +    Database.createHub(data.name, data.description, "f", true, true, 48)
+//        .then(response => {
+//          dispatch(createHubSend());
+//        })
+//        .catch(error => {
+//          dispatch(createHubSend(error));
+//        });
+//    }
+// }

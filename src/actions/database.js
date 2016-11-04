@@ -1,16 +1,12 @@
-
-
-
-
 // database node keys
 var KEY_HUB = "hub";
 var KEY_USER = "user";
 var NODE_SEP = "/";
 
-
 var KEY_DESTRUCTION_TIME_IN_HOURS = "destructionTimeInHours";
 var KEY_DESTRUCTION_DATE = "destructionTime";
 var KEY_NAME = "name";
+var KEY_DESCRIPTION = "description";
 var KEY_OWNER_UID = "ownerUid";
 var KEY_PUBLIC = "public";
 var KEY_URL = "url";
@@ -23,14 +19,6 @@ var KEY_ACCESS_EVERYONE = "everyone";   // hub access for everyone
 var KEY_ACCESS_ACCOUNT = "account"      // hub access for people with gively account
 var KEY_ACCESS_MEMBERS = "members"      // hub access only for one's self and all whitelisted admins and member
 
-var exports = module.exports = {};
-var schedule = require('node-schedule');
-
-
-exports.ACCESS_EVERYONE = KEY_ACCESS_EVERYONE;
-exports.ACCESS_ACCOUNT = KEY_ACCESS_ACCOUNT;
-exports.ACCESS_MEMBERS = KEY_ACCESS_MEMBERS;
-
 
 const config = {
    apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU",
@@ -40,27 +28,23 @@ const config = {
    messagingSenderId: "663419739417"
  };
 
-
-var database = null;
-exports.setDatabase = function (firebase){
-    database = firebase.database();
-}
+import schedule from 'node-schedule';
+import Firebase from './firebaseinit';
 
 
+var database = Firebase.database();
 
 
 
-// ------------------- Hub Methods --------------------------- 
+// ------------------- Hub Methods ---------------------------
 
 // used after a restart of the server
 var startAllHubDestructs = function () {
-    
-    
     var reference = database.ref(KEY_HUB).orderByChild(KEY_DESTRUCTION_TIME_IN_HOURS);
     reference.on('child_added', function (data) {
         var milliseconds = data.val()[KEY_DESTRUCTION_DATE];
         if(milliseconds){
-            startHubDesctruct(data.key, new Date(milliseconds));   
+            startHubDesctruct(data.key, new Date(milliseconds));
         }
     });
 };
@@ -80,12 +64,12 @@ var startHubDesctruct = function (hubId, date) {
     var isPast = isDateInPast(date);
     if(!isPast){
         var j = schedule.scheduleJob(date, function () {
-            exports.deleteHubById(hubId).then(function () {
+            deleteHubById(hubId).then(function () {
                 console.log("worked");
             });
         });
     }else{
-        exports.deleteHubById(hubId).then(function () {
+        deleteHubById(hubId).then(function () {
             console.log("worked");
         });
     }
@@ -101,31 +85,83 @@ var getDestructDate = function (date, hours) {
 
 
 
+var findHubByUrl = function(url){
+    return new Promise(
+        function(resolve, reject){
 
+            Firebase.database().ref(KEY_HUB + NODE_SEP).orderByChild(KEY_URL).equalTo(url).limitToFirst(1).once('value').then(function(snapshot) {
+                // current snapshot contains 'hub' as key and the hub object as value but we can't access it so we need to get it somehow:
+                if(snapshot == null || snapshot.val() == null){
+                    reject("Fetched data is null, hub can't exist");
+                }
+                console.log('mytest');
+                snapshot.forEach(function(childSnapshot){
+                    if(childSnapshot.val()){
+
+                        var hubObject = createHubObject(
+                            childSnapshot.child(KEY_NAME).val(),
+                            childSnapshot.child(KEY_DESCRIPTION).val(),
+                            childSnapshot.child(KEY_URL).val(),
+                            childSnapshot.child(KEY_OWNER_UID).val(),
+                            childSnapshot.child(KEY_DESTRUCTION_TIME_IN_HOURS).val(),
+                            childSnapshot.child(KEY_PUBLIC).val()
+                        );
+                        console.log("key: "  + childSnapshot.child('name').val());
+                        resolve(hubObject);
+                    }else {
+                        console.log('mybtest');
+                        reject("Value ob hub does not exist");
+                    }
+                });
+
+
+            }).catch(function(){
+                console.log('test');
+                reject("No hub data found using Firebase");
+
+            });
+
+
+
+        });
+}
+
+// method for getting a hub object that should be used by all hub returning methods
+var createHubObject = function(name, description, url, ownerUid, destructionTimeInHours, isPublic){
+    return {
+        [KEY_NAME]: name,
+        [KEY_DESCRIPTION]: description,
+        [KEY_URL]: url,
+        [KEY_OWNER_UID]: ownerUid,
+        [KEY_DESTRUCTION_TIME_IN_HOURS]: destructionTimeInHours,
+        [KEY_PUBLIC]: isPublic
+    }
+}
 
 // Creates Hub, returns id of hub
-exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHours) {
+var createHub = function (name, description, url, ownerUid, isPublic, destructionTimeInHours) {
     return new Promise(
         function(resolve, reject){
             var creationTime = new Date();
-    
+
             var object = {
-                [KEY_NAME]: name,   // Name of hub
+                [KEY_NAME]: name,
+                [KEY_DESCRIPTION]: description,   // Name of hub
                 [KEY_OWNER_UID]: ownerUid,   // Unique id of the owner of this hub
                 [KEY_URL]: url, // TODO specified url of the hub, needs to encoded because firebase doesn't allow every special character
                 [KEY_PUBLIC]: isPublic ? true : false,  // Is the hub public accessable
                 [KEY_CREATION_TIME]: creationTime.getTime()
             };
-    
+
             var reference = database.ref(KEY_HUB + NODE_SEP).push();
-    
-    
+
+
             if (destructionTimeInHours !== null && destructionTimeInHours !== undefined) {
                 var destructionDate = getDestructDate(creationTime, destructionTimeInHours);
-        
+
                 object[KEY_DESTRUCTION_TIME_IN_HOURS] = destructionTimeInHours;
                 object[KEY_DESTRUCTION_DATE] = destructionDate.getTime();
-        
+
                 reference.set(object, function (error) {
                     if(error){
                         reject(error);
@@ -135,12 +171,12 @@ exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHo
             } else {
                 reference.set(object);
             }
-            database.ref(KEY_USER + NODE_SEP + KEY_HUB_OWNER + NODE_SEP + KEY_HUB + NODE_SEP + reference.key).set(true);
+            database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_OWNER + NODE_SEP + KEY_HUB + NODE_SEP + reference.key).set(true);
             console.log(reference.key);
             return resolve(reference.key);
     });
-        
-    
+
+
 };
 
 
@@ -149,7 +185,7 @@ exports.createHub = function (name, url, ownerUid, isPublic, destructionTimeInHo
 
 // Deletes Hub, by it's id and owner id
 var deleteHubByIdAndUid = function (hubId, ownerUid) {
-    
+
     var promises = [];
     promises.push(database.ref(KEY_HUB + NODE_SEP + hubId).remove());
     promises.push(database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_OWNER + NODE_SEP + hubId).remove());
@@ -161,8 +197,8 @@ var deleteHubById = function (hubId) {
     var deleteOwnerInHubPromise = new Promise(
         function (resolve, reject) {
             console.log("test: " + hubId);
-            exports.getHubById(hubId).then(function (hub) {
-                exports.deleteHubByIdAndUid(hubId, hub.ownerUid).then(function () {
+            getHubById(hubId).then(function (hub) {
+                deleteHubByIdAndUid(hubId, hub.ownerUid).then(function () {
                     resolve();
                 });
             }, function () {
@@ -175,17 +211,17 @@ var deleteHubById = function (hubId) {
 
 
 var isUserMemberOfHub = function (hubId, uid){
-    
+
 }
 
 
 var addMemberToHubByUsername = function (hubId, uid, ownerUid) {
-    return database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_MEMBER + NODE_SEP + KEY_USER + uid).set(true);    
+    return database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_MEMBER + NODE_SEP + KEY_USER + uid).set(true);
 }
 
 
 var addUserByEmail = function (hubId, email, ownerUid) {
-    return database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_MEMBER + NODE_SEP + KEY_EMAIL + email).set(true);    
+    return database.ref(KEY_USER + NODE_SEP + ownerUid + NODE_SEP + KEY_HUB_MEMBER + NODE_SEP + KEY_EMAIL + email).set(true);
 }
 
 
@@ -201,7 +237,7 @@ var getHubById = function (hubId) {
                     o.id = snapshot.key;
                     resolve(o);
                 }
-                
+
             });
         }
     );
@@ -231,14 +267,14 @@ var updateHub = function (id, updates) {
 var getMyHubs = function (ownerUid) {
     return new Promise(
         function (resolve, reject) {
-            exports.getMyOwnedHubIds(ownerUid).then(function (hubIds) {
-                
+            getMyOwnedHubIds(ownerUid).then(function (hubIds) {
+
                 var promises = [];
-                
+
                 hubIds.forEach(function (value) {
-                    promises.push(exports.getHubById(value));
+                    promises.push(getHubById(value));
                 });
-                
+
                 Promise.all(promises).then(function (value) {
                     resolve(value);
                 }, function () {
@@ -250,10 +286,26 @@ var getMyHubs = function (ownerUid) {
         }
     );
 };
-// ------------------- File Methods --------------------------- 
+// ------------------- File Methods ---------------------------
 var addFileToHub = function (id) {
-    
-    
-    
+
+
+
 };
 var removeFileFromHub = function () {};
+
+
+
+var obj = {
+    createHub,
+    findHubByUrl,
+    testit: function(){
+        var reference = database.ref("test").push().set(true);
+        console.log('created');
+    }
+
+
+
+};
+
+export default obj;

@@ -30,7 +30,22 @@ const config = {
 
 import schedule from 'node-schedule';
 import Firebase from './firebaseinit';
+console.log('test');
+import gcs from '@google-cloud/storage';
 
+const storageClient = Storage({
+    projectId: 'czernitzki-148120',
+    keyFilename: '../../service.json'
+});
+
+// var storage = gcs.storage;
+//
+//
+//
+// // Create a new bucket.
+//
+// var bucket = gcs.bucket('venos-bucket');
+var bucket;
 
 var database = Firebase.database();
 
@@ -287,8 +302,12 @@ var getMyHubs = function (ownerUid) {
     );
 };
 // ------------------- File Methods ---------------------------
-var addFileToHub = function (id) {
-
+var addFileToHub = function (hubid,file) {
+    // bucket.upload("files/" + hubid + "/" + file.preview, function(err, file) {
+    //   if (!err) {
+    //     // "zebra.jpg" is now in your bucket.
+    //   }
+    // });
 
 
 };
@@ -299,6 +318,7 @@ var removeFileFromHub = function () {};
 var obj = {
     createHub,
     findHubByUrl,
+    addFileToHub,
     testit: function(){
         var reference = database.ref("test").push().set(true);
         console.log('created');

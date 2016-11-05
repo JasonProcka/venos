@@ -50,7 +50,7 @@ body::-webkit-scrollbar {
     -webkit-font-smoothing: antialiased;
 }
 
-.content {
+.hub-content {
     min-width: calc(100% - 230px);
     margin-left: 230px;
     display: inline-block;

@@ -31,8 +31,10 @@ const config = {
 import schedule from 'node-schedule';
 import Firebase from './firebaseinit';
 console.log('test');
-var storage = require('@google-cloud/storage');
 var projectId = process.env.GCLOUD_PROJECT;
+console.log(projectId);
+var storage = require('@google-cloud/storage');
+
 var gcs = storage({
     projectId: projectId
 });

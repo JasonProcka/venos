@@ -33,16 +33,16 @@ import Firebase from './firebaseinit';
 console.log('test');
 var projectId = process.env.GCLOUD_PROJECT;
 console.log(projectId);
-// var gcloud = require('google-cloud');
-// var storage = gcloud.storage;
+ var gcloud = require('google-cloud');
+ var Storage = gcloud.storage;
 //
 // var gcs = storage({
 //     projectId: projectId
 // });
-// const storageClient = Storage({
-//     projectId: 'czernitzki-148120',
-//     keyFilename: './service.json'
-// });
+ const storageClient = Storage({
+     projectId: 'czernitzki-148120',
+     keyFilename: require('./service')
+ });
 
 // var storage = gcs.storage;
 //

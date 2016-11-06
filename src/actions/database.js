@@ -33,12 +33,12 @@ import Firebase from './firebaseinit';
 console.log('test');
 var projectId = process.env.GCLOUD_PROJECT;
 console.log(projectId);
-var gcloud = require('google-cloud');
-var storage = gcloud.storage;
-
-var gcs = storage({
-    projectId: projectId
-});
+// var gcloud = require('google-cloud');
+// var storage = gcloud.storage;
+//
+// var gcs = storage({
+//     projectId: projectId
+// });
 // const storageClient = Storage({
 //     projectId: 'czernitzki-148120',
 //     keyFilename: './service.json'
@@ -51,7 +51,7 @@ var gcs = storage({
 // // Create a new bucket.
 //
 // var bucket = gcs.bucket('venos-bucket');
-var bucket = gcs.bucket('venos-bucket');
+var bucket;
 
 var database = Firebase.database();
 

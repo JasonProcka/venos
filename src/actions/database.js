@@ -33,7 +33,8 @@ import Firebase from './firebaseinit';
 console.log('test');
 var projectId = process.env.GCLOUD_PROJECT;
 console.log(projectId);
-var storage = require('@google-cloud/storage');
+var gcloud = require('google-cloud');
+var storage = gcloud.storage;
 
 var gcs = storage({
     projectId: projectId

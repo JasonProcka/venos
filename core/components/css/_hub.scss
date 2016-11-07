@@ -8,7 +8,7 @@ html {
 body {
     min-width: 100%;
     max-width: 100%;
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     z-index: 1001;
     background-color: #F2F2F2;
     height: 100%;
@@ -337,13 +337,13 @@ body {
 
 .overlay {
     display: none;
-    position: fixed;
+    position:fixed;
     z-index: 10001;
-    top: 0; 
-    left: 0;
-    bottom: 0; 
-    right: 0;
-    background-color: rgba(0,0,0,0.6);   
+    top:0; 
+    left:0;
+    bottom:0; 
+    right:0;
+    background-color:rgba(0,0,0,0.6);   
 }
 
 @media only screen and (max-width: 930px) {

@@ -1,0 +1,41 @@
+.no-scroll::-webkit-scrollbar { 
+    display: none; 
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 1px 7px 0px rgba(66,66,66,0.3);
+    -moz-box-shadow: 0px 1px 7px 0px rgba(66,66,66,0.3);
+    box-shadow: 0px 1px 7px 0px rgba(66,66,66,0.3);
+}
+
+.shadow-light {
+    -webkit-box-shadow: 0px 1px 7px 0px rgba(66,66,66,0.1);
+    -moz-box-shadow: 0px 1px 7px 0px rgba(66,66,66,0.1);
+    box-shadow: 0px 1px 7px 0px rgba(66,66,66,0.1);
+}
+
+.no-shadow {
+    box-shadow: none;
+}
+
+.smooth {
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    padding: 0 30px 0 30px;
+}
+
+/* MDL Components */
+
+.mdl-button {
+    -webkit-font-smoothing: antialiased;
+}
+
+/* MDL Icon Mods */
+
+.inline-icon {
+    font-family: 16px;
+    vertical-align: middle;
+    margin-right: 10px;
+}

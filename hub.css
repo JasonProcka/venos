@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    min-width: 100%;
+    max-width: 100%;
+    background-color: #F9F9F9;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.15);
+}
+
+.container {
+    padding: 0 30px 0 30px;
+}
+
+/* Image card */
+
+.demo-card-image.mdl-card {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('images/halloween.jpeg') center / cover;
+}
+
+.mdl-card__title {
+
+}
+
+.demo.cardimg  {
+    
+}
+
+.demo-card-image > .mdl-card__actions {
+    height: 52px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.demo-card-image__filename {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+}
+        
+.content {
+    min-width: calc(100% - 230px);
+    margin-left: 230px;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+.hub-jumbo {
+    width: 100%;
+    padding: 50px 0 50px 0;
+    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url('images/hub-2.jpg');
+    background-size: cover;
+    background-position: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.hub-jumbo .viewing-list {
+    margin: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    list-style: none;
+}
+
+.hub-jumbo .viewing-list li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.hub-jumbo .viewing-list li img {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.hub-jumbo .hub-title {
+    margin: 0 0 0px 0;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    color: #FFF;
+}
+
+.hub-jumbo .hub-description {
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    font-weight: 300;
+    color: #FFF;
+}
+
+.hub-jumbo .hub-buttons {
+    text-align: center;
+}
+
+.hub-jumbo .hub-buttons .copy-link {
+    margin-right: 10px;
+    width: 160px;
+    font-weight: 400;
+}
+
+.hub-jumbo .hub-bottons .create-drop {
+    margin-left: 10px;
+    width: 160px;
+    font-weight: 400;
+}
+
+.drop-grid {
+    max-width: calc(100% - 260px);
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.tile-col {
+    width: 220px;
+    margin: 20px 20px 0 20px;
+    float: right;
+    padding: 0;
+}
+
+/* Alerts */
+
+.tile {
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    background-color: #4FC3F7;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.tile-text {
+    font-weight: 400;
+    color: #FFF;
+    margin: 20px;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.tile-image {
+    width: calc(100% - 100px);
+    display: block;
+    margin: auto;
+    border-radius: 2px;
+}
+
+.tile-button {
+    position: relative;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Advertisement */
+
+.demo-card-event.mdl-card {
+  width: 100%;
+  height: 230px;
+  background: #3E4EB8;
+}
+.demo-card-event > .mdl-card__actions {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.demo-card-event > .mdl-card__title {
+  align-items: flex-start;
+}
+.demo-card-event > .mdl-card__title > h4 {
+  margin-top: 0;
+}
+.demo-card-event > .mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  align-items: center;
+}
+.demo-card-event > .mdl-card__actions > .material-icons {
+  padding-right: 10px;
+}
+.demo-card-event > .mdl-card__title,
+.demo-card-event > .mdl-card__actions,
+.demo-card-event > .mdl-card__actions > .mdl-button {
+  color: #fff;
+}
+
+/* End event card */

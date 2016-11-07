@@ -21,16 +21,37 @@ var KEY_ACCESS_MEMBERS = "members"      // hub access only for one's self and al
 
 
 const config = {
-   apiKey: "AIzaSyCgj1rbQDMkDE80I7lYiDdeEvAHiQNDJGU",
-   authDomain: "project-mango-5d7d3.firebaseapp.com",
-   databaseURL: "https://project-mango-5d7d3.firebaseio.com",
-   storageBucket: "project-mango-5d7d3.appspot.com",
-   messagingSenderId: "663419739417"
+    apiKey: "AIzaSyCgM3Yq4wVitKL8lzSDatkAj9W5ackTB5M",
+     authDomain: "czernitzki-148120.firebaseapp.com",
+     databaseURL: "https://czernitzki-148120.firebaseio.com",
+     storageBucket: "czernitzki-148120.appspot.com",
+     messagingSenderId: "828507895922"
  };
 
 import schedule from 'node-schedule';
 import Firebase from './firebaseinit';
+console.log('test');
+var projectId = process.env.GCLOUD_PROJECT;
+console.log(projectId);
+ var gcloud = require('google-cloud');
+ var Storage = gcloud.storage;
+//
+// var gcs = storage({
+//     projectId: projectId
+// });
+ const storageClient = Storage({
+     projectId: 'czernitzki-148120',
+     keyFilename: require('./service')
+ });
 
+// var storage = gcs.storage;
+//
+//
+//
+// // Create a new bucket.
+//
+// var bucket = gcs.bucket('venos-bucket');
+var bucket;
 
 var database = Firebase.database();
 
@@ -287,8 +308,12 @@ var getMyHubs = function (ownerUid) {
     );
 };
 // ------------------- File Methods ---------------------------
-var addFileToHub = function (id) {
-
+var addFileToHub = function (hubid,file) {
+    // bucket.upload("files/" + hubid + "/" + file.preview, function(err, file) {
+    //   if (!err) {
+    //     // "zebra.jpg" is now in your bucket.
+    //   }
+    // });
 
 
 };
@@ -299,6 +324,7 @@ var removeFileFromHub = function () {};
 var obj = {
     createHub,
     findHubByUrl,
+    addFileToHub,
     testit: function(){
         var reference = database.ref("test").push().set(true);
         console.log('created');

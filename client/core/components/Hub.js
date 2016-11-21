@@ -7,7 +7,7 @@ export default React.createClass({
     <div class="max-width">
         <div class="jumbo-content">
             <div class="jumbo-info">
-                <h3 class="jumbo-title">Mr. Procka's English 12</h3>
+                <h3 class="jumbo-title">{`Mr. Procka's English 12`}</h3>
                 <p class="jumbo-description">Drop your recent slideshows here!</p>
             </div>
             <div class="jumbo-buttons">
@@ -40,7 +40,7 @@ export default React.createClass({
 <div class="dropzonecontainer shadow-light">
     <div class="closecontainer">
         <h4>Create Drop</h4>
-        <span class="closeadddrop"><i class="material-icons">close</i></span>    
+        <span class="closeadddrop"><i class="material-icons">close</i></span>
     </div>
     <form action="/file-upload"
         class="dropzone createdropzone">

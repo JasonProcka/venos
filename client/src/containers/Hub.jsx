@@ -1,8 +1,12 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import Database from '../actions/database'
+import { bindActionCreators } from 'redux'
+import * as Actions from '../actions';
+import { connect } from 'react-redux';
+import request from 'superagent';
 import '../styles/hub.css'
-
+import util from 'util';
 
 class Hub extends React.Component {
 
@@ -24,20 +28,51 @@ class Hub extends React.Component {
         //     e.preventDefault();
         //     alert('use the content to drag files, feature will be added for sidebar');
         // },false);
+console.log('hubid:' + this.props.hub.id);
+    request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
+       console.log("err: " + err);
+       console.log("resp: " + res);
+       var files = this.state.files;
+       var e = [];
+       if(this.state.files != undefined && this.state.files.length > 0){
+           console.log("e");
+           for(var i = 0; i < this.state.files.length; i++){
+           e.push(this.state.files[i]);
+           }
+       }
+       var array = JSON.parse(res.text);
+       for(var i = 0; i < array.length; i++){
+           e.push({preview: `/file?file=${array[i]}`});
+       }
+       this.setState({files: e});
+       console.log(util.inspect(res, { showHidden: true, depth: null }));
+   });
 
     }
 
     onDrop(acceptedFiles) {
         console.log(acceptedFiles);
+        this.props.actions.uploadFiles(acceptedFiles, this.props.hub);
+        var e = [];
+        for(var i = 0; i < acceptedFiles.length; i++){
+            e.push(acceptedFiles[i]);
+        }
+        if(this.state.files != undefined && this.state.files.length > 0){
+            console.log("e");
+            for(var i = 0; i < this.state.files.length; i++){
+            e.push(this.state.files[i]);
+            }
+        }
+        console.log("test1: " + util.inspect(acceptedFiles, { showHidden: true, depth: null }))
+        console.log("test2: " + util.inspect(this.state, { showHidden: true, depth: null }));
+        console.log("e: " + util.inspect(e, { showHidden: true, depth: null }));
+        this.setState({files: e});
 
-        acceptedFiles.forEach((file) => {
-            Database.addFileToHub("test", file);
-        });
+// caution, type form is required
 
 
-        this.setState({
-            files: acceptedFiles
-        });
+
+
     }
 
     onOpenClick() {
@@ -124,4 +159,10 @@ class Hub extends React.Component {
     }
 }
 
-export default Hub;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Hub);

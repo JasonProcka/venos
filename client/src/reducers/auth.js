@@ -35,7 +35,7 @@ export default function gifs(state = initialState, action) {
         ...state,
         authenticatedFull: false,
         authenticatedAnonym: false,
-        error: action.payload.message
+        error: null
       }
     default:
       return state;

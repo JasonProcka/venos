@@ -1,8 +1,16 @@
 .mdl-mini-footer {
     background-color: #FFF;
     color: #ff75a4;
+    margin-left: 260px;
 }
 
 .mdl-mini-footer .mdl-logo {
     color: #29B6F6;
+}
+
+@media only screen and (max-width: 930px) {
+    .mdl-mini-footer {
+        min-width: 100%;
+        margin-left: 0;
+    }
 }

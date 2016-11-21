@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet">
+    <!--Modified Material Design Styling -->
+    <link rel="stylesheet" href="../mdl/material.min.css" type="text/css">
+    <!-- Components -->
+    <link rel="stylesheet" href="../components.css" />
+    <!-- Nav -->
+    <link rel="stylesheet" href="../nav/nav.css" type="text/css" />
+    <!-- Custom Styling -->
+    <link rel="stylesheet" href="hub.css" type="text/css" />
+    <!-- Grid-->
+    <link rel="stylesheet" href="../grid.css" type="text/css" />
+    <!-- Dropzone Styling -->
+    <link rel="stylesheet" href="dropzone.css" type="text/css" />
+    <!-- Footer -->
+    <link rel="stylesheet" href="../footer.css" type="text/css" />
+    <script defer src="../mdl/material.min.js"></script>
+    <title>Hub</title>
+</head>
+<body class="no-scroll">
+<nav class="nav-custom shadow-light">
+    <div class="inner-nav">
+    <ul class="upper-items smooth">
+        <li class="label">NAVIGATE</li>
+        <li class="link smooth"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">home</i> Dashboard<div class="ripple-container"></div></a></li>
+        <li class="link smooth"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">fingerprint</i> Creations</a></li>
+        <li class="link smooth"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">notifications</i> <span class="mdl-badge" data-badge="2">Notifications</span></a></li>
+        <li class="link smooth"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">cloud</i> Synced Files</a></li>
+        <li class="link smooth"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">create</i> Create Hub</a></li>
+    </ul>
+    <ul class="upper-items smooth">
+        <li class="label">RECENT</li>
+        <li class="link"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">folder</i> Jason's Vacation 2016</a></li>
+        <li class="link"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">folder</i> San Haven Roadtrip</a></li>
+        <li class="link selected"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">folder</i> Bismarck Roadtrip</a></li>
+    </ul>
+    <!-- <a class="show-hubs smooth btn btn-lg txt-center txt-white bg-blue no-border display-block" href="" role="button">Show More</a>
+    -->
+    <ul class="upper-items smooth">
+        <li class="label">TRENDING</li>
+        <li class="link"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">trending_up</i> Shocking HRC Leak</a></li>
+        <li class="link"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">trending_up</i> WikiLeaks Drop 4</a></li>
+        <li class="link selected"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">trending_up</i> Julian Assange Emails</a></li>
+        <li class="link selected"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">trending_up</i> Hillary Clinton Emails</a></li>
+        <li class="link selected"><a href="" class="mdl-js-ripple-effect mdl-js-button"><i class="material-icons">trending_up</i> Leonardo DiCaprio Pics</a></li>
+    </ul>
+    </div>
+    <div class="nav-push-div"></div>
+    <!--
+    <div class="more-menu">
+        <ul>
+            <li><a class="more-menu-link nonactive txt-blue" href="settings.html">Settings</a></li>
+            <li><a class="more-menu-link nonactive txt-blue" href="signout.html">Signout</a></li>
+        </ul>
+    </div>
+    <div class="nav-user">
+        <div class="user-image"></div>
+        <span class="user-name">Jason Procka</span>
+        <button type="button" class="more-dropup">
+        <i class="flaticon-more"></i>
+        </button>
+    </div>
+    -->
+</nav>
+<div class="drop-theater drop-theater-closed">
+    <header class="theater-header">
+        <div class="drop-name">Desert-Night-Desktop-Wallpaper.png</div>
+        <button class="theater-close mdl-button mdl-js-button mdl-js-ripple-effect">
+          CLOSE
+        </button>
+        <button id="discuss" class="drop-discuss mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">chat_bubble</i>
+        </button>
+        <div class="mdl-tooltip" data-mdl-for="discuss">
+        Discuss
+        </div>
+        <button id="favorite" class="drop-favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">thumb_up</i>
+        </button>
+        <div class="mdl-tooltip" data-mdl-for="favorite">
+        Favorite
+        </div>
+        <button id="zoom-in" class="zoom-in mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" title="Zoom In">
+            <i class="material-icons">zoom_in</i>
+        </button>
+        <div class="mdl-tooltip" data-mdl-for="zoom-in">
+        Zoom In
+        </div>
+        <button id="zoom-out" class="zoom-out mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" title="Zoom Out">
+            <i class="material-icons">zoom_out</i>
+        </button>
+        <div class="mdl-tooltip" data-mdl-for="zoom-out">
+        Zoom Out
+        </div>
+    </header>
+    <div class="viewer">
+        <figure class="scaled">
+            <img class="scaled-image shadow" src="../images/desert-night.png" />
+        </figure>
+        <figure class="actual_pixel">
+			<div class="actual_pixel_center">
+				<img src="../images/desert-night.png" alt="" class="actual_pixel_image">
+			</div>
+		</figure>
+    </div>
+    <button class="drop-download mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+      DOWNLOAD
+    </button>
+</div>
+<div class="content">
+    <div class="hub-jumbo jumbo-nonav">
+        <div class="max-width">
+            <div class="jumbo-content">
+                <div class="jumbo-info">
+                    <h3 class="jumbo-title">Mr. Procka's English 12</h3>
+                    <p class="jumbo-description">Drop your recent slideshows here!</p>
+                </div>
+                <div class="jumbo-buttons">
+                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent create-drop">
+                        Create Drop
+                    </a>
+                    <button id="link-copier" class="mdl-button mdl-js-button mdl-js-ripple-effect" style="color: #FFF;">
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+            <!-- Simple header with scrollable tabs. -->
+            <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+              <header class="mdl-layout__header">
+                <!-- Tabs -->
+                <div class="mdl-layout__tab-bar">
+                    <a href="#scroll-tab-1" class="mdl-layout__tab is-active">Drops</a>
+                    <a href="#scroll-tab-2" class="mdl-layout__tab">Bio</a>
+                </div>
+              </header>
+              <main class="mdl-layout__content">
+                <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+                  <div class="page-content"><!-- Your content goes here --></div>
+                </section>
+                <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+                  <div class="page-content"><!-- Your content goes here --></div>
+                </section>
+              </main>
+            </div>
+        </div>
+    </div>
+    <div class="dropzonecontainer shadow-light">
+        <div class="closecontainer">
+            <h4>Create Drop</h4>
+            <span class="closeadddrop"><i class="material-icons">close</i></span>    
+        </div>
+        <form action="/file-upload"
+            class="dropzone createdropzone">
+            <span class="dz-message"><h4>Drag & Drop</h4><p>your files, or click anywhere</p></span>
+        </form>
+    </div>
+    <div class="lower-content">
+        <div class="sub-content">
+            <div class="hub-grid grid-full">
+                <div class="col-4">
+                    <div class="col">
+                        <div class="hub-card demo-card-image mdl-card shadow-light">
+                            <div class="mdl-card__title mdl-card--expand"></div>
+                            <div class="mdl-card__actions">
+                                <span class="demo-card-image__filename">Desert-Night-Desktop-Wallpaper.png</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="col">
+                        <div class="hub-card demo-card-image mdl-card shadow-light">
+                            <div class="mdl-card__title mdl-card--expand"></div>
+                            <div class="mdl-card__actions">
+                                <span class="demo-card-image__filename">write_illustration.png</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="col">
+                        <div class="hub-card demo-card-image mdl-card shadow-light">
+                            <div class="mdl-card__title mdl-card--expand"></div>
+                            <div class="mdl-card__actions">
+                                <span class="demo-card-image__filename">Screen Shot 2016-10-07 at 6.53.59 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="col">
+                        <div class="hub-card demo-card-image mdl-card shadow-light">
+                            <div class="mdl-card__title mdl-card--expand"></div>
+                            <div class="mdl-card__actions">
+                                <span class="demo-card-image__filename">nlenvirte_1031.pdf</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="col">
+                        <div class="hub-card demo-card-image mdl-card shadow-light">
+                            <div class="mdl-card__title mdl-card--expand"></div>
+                            <div class="mdl-card__actions">
+                                <span class="demo-card-image__filename">Desert-Night-Desktop-Wallpaper.png</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="col">
+                        <div class="hub-card demo-card-image mdl-card shadow-light">
+                            <div class="mdl-card__title mdl-card--expand"></div>
+                            <div class="mdl-card__actions">
+                                <span class="demo-card-image__filename">lPchzq.png</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="mdl-mini-footer">
+      <div class="mdl-mini-footer__left-section">
+        <ul class="mdl-mini-footer__link-list">
+            <li><a href="#">Our Mission</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy & Terms</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </footer>
+<div class="overlay"></div>
+<div class="drop-theater-overlay"></div>
+<!-- JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Page JS -->
+<script type="text/javascript" src="hub.js"></script>
+<script type="text/javascript" src="../dropzone.js"></script>
+<div id="link-copied" class="link-copied mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button">OK</button>
+</div>
+<script>
+(function() {
+  'use strict';
+  window['counter'] = 0;
+  var snackbarContainer = document.querySelector('#link-copied');
+  var showToastButton = document.querySelector('#link-copier');
+  showToastButton.addEventListener('click', function() {
+    'use strict';
+    var data = {message: 'Hub link copied. Paste away!'};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+  });
+}());
+</script>
+</body>
+</html>

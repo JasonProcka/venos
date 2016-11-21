@@ -1,0 +1,145 @@
+.dropzonecontainer {
+    display: none;
+    z-index: 10002;
+    padding: 30px;
+    width: 600px;
+    position: fixed;
+    top: 50%;
+    left: calc(50%);
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    background-color: #FFF;
+    overflow: hidden;
+}
+
+.closecontainer {
+    width: 100%;
+    position: relative;
+}
+
+.closecontainer h4 {
+    display: inline-block;
+    margin: 0 0 20px 0;
+    color: #9E9E9E;
+    -webkit-font-smoothing: antialiased;
+}
+
+.closeadddrop {
+    position: absolute;
+    right: 2%;
+    font-size: 28px;
+    z-index: 10001;
+    text-decoration: none;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.closeadddrop:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.createdropzone {
+    height: 400px;
+    position: relative;
+    border-radius: 10px;
+    border: 3px dashed #f5f5f5;
+    background-color: white;
+    overflow: scroll;
+}
+
+.dropzoneopen {
+    display: block;
+    -webkit-transition: all 1s ease-in;
+    -moz-transition: all 1s ease-in;
+    -ms-transition: all 1s ease-in;
+    -o-transition: all 1s ease-in;
+    transition: all 1s ease-in;
+}
+
+.dropzoneclosed {
+    display: none;
+    -webkit-transition: all 1s ease-in;
+    -moz-transition: all 1s ease-in;
+    -ms-transition: all 1s ease-in;
+    -o-transition: all 1s ease-in;
+    transition: all 1s ease-in;   
+}
+
+.uploadicon {
+    display: block;
+    width: 40%;
+    margin: auto;
+}
+
+.dz-message {
+    text-align: center;
+    font-family: 'PT Sans', sans-serif;
+    margin: 0 auto;
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    left: calc(50%);
+    transform: translateX(-50%) translateY(50%);
+}
+
+.dz-message h4 {
+    margin-bottom: 0px;
+    color: #757575;
+    font-size: 20px;
+}
+
+.dz-message p {
+    color: #BDBDBD;
+}
+
+.dz-success-mark, .dz-error-mark {
+    float: right;
+    display: inline-block;
+}
+
+.dz-image {
+    display: inline-block;
+}
+
+.dz-details {
+    display: inline-block;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.dz-size span {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+}
+
+.dz-image {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.dz-image img {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dz-filename span {
+    font-family: 'Ubuntu', sans-serif;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.dz-error-message {
+    display: none;
+}

@@ -1,5 +1,5 @@
 html {
-    color: #000;
+    color: #FFF;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     overflow: hidden;
     height: 100%;
@@ -337,13 +337,13 @@ body {
 
 .overlay {
     display: none;
-    position:fixed;
+    position: fixed;
     z-index: 10001;
-    top:0; 
-    left:0;
-    bottom:0; 
-    right:0;
-    background-color:rgba(0,0,0,0.6);   
+    top: 0; 
+    left: 0;
+    bottom: 0; 
+    right: 0;
+    background-color: rgba(0,0,0,0.6);   
 }
 
 @media only screen and (max-width: 930px) {
@@ -377,3 +377,75 @@ body {
         font-size: 14px;
     }
 }
+
+/* 
+
+.hub-jumbo .hub-buttons {
+    text-align: center;
+}
+
+.hub-jumbo .hub-buttons .copy-link {
+    margin-right: 10px;
+    width: 160px;
+    font-weight: 400;
+    background-color: rgba(198, 0, 66, 1);
+}
+
+.hub-jumbo .hub-buttons .create-drop {
+    margin-left: 10px;
+    width: 160px;
+    font-weight: 400;
+    background-color: rgba(198, 0, 66, 1);
+}
+
+*/
+
+/*
+
+.myhubs-grid {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.myhubs-grid .col {
+    
+}
+
+.myhubs-grid .col .admin-option {
+    width: 100%;
+    height: 210px;
+    background-color: #FFF;
+}
+
+.right-col {
+    width: 210px;
+    margin: 20px 0 0 0px;
+    float: right;
+    padding: 0;
+}
+
+.tile {
+    width: calc(100% - 20px);
+    height: 210px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 2px;
+    background-color: #4FC3F7;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.filler-card {
+    width: 100%;
+    height: 210px;
+    background-color: rgb(115, 115, 115);;
+    border-radius: 2px;
+}
+
+*/

@@ -3,17 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "http://venos.co",
-<<<<<<< HEAD
   "babel": {
     "presets": [
       "es2015",
       "stage-0"
     ]
-=======
-  "devDependencies": {
-    "case-sensitive-paths-webpack-plugin": "^1.1.4",
-    "react-scripts": "0.6.1"
->>>>>>> 6a5c77ec626860d1f287d113fd898a9c785feab3
   },
   "dependencies": {
     "@google-cloud/storage": "^0.4.0",

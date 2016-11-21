@@ -1,0 +1,79 @@
+body {
+    background-color: #F2F2F2;
+}
+
+.created {
+    width: 400px;
+    padding: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: #FFF;
+    border-radius: 2px;
+}
+
+.foyer-header {
+    width: 100%;
+    height: 100px;
+    padding: 1% 0% 0% 0%;
+    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/hub-2.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.foyer-header .form-join {
+    margin: 0 0 1% 1%;
+    color: #FFF;
+    display: block;
+}
+
+.foyer-wrapper h4 {
+    font-family: 'Ubuntu', sans-serif;
+    color: #000000;
+    -webkit-font-smoothing: antialiased;
+    font-size: 2em;
+    margin: 0;
+    font-weight: 400;
+    margin-left: 10%;
+}
+
+.foyer-wrapper {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.foyer-interior {
+    margin-left: 10%;
+}
+
+.foyer-interior p {
+    font-family: 'Ubuntu';
+    font-size: 14px;
+    vertical-align: middle
+}
+
+.foyer-header a {
+    font-family: 'Ubuntu';
+    margin-left: 14px;
+    font-size: 18px;
+}
+
+.foyer-header .linkarea {
+    display: block;
+    margin-top: 30px;
+    margin-left: 10%;
+    height: 40px;
+}
+
+.foyer-header .copy-hublink {
+    display: inline-block;
+    background-color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.foyer-interior .panel-finish {
+    float: right;
+    margin: 0 10% 5% 0;
+    display: block;
+}

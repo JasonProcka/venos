@@ -4,6 +4,22 @@ import { Link } from 'react-router';
 import * as Actions from '../actions';
 import NavLink from '../components/NavLink';
 import NavLabel from '../components/NavLabel';
+
+
+
+// Icons
+import IconHome from 'material-ui/svg-icons/action/home';
+import IconFingerprint from 'material-ui/svg-icons/action/fingerprint';
+import IconNotifications from 'material-ui/svg-icons/social/notifications';
+import IconCloud from 'material-ui/svg-icons/file/cloud';
+import IconCreate from 'material-ui/svg-icons/content/create';
+import IconFolder from 'material-ui/svg-icons/file/folder';
+import IconAssignmentReturn from 'material-ui/svg-icons/action/assignment-return';
+import IconAssignment from 'material-ui/svg-icons/action/assignment';
+import IconTrendingUp from 'material-ui/svg-icons/action/trending-up';
+import IconLiveHelp from 'material-ui/svg-icons/communication/live-help';
+import IconMailOutline from 'material-ui/svg-icons/communication/mail-outline';
+import IconAccountCircle from 'material-ui/svg-icons/action/account-circle';
 import '../styles/nav.css';
 
 class Nav extends React.Component {
@@ -18,50 +34,50 @@ class Nav extends React.Component {
       return [
         <ul key={1} className="upper-items smooth">
           <NavLabel>NAVIGATE</NavLabel>
-          <NavLink key={1} to="dashboard" icon="home">Dashboard</NavLink>
-          <NavLink key={2} to="creations" icon="fingerprint">Creations</NavLink>
-          <NavLink key={3} icon="notifications" notifycount="2">Notifications</NavLink>
-          <NavLink key={4} icon="cloud">Synced Files</NavLink>
-          <NavLink key={5} to="create" icon="create">Create Hub</NavLink>
+          <NavLink key={1} to="dashboard" icon={<IconHome />}> Dashboard</NavLink>
+          <NavLink key={2} to="creations"  icon={<IconFingerprint />}>Creations</NavLink>
+          <NavLink key={3}  icon={<IconNotifications />} notifycount="2">Notifications</NavLink>
+          <NavLink key={4}  icon={<IconCloud />}>Synced Files</NavLink>
+          <NavLink key={5} to="create"  icon={<IconCreate />}>Create Hub</NavLink>
         </ul>,
         <ul key={2} className="upper-items smooth">
           <NavLabel>RECENT</NavLabel>
-          <NavLink key={1} icon="folder">Jason&#39;s Vacation 2016</NavLink>
-          <NavLink key={2} icon="folder">San Haven Roadtrip</NavLink>
-          <NavLink key={3} icon="folder">Bismarck Roadtrip</NavLink>
+          <NavLink key={1}  icon={<IconFolder />}>Jason&#39;s Vacation 2016</NavLink>
+          <NavLink key={2}  icon={<IconFolder />}>San Haven Roadtrip</NavLink>
+          <NavLink key={3}  icon={<IconFolder />}>Bismarck Roadtrip</NavLink>
         </ul>,
         <ul  key={3} className="upper-items smooth">
           <NavLabel>ACCESS</NavLabel>
-          <NavLink to="/" icon="assignment_return" onClick={() => this.handleSignout()}>Logout</NavLink>
+          <NavLink to="/"  icon={<IconAssignmentReturn />} onClick={() => this.handleSignout()}>Logout</NavLink>
         </ul>,
         <ul key={4} className="upper-items smooth">
           <NavLabel>TRENDING</NavLabel>
-          <NavLink key={1} icon="trending_up">Shocking HRC Leak</NavLink>
-          <NavLink key={2} icon="trending_up">WikiLeaks Drop 4</NavLink>
-          <NavLink key={3} icon="trending_up">Julian Assange Emails</NavLink>
-          <NavLink key={4} icon="trending_up">Hillary Clinton Emails</NavLink>
-          <NavLink key={5} icon="trending_up">Leonardo DiCaprio Pics</NavLink>
+          <NavLink key={1}  icon={<IconTrendingUp />}>Shocking HRC Leak</NavLink>
+          <NavLink key={2}  icon={<IconTrendingUp />}>WikiLeaks Drop 4</NavLink>
+          <NavLink key={3}  icon={<IconTrendingUp />}>Julian Assange Emails</NavLink>
+          <NavLink key={4}  icon={<IconTrendingUp />}>Hillary Clinton Emails</NavLink>
+          <NavLink key={5}  icon={<IconTrendingUp />}>Leonardo DiCaprio Pics</NavLink>
         </ul>
       ]
     } else {
       return [
         <ul  key={1} className="upper-items smooth">
           <NavLabel>NAVIGATE</NavLabel>
-          <NavLink to="create" key={1} icon="create">Create Hub</NavLink>
-          <NavLink key={2} icon="live_help">What&#39;s Venos?</NavLink>
-          <NavLink key={3} icon="mail_outline">Contact</NavLink>
+          <NavLink to="create" key={1}  icon={<IconHome />}>Create Hub</NavLink>
+          <NavLink key={2}  icon={<IconLiveHelp />}>What&#39;s Venos?</NavLink>
+          <NavLink key={3}  icon={<IconMailOutline />}>Contact</NavLink>
         </ul>,
         <ul key={2} className="upper-items smooth">
           <NavLabel>ACCESS</NavLabel>
-          <NavLink key={1} to="join" icon="assignment">Join / Register</NavLink>
-          <NavLink key={2} to="login" icon="account_circle">Login</NavLink>
+          <NavLink key={1} to="join"  icon={<IconAssignment />}>Join / Register</NavLink>
+          <NavLink key={2} to="login"  icon={<IconAccountCircle />}>Login</NavLink>
         </ul>,
         <ul  key={3} className="upper-items smooth">
           <NavLabel>TRENDING</NavLabel>
-          <NavLink key={1} icon="trending_up">Shocking HRC Leak</NavLink>
-          <NavLink key={2}icon="trending_up">WikiLeaks Drop 4</NavLink>
-          <NavLink key={3} icon="trending_up">Julian Assange Email</NavLink>
-          <NavLink key={4} icon="trending_up">Leonardo DiCaprio Pics</NavLink>
+          <NavLink key={1}   icon={<IconTrendingUp />}>Shocking HRC Leak</NavLink>
+          <NavLink key={2}  icon={<IconTrendingUp />}>WikiLeaks Drop 4</NavLink>
+          <NavLink key={3}  icon={<IconTrendingUp />}>Julian Assange Email</NavLink>
+          <NavLink key={4}  icon={<IconTrendingUp />}>Leonardo DiCaprio Pics</NavLink>
         </ul>
 
       ]

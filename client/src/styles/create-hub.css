@@ -1,21 +1,96 @@
+.foyer-wrapper {
+    margin-top: 0em !important;
+    padding-top: 0em;
+}
+
+#create-wrapper {
+    background-image: url("../images/wallpaper-elch.jpeg");
+}
+
+#optional>* {
+    float: left;
+    height: 3em !important;
+    font-size: 16px;
+    line-height: 3;
+}
+
+form>div:nth-child(2) {
+    margin-bottom: 1em;
+}
+
+#optional>div:first-of-type {
+    margin-top: 0.85em;
+    position: relative;
+    left: -10px;
+}
+
+#create-wrapper>span {
+    display: block;
+    height: 100%;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+
+/* start commented backslash hack \*/
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+
+/* close commented backslash hack */
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
 .dialog-appear {
     opacity: 0.01;
 }
 
 .dialog-special {
-    position: absolute;
-    width: 500px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
+    position: relative;
     background-color: #FFF;
+    top: 45%;
     z-index: 500000;
     box-shadow: 0px 1px 7px 0px rgba(66, 66, 66, 0.3), 0px 1px 7px 0px rgba(11, 11, 11, 0.3);
+    display: table;
+    width: 500px;
 }
 
 .dialog-appear.dialog-appear-active {
     opacity: 1;
-    transition: opacity .5s ease-in;
+    transition: opacity 1s ease-in;
 }
 
 .dialog-enter {

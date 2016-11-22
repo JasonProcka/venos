@@ -1,14 +1,15 @@
 import React from 'react';
 import Footer from '../containers/Footer';
 import CreateDialog from '../components/CreateDialog';
+import '../styles/app.css'
 import '../styles/create-hub.css';
-import '../styles/grid.css';
+
 import ReactDOM from 'react-dom';
 import HubContent from './HubContent.js';
 import { Field, reduxForm } from 'redux-form';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import '../styles/hubcreated.css';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../actions';
@@ -22,7 +23,7 @@ import Firebase from 'firebase';
 import shortid from 'shortid';
 
 
-
+import Toggle from 'material-ui/Toggle';
 
 
 const validate = values => {
@@ -54,17 +55,17 @@ class Create extends React.Component {
 
     constructor(props) {
      super(props);
-     this.state = { status: STATUS_ENTER_DETAILS }
+     this.state = {isswitch: false, status: STATUS_ENTER_DETAILS }
      this.renderDialogSpecificToStatus = this.renderDialogSpecificToStatus.bind(this);
      if(this.state.hubcreated)
-        this.setState({status: STATUS_CREATED_HUB})
+        this.setState({...this.state, status: STATUS_CREATED_HUB})
 
     }
 
 
     handleFormSubmit = (values) => {
 
-        values.customurl = values.customurl ? values.customurl : shortid.generate();
+
 
 var m = {
     name: values.name,
@@ -86,11 +87,11 @@ var m = {
     };
 
 
-    renderField = ({ id, hint, input, label, type, meta: { touched, error } }) => (
+    renderField = ({ id, disabled, hint, input, label, type, meta: { touched, error } }) => (
 
     <TextField
       hintText={hint}
-      errorText={touched && error}
+      disabled={disabled}
       floatingLabelText={label}
       {...input}
     />
@@ -116,21 +117,32 @@ var m = {
 
      switch(status) {
           case STATUS_ENTER_DETAILS:
-
+            var style= {fontFamily: "Roboto"};
               return (
                   <div className="dialog-special created shadow">
                       <div className="foyer-header">
-                          <h3 style={{fontSize: '2em', color: '#FFF', marginLeft: '10%'}}>Create Hub Now</h3>
+                          <h3>Create Hub Now</h3>
                       </div>
-                      <div className="foyer-wrapper">
+                      <div className="clearfix foyer-wrapper">
                       { this.renderAuthenticationError() }
 
                       <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
                         <Field key={1} label="Name" hint="AwesomeHub" name="name" component={this.renderField} type="text"/>
                         <Field key={2} label="Description" hint="A cool hub that is cool"  name="description" component={this.renderField}  type="text" />
-                        <p>Optional</p>
-                        <span>{`venos.co/`}</span><Field key={3} hint="custom-url"  name="customurl" component={this.renderField}  type="text" />
-                        <RaisedButton type="submit" label="Submit"  primary={true} />
+            <div id="optional" className="clearfix">
+                            <Toggle
+
+                                onToggle={(toggled) => {this.setState({...this.state, isswitch: !this.state.isswitch}); console.log(!this.state.isswitch);}}
+                                style={{ width: "auto", display: "inline-block"}}
+
+        /><span style={style}>{`venos.co/`}</span><Field key={3} hint="custom-url"
+disabled={!this.state.isswitch}
+value={shortid.generate()}
+      hintText="Disabled Hint Text"
+        name="customurl" component={this.renderField}  type="text" style={style} />
+</div>
+
+                            <RaisedButton type="submit" label="Submit"  primary={true} />
                     </form>
                       </div>
                   </div>
@@ -191,15 +203,15 @@ var m = {
 
 
     render() {
-const dialog = this.renderDialogSpecificToStatus(this.state.status);
+        const dialog = this.renderDialogSpecificToStatus(this.state.status);
     return(
-        <div>
+        <div id="create-wrapper" className="wrapper">
               <ReactCSSTransitionGroup
                   transitionName="dialog"
                   transitionEnterTimeout={1000}
                   transitionLeaveTimeout={500}
                   transitionAppear={true}
-                  transitionAppearTimeout={500}>
+                  transitionAppearTimeout={1000}>
                   {dialog}
                 </ReactCSSTransitionGroup>
 

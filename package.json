@@ -11,11 +11,12 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^0.4.0",
-    "babel-cli": "6.14.0",
+    "babel-cli": "^6.14.0",
     "babel-core": "6.14.0",
     "babel-preset-es2015": "6.14.0",
     "babel-preset-stage-0": "6.5.0",
     "body-parser": "^1.15.2",
+    "core-js": "^2.4.1",
     "express": "4.13.3",
     "firebase": "^3.6.1",
     "foreman": "^1.4.1",
@@ -26,8 +27,15 @@
     "util": "^0.10.3"
   },
   "scripts": {
-    "start": "nf start -p 80",
-    "dev": "nf start -p 3000 --procfile .Procfile.dev",
-    "server": "./node_modules/.bin/babel-node server.js"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "babel-node server.js",
+    "client": "babel-node start-client.js",
+    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "concurrently": "^3.1.0"
   }
 }

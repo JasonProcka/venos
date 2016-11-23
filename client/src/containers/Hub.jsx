@@ -17,7 +17,6 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
 
-import LazyLoad from 'react-lazyload';
 
 class Drop extends React.Component {
     constructor(props) {

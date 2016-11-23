@@ -4,7 +4,7 @@
 }
 
 #create-wrapper {
-    background-image: url("../images/wallpaper-elch.jpeg");
+    background-image: url('http://www.hdbloggers.net/wp-content/uploads/2016/06/Nebula-Space-Wallpaper.jpg');
 }
 
 #optional>* {
@@ -14,6 +14,19 @@
     line-height: 3;
 }
 
+.foyer-header {
+    height: 120px;
+    display: table;
+    padding: 0em !important;
+    background-image: url('../images/wallpaper-elch.jpeg') !important;
+    background-position: 50% 76%;
+}
+
+.foyer-header h3 {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 form>div:nth-child(2) {
     margin-bottom: 1em;
 }
@@ -21,7 +34,7 @@ form>div:nth-child(2) {
 #optional>div:first-of-type {
     margin-top: 0.85em;
     position: relative;
-    left: -10px;
+    left: -8px;
 }
 
 #create-wrapper>span {

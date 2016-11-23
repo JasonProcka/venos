@@ -1,3 +1,7 @@
+body {
+    font-size: 16px;
+}
+
 .App {
     text-align: center;
 }
@@ -27,12 +31,28 @@
     }
 }
 
+#app {
+    height: 100%;
+}
+
 .wrapper {
     background-size: cover;
     background-position: center;
-    background-color: rgb(0, 188, 212);
     margin-left: 260px;
     height: 100%;
+}
+
+.small-wrapper {
+    background-size: cover;
+    background-position: center;
+    margin-left: 260px;
+    min-height: 100%;
+}
+
+.foyer-header {
+    background-size: cover;
+    background-position: cover;
+    background-color: rgb(0, 188, 212);
 }
 
 .foyer-header h3 {

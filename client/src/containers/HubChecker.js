@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import Database from '../actions/database';
+import Hub from './Hub';
 export default function(WrappedComponent) {
   class HubChecker extends React.Component {
 
@@ -42,7 +43,8 @@ setHub(hub){
             const newProps = {
            hub: this.state.hub
          }
-            return <WrappedComponent {...newProps} {...this.props} />
+         // TODO may not be the best solution to place the Hub in the WrappedComponent
+            return <WrappedComponent ><Hub {...newProps} {...this.props}/> </WrappedComponent>
 }
 
     }

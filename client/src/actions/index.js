@@ -152,6 +152,8 @@ export function createHub(data) {
             if (user != null) {
                 console.log("create");
                 Database.createHub(data.name, data.description, data.url, user.uid, data.isPublic, data.destructionTimeInHours).then(response => {
+                    console.log("alles gut");
+                    browserHistory.push(`/${data.url}`);
                     dispatch(createHubSend());
                 }).catch(error => {
                     dispatch(createHubSend(error));

@@ -130,10 +130,7 @@ body::-webkit-scrollbar {
     padding: 0;
 }
 
-
-/* Alerts */
-
-.tile {
+Alerts .tile {
     width: 100%;
     display: inline-block;
     overflow: hidden;
@@ -209,3 +206,109 @@ body::-webkit-scrollbar {
 
 
 /* End event card */
+
+header {
+    padding-top: 6em;
+    background-size: cover;
+    background-position: center;
+    background-image: url('http://www.hdbloggers.net/wp-content/uploads/2016/07/Galaxy-Wallpaper-10.jpg');
+}
+
+header>div {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header .hub-title {
+    font-family: "Roboto", sans-serif;
+}
+
+header .hub-description {
+    font-family: "Raleway", sans-serif;
+    letter-spacing: 1px;
+}
+
+header .hub-buttons {
+    margin-top: 2em;
+}
+
+header .tabs {
+    margin-top: 2em;
+}
+
+header .tabs button {
+    width: 100px !important;
+    margin-right: 2em !important;
+    border-radius: 5em !important;
+    border-solid: 1px transparent solid !important;
+}
+
+.hub-grid {
+    max-width: 1200px !important;
+    width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 2.5em 0em;
+    display: block;
+}
+
+.drop {
+    margin-right: 25px !important;
+    margin-left: 25px !important;
+    width: 200px !important;
+    display: block;
+    float: left;
+    height: 200px;
+    background-position: center;
+    border-radius: 2px;
+    background-color: #222;
+    margin-bottom: 3em;
+}
+
+.drop>div {
+    height: 52px;
+    margin-top: 148px;
+    color: #FFF;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.drop:first-of-type {
+    margin-left: 0em !important;
+}
+
+.drop:nth-child(5n) {
+    margin-right: 0em !important;
+}
+
+.drop:nth-child(6n) {
+    margin-left: 0em !important;
+}
+
+#button-create-drop {}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+
+/* start commented backslash hack \*/
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}

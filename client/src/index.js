@@ -15,6 +15,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import HubChecker from './containers/HubChecker';
+
 const store = configureStore();
 
 
@@ -33,8 +34,10 @@ ReactDOM.render(
         <Route path="admin" component={Admin} />
         <Route path="myhubs" component={MyHubs} />
         <Route path="noaccess" component={NoAccess} />
-        <Route path=":name" component={HubChecker(Hub)} />
+
       </Route>
+
+      <Route path=":name" component={HubChecker(App)} />
     </Router>
   </Provider>
   </MuiThemeProvider>,

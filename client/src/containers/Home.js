@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import '../styles/home.css';
@@ -22,7 +23,7 @@ class Home extends React.Component {
         <p>Store valuable resources in a collaborative location</p>
         <div className="introButtons">
           <FlatButton className="learn" label="Learn More" style={style}  ></FlatButton>
-          <RaisedButton className="button-create-hub" label="Create Hub" secondary={true} style={style} />
+          <RaisedButton className="button-create-hub" onClick={() => {browserHistory.push("/create")}} label="Create Hub" secondary={true} style={style} />
         </div>
       </div>
     </div>

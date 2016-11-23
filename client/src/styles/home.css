@@ -5,10 +5,7 @@
 .home {
     box-sizing: none;
     height: 100%;
-}
-
-#app {
-    height: 100%;
+    font-size: 0.875em;
 }
 
 body {

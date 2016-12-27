@@ -23,6 +23,7 @@
     "formidable": "^1.0.17",
     "fs": "0.0.2",
     "multer": "^1.2.0",
+    "react-infinite-scroll": "^0.1.5",
     "shortid": "^2.2.6",
     "util": "^0.10.3"
   },

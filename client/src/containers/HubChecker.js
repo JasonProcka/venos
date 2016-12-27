@@ -8,18 +8,18 @@ export default function(WrappedComponent) {
 
       constructor(props) {
        super(props);
-       this.state = {};
+       this.state = {hub: undefined};
        this.setHub = this.setHub.bind(this);
 
 
 }
-setHub(hub){
+setHub = (hub) =>{
     console.log('sdfsd');
-    this.setState({'hub': hub});
+    this.setState({...this.state, 'hub': hub});
 }
     componentWillMount() {
 
-        console.log(this.props.location.pathname.substring(1));
+        console.log("pathname: "+this.props.location.pathname.substring(1));
 
         Database.findHubByUrl(this.props.location.pathname.substring(1))
         .then((x) => {
@@ -27,7 +27,8 @@ setHub(hub){
                 this.setHub(x);
 
         }).catch(function(e){
-            console.log(e);
+
+            console.log("he2: " + e);
             browserHistory.push('/noaccess');
         });
 
@@ -39,7 +40,7 @@ setHub(hub){
         if(this.state.hub == null)
             return <div>Loading</div>
         else{
-            console.log('he: ' + this.state.hub);
+            //console.log('he: ' + this.state.hub);
             const newProps = {
            hub: this.state.hub
          }

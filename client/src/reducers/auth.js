@@ -1,4 +1,4 @@
-import { AUTH_USER_ANONYM, AUTH_USER_FULL, SIGN_OUT_USER, AUTH_ERROR } from '../actions';
+import { AUTH_USER_ANONYM, AUTH_USER_FULL, AUTH_SIGN_OUT, AUTH_ERROR } from '../actions';
 
 
 const initialState = {
@@ -23,7 +23,7 @@ export default function gifs(state = initialState, action) {
         authenticatedAnonym: false,
         error: null
       };
-    case SIGN_OUT_USER:
+    case AUTH_SIGN_OUT:
       return {
         ...state,
         authenticatedFull: false,

@@ -24,7 +24,7 @@ export default function configureStore(initialState){
   }
 
 
-  store.dispatch(Actions.initialAuth());
+  store.dispatch(Actions.verifyAuth());
 
   return store;
 }

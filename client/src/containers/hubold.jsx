@@ -1,28 +1,12 @@
-
-// --- Imports ------------------------------------------------------
-
-
-// React
 import React from 'react';
-
-// Modules
 import Dropzone from 'react-dropzone';
 import Database from '../actions/database'
-import request from 'superagent';
-import SwipeableViews from 'react-swipeable-views'; // From https://github.com/oliviertassinari/react-swipeable-views
-
-// Redux
 import {bindActionCreators} from 'redux'
 import * as Actions from '../actions';
 import {connect} from 'react-redux';
-
-// Styles
+import request from 'superagent';
 import '../styles/hub.css'
-
-// Testing
 import util from 'util';
-
-// Material UI
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -30,13 +14,13 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+// From https://github.com/oliviertassinari/react-swipeable-views
+import SwipeableViews from 'react-swipeable-views';
 import CircularProgress from 'material-ui/CircularProgress';
+import Infinite from 'react-infinite';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
-import Snackbar from 'material-ui/Snackbar';
-
-
 class Drop extends React.Component {
     constructor(props) {
         super(props);
@@ -52,24 +36,84 @@ class Drop extends React.Component {
             </div>
         )
     }
+
 }
 
+var ListItem = React.createClass({
+    getDefaultProps: function() {
+        return {height: 50, lineHeight: "50px"}
+    },
+    render: function() {
+        return <div className="infinite-list-item" style={{
+            height: this.props.height,
+            lineHeight: this.props.lineHeight,
+            overflow: 'scroll'
+        }}>
+            <div style={{
+                height: 50
+            }}>
+                List Item {this.props.index}
+            </div>
+        </div>;
+    }
+});
 
+var InfiniteList = React.createClass({
+    getInitialState: function() {
+        return {
+            elements: this.buildElements(0, 50),
+            isInfiniteLoading: false
+        }
+    },
 
+    buildElements: function(start, end) {
+        var elements = [];
+        for (var i = start; i < end; i++) {
+            elements.push(<ListItem key={i} index={i}/>)
+        }
+        return elements;
+    },
+
+    handleInfiniteLoad: function() {
+        var that = this;
+        this.setState({isInfiniteLoading: true});
+        setTimeout(function() {
+            var elemLength = that.state.elements.length,
+                newElements = that.buildElements(elemLength, elemLength + 100);
+            that.setState({isInfiniteLoading: false, elements: that.state.elements.concat(newElements)});
+        }, 2500);
+    },
+
+    elementInfiniteLoad: function() {
+        return <div className="infinite-list-item">
+            Loading...
+        </div>;
+    },
+
+    render: function() {
+        return <Infinite elementHeight={50} containerHeight={window.innerHeight} infiniteLoadBeginEdgeOffset={200} onInfiniteLoad={this.handleInfiniteLoad} loadingSpinnerDelegate={this.elementInfiniteLoad()} isInfiniteLoading={this.state.isInfiniteLoading} timeScrollStateLastsForAfterUserScrolls={1000}>
+            {this.state.elements}
+        </Infinite>;
+    }
+});
 
 class Hub extends React.Component {
+
     constructor(props) {
-
         super(props);
-
+        console.log(this.props.hub);
         this.state = {
             files: [],
             slideIndex: 0,
             isInfiniteLoading: false,
             htmlElements: []
         };
-
-        // --- File dragging ----------------------------------------------------
+        this.onOpenClick = this.onOpenClick.bind(this);
+        this.onDrop = this.onDrop.bind(this);
+        this.makeFiles = this.makeFiles.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.buildElements = this.buildElements.bind(this);
+        this.createFiles = this.createFiles.bind(this);
         // window.addEventListener("dragover",function(e){
         //     e = e || event;
         //     e.preventDefault();
@@ -79,34 +123,53 @@ class Hub extends React.Component {
         //     e.preventDefault();
         //     alert('use the content to drag files, feature will be added for sidebar');
         // },false);
+        console.log('hubid:' + this.props.hub.id);
 
     }
 
-
     componentDidMount() {
-        request.
-        get('/files').
-        query({'hubid': this.props.hub.id}).
-        end(
-            (err, res) => {
-                if(!err){
-                    var files = this.state.files; // get current files
-                    var responseArray = JSON.parse(res.text); // get from server an array containing the file locations, for example `/user/M1vl02oSuzfcAAwWWTPqqH75qsJ3/files/rkOc4pA7e.JPG`
+        request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
 
-                    let fileArray = responseArray.map((e) =>{
-                        return {preview: `/file?file=${e}`, location: e}    // make an object for every file response and store them in an array
-                    });
-                    this.setState({files: this.state.files.concat(fileArray)});  // add new fetched files with already added files
-                }else{
-                    // TODO what should happen when requesting files didn't work?
+            var files = this.state.files;
+            var e = [];
+            if (this.state.files != undefined && this.state.files.length > 0) {
+
+                for (var i = 0; i < this.state.files.length; i++) {
+                    e.push(this.state.files[i]);
                 }
             }
-        );
+            var array = JSON.parse(res.text);
+            for (var i = 0; i < array.length; i++) {
+                e.push({preview: `/file?file=${array[i]}`});
+            }
+            this.setState({
+                files: e,
+                elements: this.buildElements(e, 0, e.length)
+            });
+
+        });
     }
 
     onDrop(acceptedFiles) {
-        this.props.actions.uploadFiles(acceptedFiles, this.props.hub); // upload Files
-        this.setState({files: this.state.files.concat(acceptedFiles)}); // add new accepted files with already added files
+        this.props.actions.uploadFiles(acceptedFiles, this.props.hub);
+        var e = [];
+        for (var i = 0; i < acceptedFiles.length; i++) {
+            e.push(acceptedFiles[i]);
+        }
+        if (this.state.files != undefined && this.state.files.length > 0) {
+            for (var i = 0; i < this.state.files.length; i++) {
+                e.push(this.state.files[i]);
+            }
+        }
+        var newElements = this.addElement(e);
+        this.setState({
+            ...this.state,
+            files: e,
+            elements: this.state.elements.concat(newElements)
+        });
+
+        // caution, type form is required
+
     }
 
     onOpenClick() {
@@ -123,8 +186,32 @@ class Hub extends React.Component {
         );
 
     }
+    buildElements(start, end) {
+        var elements = [];
+        for (var i = start; i < end || i < this.state.files.length; i++) {
+            elements.push(<Drop key={i} index={i} src={this.state.files[i].preview}/>)
+        }
+        return elements;
+    }
+    buildElements(files, start, end) {
+        var elements = [];
+        for (var i = start; i < end || i < files.length; i++) {
+            elements.push(<Drop key={i} index={i} src={files[i].preview}/>)
+        }
+        return elements;
+    }
 
-
+    addElement(file) {
+        return [< Drop key = {
+                this.state.files.length + 1
+            }
+            index = {
+                this.state.files.length + 1
+            }
+            src = {
+                file.preview
+            } />];
+    }
 
     elementInfiniteLoad = () => {
         return <div className="infinite-list-item">
@@ -219,22 +306,7 @@ class Hub extends React.Component {
         console.log(this.state.files.length);
 
         var items = this.state.htmlFiles;
-        let snackbar;
-        if(this.props.file.successful){
-            snackbar = (<Snackbar
-                            open={true}
-                            message="Files Uploaded Successfully"
-                            autoHideDuration={4000}
-                            onRequestClose={this.handleRequestClose}
-                            />);
-        }else{
-            snackbar = (<Snackbar
-                            open={true}
-                            message="Files Upload Error"
-                            autoHideDuration={4000}
-                            onRequestClose={this.handleRequestClose}
-                            />);
-        }
+
         return (
             <div className="small-wrapper">
                 <Dropzone disableClick={true} style={{
@@ -295,10 +367,9 @@ class Hub extends React.Component {
 
                     <SwipeableViews index={this.state.slideIndex} onChangeIndex={this.handleChange}>
 
-
-                        <div>
-
-                        </div>
+                        <Infinite elementHeight={50} containerHeight={window.innerHeight} infiniteLoadBeginEdgeOffset={2000} onInfiniteLoad={this.createFiles} loadingSpinnerDelegate={this.elementInfiniteLoad()} isInfiniteLoading={this.state.isInfiniteLoading} timeScrollStateLastsForAfterUserScrolls={1000}>
+                            {this.state.elements}
+                        </Infinite>
 
                         <div>
                             slide n°2
@@ -307,7 +378,6 @@ class Hub extends React.Component {
                     </SwipeableViews>
 
                 </Dropzone>
-                {snackbar}
             </div>
         )
     }

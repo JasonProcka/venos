@@ -1,13 +1,22 @@
+
+// --- Imports ----
+
+// >>> External Modules
 const express = require('express');
 const fs = require('fs');
-var shortid = require('shortid');
-var database = require("./server/database");
-
-var formidable = require('formidable'),
+const shortid = require('shortid');
+const formidable = require('formidable'),
     http = require('http'),
     util = require('util');
 
-var gcs = require('@google-cloud/storage')({projectId: 'czernitzki-148120', keyFilename: './service.json'});
+const gcs = require('@google-cloud/storage')({projectId: 'czernitzki-148120', keyFilename: './service.json'});
+
+// >>> Internal Modules
+const database = require("./server/database");
+
+
+
+
 
 const app = express();
 var bodyParser = require('body-parser');

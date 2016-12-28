@@ -1,21 +1,25 @@
-import { CREATE_HUB_SUCCESS, CREATE_HUB_ERROR } from '../actions';
+import { HUB_CREATE_SUCCESS, HUB_CREATE_ERROR } from '../actions';
 
 
 const initialState = {
-  error: null
+	created: false,
+	hub: null,
+	error: null
 };
 
-export default function gifs(state = initialState, action) {
+export default function hub(state = initialState, action) {
   switch (action.type){
     case CREATE_HUB_SUCCESS:
       return {
         ...state,
+		hub: actions.hub,
         created: true,
         error: null
       };
     case CREATE_HUB_ERROR:
       return {
         ...state,
+		hub: null,
         created: false,
         error: action.payload.message
       };

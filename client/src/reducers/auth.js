@@ -1,40 +1,32 @@
-import { AUTH_USER_ANONYM, AUTH_USER_FULL, AUTH_SIGN_OUT, AUTH_ERROR } from '../actions';
+import { AUTH_USER, AUTH_SIGN_OUT, AUTH_ERROR } from '../actions';
 
 
 const initialState = {
-  authenticatedFull: false,
-  authenticatedAnonym: false,
+  authenticated: false,
+  user: null,
   error: null
 };
 
-export default function gifs(state = initialState, action) {
+export default function auth(state = initialState, action) {
   switch (action.type){
-    case AUTH_USER_ANONYM:
+    case AUTH_USER:
       return {
         ...state,
-        authenticatedAnonym: true,
-        authenticatedFull: false,
-        error: null
-      };
-    case AUTH_USER_FULL:
-      return {
-        ...state,
-        authenticatedFull: true,
-        authenticatedAnonym: false,
+        authenticated: true,
+		user: action.user,
         error: null
       };
     case AUTH_SIGN_OUT:
       return {
         ...state,
-        authenticatedFull: false,
-        authenticatedAnonym: false,
+        authenticated: false,
+		user: null,
         error: null
       };
-    case AUTH_ERROR:
+    case AUTH_ERROR:	// Don't overrite user, we throw this because there was an error, maybe the user is already logged in
       return {
         ...state,
-        authenticatedFull: false,
-        authenticatedAnonym: false,
+        authenticated: false,
         error: null
       }
     default:

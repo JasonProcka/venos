@@ -1,14 +1,30 @@
+
+// --- Imports ----
+
+// >>> React
 import React from 'react';
-import Footer from '../containers/Footer';
+import ReactDOM from 'react-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+// >>> Redux
+import {Field, reduxForm} from 'redux-form';
+
+// >>> Components
 import CreateDialog from '../components/CreateDialog';
+
+// >>> Containers
+import Footer from './Footer';
+import HubContent from './HubContent.js';
+
+// >>> Styles/CSS
 import '../styles/app.css'
 import '../styles/create-hub.css';
 
-import ReactDOM from 'react-dom';
-import HubContent from './HubContent.js';
-import {Field, reduxForm} from 'redux-form';
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+
+
+
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';

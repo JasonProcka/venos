@@ -8,6 +8,15 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // >>> Redux
 import {Field, reduxForm} from 'redux-form';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from '../actions';
+
+// >>> Firebase
+import Firebase from 'firebase';
+
+// >>> ShortId
+import shortid from 'shortid';
 
 // >>> Components
 import CreateDialog from '../components/CreateDialog';
@@ -16,29 +25,22 @@ import CreateDialog from '../components/CreateDialog';
 import Footer from './Footer';
 import HubContent from './HubContent.js';
 
+// >>> Material-UI
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
+
 // >>> Styles/CSS
 import '../styles/app.css'
 import '../styles/create-hub.css';
 
 
 
-
-
-
-
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as Actions from '../actions';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import Checkbox from 'material-ui/Checkbox';
 const STATUS_ENTER_DETAILS = 1;
 const STATUS_CREATED_HUB = 2;
 const STATUS_CREATED_ERROR = 3;
-import Firebase from 'firebase';
-import shortid from 'shortid';
 
-import Toggle from 'material-ui/Toggle';
 
 const validate = values => {
     const errors = {};

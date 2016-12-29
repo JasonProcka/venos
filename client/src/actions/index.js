@@ -42,7 +42,7 @@ export const FILE_UPLOAD_ERROR = 'FILE_UPLOAD_ERROR';
 
 
 function action_AuthUser(user) {
-    return {type: AUTH_USER}
+    return {type: AUTH_USER, user}
 }
 function action_AuthSignOut() {
     return {type: AUTH_SIGN_OUT}
@@ -52,8 +52,8 @@ function action_AuthError(error) {
 }
 
 
-function action_CreateHub() {
-    return {type: HUB_CREATE_SUCCESS}
+function action_CreateHub(hub) {
+    return {type: HUB_CREATE_SUCCESS, hub}
 }
 function action_CreateHubError(error) {
     return {type: HUB_CREATE_ERROR, payload: error}
@@ -117,8 +117,9 @@ function signUpUser(credentials) {
 
 		if(state.user && state.user.isAnonymous){
 			// If user is Anonymous then delete his current account
-	        Firebase.auth().signOut();
-	        user.delete();
+	        var auth = Firebase.auth();
+			auth.signOut();
+			auth.currentUser.delete();
 		}
 
 		if(state.user && !state.user.isAnonymous){ // he has an account which is not anonymous, we know his email
@@ -149,18 +150,19 @@ function signOutUser(){
 }
 
 
+
 // checks on every page call if the user is signed in and returns the corresponding Action to the Reducers otherwise we would loose our authenticated state if we visit a new page after login
 function verifyAuth() {
 	return (dispatch) => {
     	Firebase.auth().onAuthStateChanged(user => {
         	if (user) {
-                	dispatch(action_AuthUser());
+                	dispatch(action_AuthUser(user));
         	} else {  // if a user is not signed in, sign in anonymously (everyone should always be registered)
-            	Firebase.auth().signInAnonymously().then(response => {
-                	dispatch(action_AuthUserAnonym());
+            	Firebase.auth().signInAnonymously().then(user => {
+                	dispatch(action_AuthUser(user));
             	})
 				.catch(error => {
-                	dispatch(_AuthError(error));
+                	dispatch(action_AuthError(error));
             	});
       		}
     	});
@@ -178,7 +180,7 @@ function createHub(data) {
 			// Method for creating the hub
             Database.createHub(data.name, data.description, data.url, state.user.uid, data.isPublic, data.destructionTimeInHours)
             .then(hub => dispatch(action_CreateHub(hub))) // dispatch create hub action to reducers
-			.then(() => disptach(push(`/${data.url}`)));
+			.then(() => dispatch(push(`/${data.url}`)));
 
         }else{
             dispatch(action_CreateHubError()); // send Error Action if hub can't be created
@@ -205,7 +207,7 @@ function uploadFiles(files, hub) {
 
 		// When the request is done
         req.end((err, res) => {
-            (!err && res ? dispatch(send_UploadFile()) : dispatch(send_UploadFileError()))();
+            (!err && res ? dispatch(action_UploadFile()) : dispatch(action_UploadFileError()));
         });
     }
 }

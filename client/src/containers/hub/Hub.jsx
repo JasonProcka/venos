@@ -1,13 +1,23 @@
+
+// --- Imports ----
+
+// >>> React
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import Database from '../actions/database'
-import {bindActionCreators} from 'redux'
-import * as Actions from '../actions';
 import {connect} from 'react-redux';
-import request from 'superagent';
+
+// >>> Redux
+import {bindActionCreators} from 'redux'
+import * as Actions from '../../actions';
+
+// >>> Containers
 import HubHeader from './HubHeader';
-import '../styles/hub/hub.css';
+
+// >>> Modules
+import request from 'superagent';
 import util from 'util';
+
+// >>> Material-UI
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -15,8 +25,14 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-// From https://github.com/oliviertassinari/react-swipeable-views
-import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views'; // From https://github.com/oliviertassinari/react-swipeable-views
+
+// >>> Styles
+import '../../styles/hub/hub.css';
+
+
+
+
 
 
 class Drop extends React.Component {

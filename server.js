@@ -12,7 +12,7 @@ const formidable = require('formidable'),
 const gcs = require('@google-cloud/storage')({projectId: 'czernitzki-148120', keyFilename: './service.json'});
 
 // >>> Internal Modules
-const database = require("./server/database");
+const database = require("./client/src/actions/database");
 
 
 

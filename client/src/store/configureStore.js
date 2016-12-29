@@ -26,7 +26,7 @@ const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window 
     : compose;
 
 // contains the middlewares we wanna apply to our store
-const middleware = Array.of(reduxThunk, routerMiddleware(browserHistory));
+
 
 
 
@@ -34,11 +34,11 @@ const middleware = Array.of(reduxThunk, routerMiddleware(browserHistory));
 function configureStore(initialState) {
 	// create store enhancers out of our middlewares
     const enhancer = composeEnhancers(
-		applyMiddleware(middleware)
+		applyMiddleware(reduxThunk, routerMiddleware(browserHistory))
 	)
 
 	// creates the store using our reducers (rootReducer), an initialState (state at start of application) and store enhancers like redux-thunk
-	const store = createStore(rootReducer, initialState, enhancer);
+	const store = createStore(rootReducer, enhancer);
 
 
 	// Webpack specific variable 'module', check if Hot Module Replacement is enabled
@@ -49,8 +49,6 @@ function configureStore(initialState) {
             store.replaceReducer(nextRootReducer); // lets store use the new reducers
         });
     }
-
-    // TODO needs to be called somewhere but not here: store.dispatch(Actions.verifyAuth());
 
     return store;
 }

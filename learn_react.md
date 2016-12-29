@@ -7,3 +7,4 @@
    - http://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/35415559#35415559
    - https://egghead.io/courses/getting-started-with-redux
    - http://stackoverflow.com/questions/40021344/why-use-redux-observable-over-redux-saga
+   - https://www.youtube.com/playlist?list=PLoYCgNOIyGADILc3iUJzygCqC8Tt3bRXt

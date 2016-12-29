@@ -1,8 +1,14 @@
+
+// --- Imports ----
+
+// >>> React
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import Database from '../actions/database';
 import Hub from './Hub';
+
+
+
 export default function(WrappedComponent) {
   class HubChecker extends React.Component {
 
@@ -20,17 +26,17 @@ setHub = (hub) =>{
     componentWillMount() {
 
         console.log("pathname: "+this.props.location.pathname.substring(1));
-
-        Database.findHubByUrl(this.props.location.pathname.substring(1))
-        .then((x) => {
-            console.log('????');
-                this.setHub(x);
-
-        }).catch(function(e){
-
-            console.log("he2: " + e);
-            browserHistory.push('/noaccess');
-        });
+		//
+        // Database.findHubByUrl(this.props.location.pathname.substring(1))
+        // .then((x) => {
+        //     console.log('????');
+        //         this.setHub(x);
+		//
+        // }).catch(function(e){
+		//
+        //     console.log("he2: " + e);
+        //     browserHistory.push('/noaccess');
+        // });
 
 
 

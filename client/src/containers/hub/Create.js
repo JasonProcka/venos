@@ -1,4 +1,3 @@
-
 // --- Imports ----
 
 // >>> React
@@ -35,12 +34,9 @@ import Toggle from 'material-ui/Toggle';
 import '../styles/app.css'
 import '../styles/create-hub.css';
 
-
-
 const STATUS_ENTER_DETAILS = 1;
 const STATUS_CREATED_HUB = 2;
 const STATUS_CREATED_ERROR = 3;
-
 
 const validate = values => {
     const errors = {};
@@ -62,29 +58,35 @@ const validate = values => {
     return errors;
 }
 
+class Hub{
+    
+   
+    
+    
+}
+
 class Create extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            isswitch: false,
-            name: "",
-            description: "",
-            submitDisabled: true,
-            status: STATUS_ENTER_DETAILS,
-            hubCustomId: shortid.generate()
-        }
-        this.renderDialogSpecificToStatus = this.renderDialogSpecificToStatus.bind(this);
-        this.enterName = this.enterName.bind(this);
-        this.enterDescription = this.enterDescription.bind(this);
-        this.disableSubmit = this.disableSubmit.bind(this);
-        if (this.state.hubcreated)
-            this.setState({
-                ...this.state,
-                status: STATUS_CREATED_HUB
-            })
-
+  constructor(props) {
+    super(props);
+    this.state = {
+        isswitch: false,
+        name: "",
+        description: "",
+        submitDisabled: true,
+        status: STATUS_ENTER_DETAILS,
+        hubCustomId: shortid.generate()
     }
+    this.renderDialogSpecificToStatus = this.renderDialogSpecificToStatus.bind(this);
+    this.enterName = this.enterName.bind(this);
+    this.enterDescription = this.enterDescription.bind(this);
+    this.disableSubmit = this.disableSubmit.bind(this);
+    if (this.state.hubcreated)
+        this.setState({
+            ...this.state,
+            status: STATUS_CREATED_HUB
+  })
+  }
 
     handleFormSubmit = (values) => {
 console.log("test");

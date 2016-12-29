@@ -9,14 +9,14 @@ const initialState = {
 
 export default function hub(state = initialState, action) {
   switch (action.type){
-    case CREATE_HUB_SUCCESS:
+    case HUB_CREATE_SUCCESS:
       return {
         ...state,
-		hub: actions.hub,
+		hub: action.hub,
         created: true,
         error: null
       };
-    case CREATE_HUB_ERROR:
+    case HUB_CREATE_ERROR:
       return {
         ...state,
 		hub: null,

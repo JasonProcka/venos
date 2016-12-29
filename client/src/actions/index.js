@@ -92,7 +92,7 @@ function signInUser(credentials) {
 					action_AuthUser(user)		// Action that submits Auth Event
 				).
 				then(
-					() => dispatch(push('/dashboard')); // after user got successfully signed in move him to /dashboard
+					() => dispatch(push('/dashboard')) // after user got successfully signed in move him to /dashboard
 				);
 	        }).catch(error => {
 	            dispatch(action_AuthError(error)); // If an error appears while signing in do dispatch an error
@@ -103,6 +103,8 @@ function signInUser(credentials) {
 		}
     }
 }
+
+
 
 
 
@@ -134,6 +136,7 @@ function signUpUser(credentials) {
         }).catch(error => {
             dispatch(action_AuthError(error));
         });
+	}
 }
 
 
@@ -174,8 +177,8 @@ function createHub(data) {
 
 			// Method for creating the hub
             Database.createHub(data.name, data.description, data.url, state.user.uid, data.isPublic, data.destructionTimeInHours)
-            .then(hub => dispatch(action_CreateHub(hub)) // dispatch create hub action to reducers
-			.then(hub => disptach(push(`/${data.url}`));
+            .then(hub => dispatch(action_CreateHub(hub))) // dispatch create hub action to reducers
+			.then(() => disptach(push(`/${data.url}`)));
 
         }else{
             dispatch(action_CreateHubError()); // send Error Action if hub can't be created
@@ -187,7 +190,7 @@ function createHub(data) {
 
 
 // Upload Files to an hub
-export function uploadFiles(files, hub) {
+function uploadFiles(files, hub) {
     return (dispatch, state) => {
         let req = request.post('/upload'); // Post request to /upload
         let uid = state.user.uid;
@@ -205,10 +208,7 @@ export function uploadFiles(files, hub) {
             (!err && res ? dispatch(send_UploadFile()) : dispatch(send_UploadFileError()))();
         });
     }
-
 }
-
-
 export {
 	signInUser,
 	signUpUser,

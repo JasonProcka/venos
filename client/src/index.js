@@ -63,9 +63,10 @@ ReactDOM.render(
 	                <Route path="admin" component={Admin}/>
 	                <Route path="myhubs" component={MyHubs}/>
 	                <Route path="noaccess" component={NoAccess}/>
-
+					<Route path=":name" component={Hub}/>
+					
 	            </Route>
-	            <Route path=":name" component={HubChecker(App)}/>
+
 	        </Router>
 	    </MuiThemeProvider>
 	</Provider>,

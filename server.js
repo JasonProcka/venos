@@ -12,43 +12,43 @@ const formidable = require('formidable'),
 const gcs = require('@google-cloud/storage')({projectId: 'czernitzki-148120', keyFilename: './service.json'});
 
 // >>> Internal Modules
-const database = require("./client/src/actions/database");
+const database = require("./server/database");
 
 
 
 
-
+// support json encoded bodies
 const app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '50mb'})); // support json encoded bodies
-app.use(bodyParser.urlencoded({extended: true, limit: '50mb'})); // support encoded bodies
-var bucket = gcs.bucket('venos-bucket');
+app.use(
+	bodyParser.json({limit: '50mb'})
+);
 
+// support encoded bodies
+app.use(
+	bodyParser.urlencoded(
+		{extended: true, limit: '50mb'}
+	)
+);
+
+
+var bucket = gcs.bucket('venos-bucket');
 app.set('port', (process.env.PORT || 3100));
 
 // Express only serves static assets in production
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production')
     app.use(express.static('client/build'));
-}
+
 
 app.listen(app.get('port'), () => {
     console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });
 
-app.get('/files', function(req, res, next) {
-    console.dir(req.params);
-    console.log("hubid: " + req.query.hubid);
+app.get('/files', (req, res, next) => {
     database.getFilesOfHub(req.query.hubid).then((files) => {
-        console.log("lengthy: " + files.length);
         var array = [];
         console.log(util.inspect(files, { showHidden: true, depth: null }));
-
-        files.forEach(function(e){
-            console.log('e: ' + e);
-            array.push(e);
-        });
-        console.log("thefiles" + JSON.stringify(array));
-        res.status(200).end(JSON.stringify(array));
+        res.status(200).end(JSON.stringify(files));
 
     }).catch((err) => {
         console.log(err.toString());
@@ -56,20 +56,17 @@ app.get('/files', function(req, res, next) {
     });
 
 });
-app.get('/file', function(req, res, next) {
-
-    console.log("file: " + req.query.file);
+app.get('/file', (req, res, next) => {
 
     var remoteReadStream = bucket.file(req.query.file).createReadStream();
-
     remoteReadStream.pipe(res);
     remoteReadStream.on('error', function(err) {
     res.end(err.toString());
   });
 });
 
-app.post('/upload', function(req, res, next) {
-    console.log("he")
+app.post('/upload', (req, res, next) => {
+
     var form = new formidable.IncomingForm();
     form.multiples = true;
     form.parse(req, function(err, fields, files) {
@@ -79,8 +76,7 @@ app.post('/upload', function(req, res, next) {
             // files[property].type;
             // files[property].lastModifiedDate;
             var destinationName = files[property].name;
-            destinationName = `/user/${fields.useruid}/files/` + id + destinationName.substring(destinationName.indexOf('.'));
-            console.log(destinationName);
+            destinationName = `/user/${fields.useruid}/files/${id}${destinationName.substring(destinationName.indexOf('.'))}`;
             var options = {
                 destination: destinationName,
                 resumable: true,
@@ -89,19 +85,14 @@ app.post('/upload', function(req, res, next) {
                     "type": files[property].type
                 }
             };
-            console.log("user: " + fields);
-
             bucket.upload(files[property].path, options, function(err, file) {
                 if (!err) {
-                    console.log('works');
-                    console.log(file.destination);
                     for (var property in file) {
                         if (file.hasOwnProperty(property)) {
                             console.log(property + ": " + file[property])
                         }
                     }
                     database.addFileToHub(fields.useruid, fields.hubid, file);
-
                     // "zebra.jpg" is now in your bucket.
                 } else {
                     console.log('error');

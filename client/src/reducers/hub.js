@@ -4,7 +4,7 @@ import { HUB_CREATE_SUCCESS, HUB_CREATE_ERROR } from '../actions';
 const initialState = {
 	created: false,
 	hub: null,
-	error: null
+	error: undefined
 };
 
 export default function hub(state = initialState, action) {
@@ -17,6 +17,7 @@ export default function hub(state = initialState, action) {
         error: null
       };
     case HUB_CREATE_ERROR:
+	console.log(action.payload.message);
       return {
         ...state,
 		hub: null,

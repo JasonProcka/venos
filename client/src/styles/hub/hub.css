@@ -251,13 +251,28 @@ header .tabs button {
     display: block;
 }
 
+.drop-container {
+    width: 100%;
+    text-align: center;
+    padding: 2em;
+    background-color: #FFF;
+}
+
+.drop-list {
+    max-width: 1500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .drop {
     margin-right: 25px !important;
     margin-left: 25px !important;
-    width: 200px !important;
-    display: block;
+    width: 20em !important;
+    min-width: 5em;
+    display: inline-block;
     float: left;
-    height: 200px;
+    height: 20em;
+    box-sizing: border-box;
     background-position: center;
     border-radius: 2px;
     background-color: #222;
@@ -273,18 +288,6 @@ header .tabs button {
     font-size: 14px;
     padding: 16px;
     box-sizing: border-box;
-}
-
-.drop:first-of-type {
-    margin-left: 0em !important;
-}
-
-.drop:nth-child(5n) {
-    margin-right: 0em !important;
-}
-
-.drop:nth-child(6n) {
-    margin-left: 0em !important;
 }
 
 #button-create-drop {}

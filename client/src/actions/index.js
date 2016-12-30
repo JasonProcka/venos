@@ -56,6 +56,7 @@ function action_CreateHub(hub) {
     return {type: HUB_CREATE_SUCCESS, hub}
 }
 function action_CreateHubError(error) {
+	console.log("error" + error.message);
     return {type: HUB_CREATE_ERROR, payload: error}
 }
 
@@ -83,8 +84,9 @@ export {
 
 // Action to sign in a user
 function signInUser(credentials) {
-    return (dispatch, state) => {
-		if(state.user && state.user.isAnonymous){
+    return (dispatch, getState) => {
+		let user = getState().auth.user;
+		if(user && user.isAnonymous){
 
         	Firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
 			.then(user => {
@@ -110,19 +112,19 @@ function signInUser(credentials) {
 
 // Action to sign up a user with credentials.email and credentials.password
 function signUpUser(credentials) {
-    return (dispatch, state) => {
+    return (dispatch, getState) => {
 
 		// TODO take old hubs and assign them the new user so that they are not lost from an anonymous account
 
-
-		if(state.user && state.user.isAnonymous){
+		let user = getState().auth.user;
+		if(user && user.isAnonymous){
 			// If user is Anonymous then delete his current account
 	        var auth = Firebase.auth();
 			auth.signOut();
 			auth.currentUser.delete();
 		}
 
-		if(state.user && !state.user.isAnonymous){ // he has an account which is not anonymous, we know his email
+		if(user && !user.isAnonymous){ // he has an account which is not anonymous, we know his email
 			return; // we don't need to do something here, the user is already signed up so why should we sign him up again.
 		}
 
@@ -173,17 +175,21 @@ function verifyAuth() {
 
 // Create a Hub with {name, description, url, (user.uid - passed by method), isPublicHub, destructionTimeInHours}
 function createHub(data) {
-    return (dispatch, state) => {
+    return (dispatch, getState) => {
 
-        if(state.user && state.user.uid){
+		let user = getState().auth.user;
+        if(user && user.uid){
 
 			// Method for creating the hub
-            Database.createHub(data.name, data.description, data.url, state.user.uid, data.isPublic, data.destructionTimeInHours)
+            Database.createHub(data.name, data.description, data.url, user.uid, data.isPublic, data.destructionTimeInHours)
             .then(hub => dispatch(action_CreateHub(hub))) // dispatch create hub action to reducers
-			.then(() => dispatch(push(`/${data.url}`)));
+			.then(() => dispatch(push(`/${data.url}`)))
+			.catch((error) => {
+				dispatch(action_CreateHubError(new Error("Here: " + error.message)));
+			});
 
         }else{
-            dispatch(action_CreateHubError()); // send Error Action if hub can't be created
+            dispatch(action_CreateHubError(new Error("User not authenticated"))); // send Error Action if hub can't be created
 			// TODO maybe add an action that can be used to show that the attempt requires authentication
         }
     }
@@ -195,7 +201,7 @@ function createHub(data) {
 function uploadFiles(files, hub) {
     return (dispatch, state) => {
         let req = request.post('/upload'); // Post request to /upload
-        let uid = state.user.uid;
+        let uid = state.auth.user.uid;
 
         files.forEach((file) => {
             req.attach(file.name, file);	// Attach each file to the request

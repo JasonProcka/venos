@@ -5,13 +5,13 @@
   "homepage": "http://venos.co",
   "proxy": "http://localhost:3100/",
   "devDependencies": {
-    "react-scripts": "0.8.4"
+    "react-scripts": "^0.8.4"
   },
   "dependencies": {
     "firebase": "^3.5.1",
-    "material-ui": "^0.16.1",
+    "material-ui": "^0.16.4",
     "node-schedule": "^1.2.0",
-    "react": "^15.3.2",
+    "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-dropzone": "^3.7.2",
@@ -22,7 +22,8 @@
     "react-swipeable-views": "^0.9.3",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "redux-form": "^6.1.1",
+    "redux-form": "^6.3.0",
+    "redux-form-material-ui": "^4.1.2",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
     "superagent": "^3.3.1"

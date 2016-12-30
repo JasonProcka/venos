@@ -20,6 +20,7 @@
     "firebase": "^3.6.1",
     "formidable": "^1.0.17",
     "fs": "0.0.2",
+    "react-waypoint": "^4.1.0",
     "shortid": "^2.2.6"
   },
   "scripts": {

@@ -50,8 +50,8 @@ class DatabaseServer{
 				let reference = database.ref(FileC.KEY).push();
 				Promise.all(
 					[
-						database.ref(`${UserC.KEY}/${file[FileC.OWNER]}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true);
-						reference.set(file);
+						database.ref(`${UserC.KEY}/${file[FileC.OWNER]}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true),
+						reference.set(file)
 					]
 				).then(() => resolve()).catch((err) => reject(err))
 
@@ -76,14 +76,14 @@ class DatabaseServer{
 				let reference = database.ref(FileC.KEY).push()
 				Promise.all(
 					[
-						storePromise(reference)
-						database.ref(`${UserC.KEY}/${file[FileC.OWNER]}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true);
-						database.ref(`${HubC.KEY}/${hubId}/${HubC.FILES}/${reference.key}`);
-						reference.set(file);
+						storePromise(reference),
+						database.ref(`${UserC.KEY}/${file[FileC.OWNER]}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true),
+						database.ref(`${HubC.KEY}/${hubId}/${HubC.FILES}/${reference.key}`),
+						reference.set(file)
 
 					]
 				).then(() => resolve()).catch((err) => reject(err))
-				}
+
 			}
 		)
 

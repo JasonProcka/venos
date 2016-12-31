@@ -4,7 +4,7 @@
 import React from 'react';
 
 // >>> Containers
-import Nav from '../containers/Nav';
+import Nav from '../containers/nav/Nav';
 import Footer from '../containers/Footer';
 
 // >>> Styles/CSS
@@ -24,9 +24,9 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <Nav/>
-				{this.props.children}
-                <Footer />
+              <Nav/>
+	            {this.props.children}
+              <Footer />
             </div>
         );
     }

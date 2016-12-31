@@ -1,35 +1,32 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
-1 verbose cli   'C:\\Users\\phili\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'run',
-1 verbose cli   'server' ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'server' ]
 2 info using npm@3.10.9
-3 info using node@v6.7.0
+3 info using node@v6.9.2
 4 verbose run-script [ 'preserver', 'server', 'postserver' ]
 5 info lifecycle venos@1.0.0~preserver: venos@1.0.0
 6 silly lifecycle venos@1.0.0~preserver: no script for preserver, continuing
 7 info lifecycle venos@1.0.0~server: venos@1.0.0
 8 verbose lifecycle venos@1.0.0~server: unsafe-perm in lifecycle true
-9 verbose lifecycle venos@1.0.0~server: PATH: C:\Users\phili\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;C:\Users\phili\Documents\GitHub\venos\node_modules\.bin;C:\Users\phili\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;C:\Users\phili\Documents\GitHub\venos\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Brackets\command;C:\Program Files\Git\cmd;C:\Program Files (x86)\Skype\Phone\;C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin;C:\Program Files\nodejs\;C:\Users\phili\AppData\Roaming\npm;C:\Users\phili\AppData\Local\Microsoft\WindowsApps;C:\Users\phili\AppData\Roaming\npm-cache;C:\Users\phili\AppData\Local\atom\bin
-10 verbose lifecycle venos@1.0.0~server: CWD: C:\Users\phili\Documents\GitHub\venos
-11 silly lifecycle venos@1.0.0~server: Args: [ '/d /s /c', 'babel-node server.js' ]
+9 verbose lifecycle venos@1.0.0~server: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/jason/Documents/Development/venos/node_modules/.bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/jason/Documents/Development/venos/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+10 verbose lifecycle venos@1.0.0~server: CWD: /Users/jason/Documents/Development/venos
+11 silly lifecycle venos@1.0.0~server: Args: [ '-c', 'babel-node server.js' ]
 12 silly lifecycle venos@1.0.0~server: Returned: code: 1  signal: null
 13 info lifecycle venos@1.0.0~server: Failed to exec server script
 14 verbose stack Error: venos@1.0.0 server: `babel-node server.js`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (C:\Users\phili\AppData\Roaming\npm\node_modules\npm\lib\utils\lifecycle.js:255:16)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
-14 verbose stack     at ChildProcess.<anonymous> (C:\Users\phili\AppData\Roaming\npm\node_modules\npm\lib\utils\spawn.js:40:14)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
 14 verbose stack     at maybeClose (internal/child_process.js:877:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid venos@1.0.0
-16 verbose cwd C:\Users\phili\Documents\GitHub\venos
-17 error Windows_NT 10.0.14393
-18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\phili\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "run" "server"
-19 error node v6.7.0
+16 verbose cwd /Users/jason/Documents/Development/venos
+17 error Darwin 15.6.0
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "server"
+19 error node v6.9.2
 20 error npm  v3.10.9
 21 error code ELIFECYCLE
 22 error venos@1.0.0 server: `babel-node server.js`

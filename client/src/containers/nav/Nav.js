@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
-import NavLink from '../components/NavLink';
-import NavLabel from '../components/NavLabel';
+import NavLink from '../components/nav/NavLink';
+import NavLabel from '../components/nav/NavLabel';
 
 // Icons
 import IconHome from 'material-ui/svg-icons/action/home';
@@ -18,6 +18,7 @@ import IconTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import IconLiveHelp from 'material-ui/svg-icons/communication/live-help';
 import IconMailOutline from 'material-ui/svg-icons/communication/mail-outline';
 import IconAccountCircle from 'material-ui/svg-icons/action/account-circle';
+import IconAdd from 'material-ui/svg-icons/action/add';
 import '../styles/nav.css';
 
 class Nav extends React.Component {
@@ -26,8 +27,8 @@ class Nav extends React.Component {
   }
 
   renderNavContent() {
-      console.log('authenticated');
-      console.log(this.props.authenticated);
+    console.log('authenticated');
+    console.log(this.props.authenticated);
     if (this.props.authenticated) {
       return [
         <ul key={1} className="upper-items smooth">
@@ -59,7 +60,7 @@ class Nav extends React.Component {
       ]
     } else {
       return [
-        <ul  key={1} className="upper-items smooth">
+        <ul key={1} className="upper-items smooth">
           <NavLabel>NAVIGATE</NavLabel>
           <NavLink to="create" key={1}  icon={<IconHome />}>Create Hub</NavLink>
           <NavLink key={2}  icon={<IconLiveHelp />}>What&#39;s Venos?</NavLink>
@@ -70,7 +71,7 @@ class Nav extends React.Component {
           <NavLink key={1} to="join"  icon={<IconAssignment />}>Join / Register</NavLink>
           <NavLink key={2} to="login"  icon={<IconAccountCircle />}>Login</NavLink>
         </ul>,
-        <ul  key={3} className="upper-items smooth">
+        <ul key={3} className="upper-items smooth">
           <NavLabel>TRENDING</NavLabel>
           <NavLink key={1}   icon={<IconTrendingUp />}>Shocking HRC Leak</NavLink>
           <NavLink key={2}  icon={<IconTrendingUp />}>WikiLeaks Drop 4</NavLink>
@@ -94,12 +95,10 @@ class Nav extends React.Component {
   }
 }
 
-
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticatedFull
   }
 }
-
 
 export default connect(mapStateToProps, Actions)(Nav);

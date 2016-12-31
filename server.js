@@ -61,7 +61,7 @@ app.get('/file', (req, res, next) => {
     let remoteReadStream = bucket.file(req.query.file).createReadStream();
     remoteReadStream.pipe(res);
     remoteReadStream.on('error', (err) => res.end(err.toString()));
-  	);
+
 });
 
 app.post('/upload', (req, res, next) => {
@@ -79,7 +79,7 @@ app.post('/upload', (req, res, next) => {
 				new FileM({
 					[FileC.NAME]: files[property].name
 
-				},
+				}),
 				fields.hubid,
 				(reference) => {
 

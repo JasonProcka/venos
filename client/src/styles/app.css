@@ -10,6 +10,10 @@ body {
     text-align: center;
 }
 
+.tabs {
+    background-color: transparent !important;
+}
+
 .App-logo {
     animation: App-logo-spin infinite 20s linear;
     height: 80px;

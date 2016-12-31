@@ -5,6 +5,8 @@ const DISPLAY_NAME = "displayName";
 const DESCRIPTION = "description";
 const EMAIL = "email";
 const FILES = "files";
+const HUBS = "hubs";
+const OWNS = "owns";
 
 
 export default class UserM{
@@ -15,4 +17,4 @@ export default class UserM{
 
 }
 
-export {KEY, UID, DISPLAY_NAME, DESCRIPTION, EMAIL, FILES};
+export {KEY, OWNS, HUBS, UID, DISPLAY_NAME, DESCRIPTION, EMAIL, FILES};

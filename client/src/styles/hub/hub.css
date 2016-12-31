@@ -14,6 +14,11 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+[ref="waypoint"] {
+    width: 0;
+    height: 0;
+}
+
 .shadow {
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.15);
@@ -258,25 +263,16 @@ header .tabs button {
     background-color: #FFF;
 }
 
+.small-wrapper>div>div>div>div {
+    position: relative;
+    overflow: visible !important;
+}
+
 .drop-list {
     max-width: 1500px;
     margin: 0 auto;
     text-align: center;
-}
-
-.drop {
-    margin-right: 25px !important;
-    margin-left: 25px !important;
-    width: 20em !important;
-    min-width: 5em;
-    display: inline-block;
-    float: left;
-    height: 20em;
-    box-sizing: border-box;
-    background-position: center;
-    border-radius: 2px;
-    background-color: #222;
-    margin-bottom: 3em;
+    position: relative;
 }
 
 .drop>div {

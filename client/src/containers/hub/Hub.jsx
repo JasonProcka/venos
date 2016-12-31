@@ -31,6 +31,8 @@ import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import SwipeableViews from 'react-swipeable-views'; // From https://github.com/oliviertassinari/react-swipeable-views
+import CircularProgress from 'material-ui/CircularProgress';
+
 
 // >>> Styles
 import '../../styles/hub/hub.css';
@@ -39,15 +41,35 @@ class Hub extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.hub);
+		this.props.action.fetchHubByUrl(this.props.routeParams.name);
+        console.log("e:" + this.props.hub);
         this.state = {
+			hub: null,
             files: new Map(),
             currentTab: 0
         };
 
+
     }
 
     componentWillMount() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // console.log(this.props.location.pathname);
         // let req = request.get('/files').query({'url': this.props.location.pathname}).end((err, res) => {
 		//
@@ -70,6 +92,8 @@ class Hub extends React.Component {
     }
 
     componentDidMount() {
+
+
         // request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
         //     console.log("err: " + err);
         //     console.log("resp: " + res);
@@ -94,8 +118,8 @@ class Hub extends React.Component {
     }
 
     onDrop(acceptedFiles) {
-        // console.log(acceptedFiles);
-        // this.props.actions.uploadFiles(acceptedFiles, this.props.hub);
+        console.log(acceptedFiles);
+        this.props.actions.uploadFiles(acceptedFiles, this.props.hub);
         // var e = [];
         // for (var i = 0; i < acceptedFiles.length; i++) {
         //     e.push(acceptedFiles[i]);
@@ -171,7 +195,8 @@ class Hub extends React.Component {
 
 
 
-        console.log(this.state.files.length);
+        console.log("h" + this.props.hub);
+		if(this.props.hub != null)
         return (
             <div className="small-wrapper">
                 <Dropzone disableClick={true} style={{
@@ -179,9 +204,9 @@ class Hub extends React.Component {
                 }} ref={(node) => {
                     this.dropzone = node;
                 }} onDrop={this.onDrop}>
-                    <HubHeader currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} name={"Awesome Hub"} description={"That's amazing"} location={this.props.location.pathname}/>
+                    <HubHeader title={this.props.hub.name } description={this.props.hub.description } currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} location={this.props.location.pathname}/>
                     <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
-                        <div className="drop-container clearfix"><DropList drops={dummyData}/></div>
+                        <div className='test'><div className="drop-container clearfix"><DropList drops={dummyData}/></div></div>
                         <div>
                             gdfgdfg
                         </div>
@@ -189,19 +214,22 @@ class Hub extends React.Component {
                 </Dropzone>
             </div>
         )
+		else
+			return  <CircularProgress size={500} thickness={30} />
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(Actions, dispatch)
+        action: bindActionCreators(Actions, dispatch)
     };
 }
 
-// const mapStateToProps = (state, ownProps) => {
-// 	return {
-// 		location: this.
-// 	}
-// }
+const mapStateToProps = (state, ownProps) => {
+	console.log(state);
+	return {
+		hub: state.hub.hub
+	}
+ }
 
-export default connect(undefined, mapDispatchToProps)(Hub);
+export default connect(mapStateToProps, mapDispatchToProps)(Hub);

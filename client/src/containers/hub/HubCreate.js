@@ -24,6 +24,9 @@ import CreateDialog from '../../components/CreateDialog';
 // >>> util
 import util from 'util';
 
+// >>> Consts
+import {HubC} from '../../shared/models';
+
 // >>> Containers
 import Footer from '../Footer';
 import HubContent from './HubContent.js';
@@ -103,10 +106,10 @@ class HubCreate extends React.Component {
 		//{name, description, url, (user.uid - passed by method), isPublicHub, destructionTimeInHours}
 		this.props.actions.createHub(
 			{
-				name: values.name,
-				description: values.description,
-				url: values.url ? values.url : this.state.hub.url,
-				destructionTimeInHours: 48
+				[HubC.NAME]: values.name,
+				[HubC.DESCRIPTION]: values.description,
+				[HubC.URL]: values.url ? values.url : this.state.hub.url,
+				[HubC.DESTRUCTION_TIME_IN_HOURS]: 48
 			}
 		);
     };

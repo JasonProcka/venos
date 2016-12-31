@@ -9,8 +9,8 @@ import {browserHistory} from 'react-router';
 import { push } from 'react-router-redux'
 
 // >>> Modules
-import Firebase from './firebaseinit';
-import Database from './database';
+import DatabaseUtil, {Firebase} from '../shared/database'
+import {HubC} from '../shared/models';
 import request from 'superagent';
 import util from 'util';
 
@@ -31,6 +31,8 @@ export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
 // >>> Hub Consts
 export const HUB_CREATE_SUCCESS = 'HUB_CREATE_SUCCESS';
 export const HUB_CREATE_ERROR = 'HUB_CREATE_ERROR';
+export const HUB_FETCH_SUCCESS = 'HUB_FETCH_SUCCESS';
+export const HUB_FETCH_ERROR = 'HUB_FETCH_ERROR';
 
 // >>> Files
 export const FILE_UPLOAD_SUCCESS = 'FILE_UPLOAD_SUCCESS';
@@ -56,7 +58,15 @@ function action_CreateHub(hub) {
     return {type: HUB_CREATE_SUCCESS, hub}
 }
 function action_CreateHubError(error) {
-	console.log("error" + error.message);
+
+    return {type: HUB_CREATE_ERROR, payload: error}
+}
+
+function action_FetchHub(hub) {
+    return {type: HUB_FETCH_SUCCESS, hub}
+}
+function action_FetchHubError(error) {
+	
     return {type: HUB_CREATE_ERROR, payload: error}
 }
 
@@ -117,6 +127,7 @@ function signUpUser(credentials) {
 		// TODO take old hubs and assign them the new user so that they are not lost from an anonymous account
 
 		let user = getState().auth.user;
+
 		if(user && user.isAnonymous){
 			// If user is Anonymous then delete his current account
 	        var auth = Firebase.auth();
@@ -171,6 +182,14 @@ function verifyAuth() {
   	}
 }
 
+function fetchHubByUrl(url) {
+	return (dispatch) => {
+		DatabaseUtil.getHubByUrl(url)
+		.then((hub) => dispatch(action_FetchHub(hub)))
+		.catch((err) => dispatch(action_FetchHubError(err)));
+	}
+}
+
 
 
 // Create a Hub with {name, description, url, (user.uid - passed by method), isPublicHub, destructionTimeInHours}
@@ -178,10 +197,11 @@ function createHub(data) {
     return (dispatch, getState) => {
 
 		let user = getState().auth.user;
+		data[HubC.OWNER] = user.uid;
         if(user && user.uid){
 
 			// Method for creating the hub
-            Database.createHub(data.name, data.description, data.url, user.uid, data.isPublic, data.destructionTimeInHours)
+            DatabaseUtil.createHub(data)
             .then(hub => dispatch(action_CreateHub(hub))) // dispatch create hub action to reducers
 			.then(() => dispatch(push(`/${data.url}`)))
 			.catch((error) => {
@@ -200,21 +220,24 @@ function createHub(data) {
 // Upload Files to an hub
 function uploadFiles(files, hub) {
     return (dispatch, state) => {
-        let req = request.post('/upload'); // Post request to /upload
-        let uid = state.auth.user.uid;
+        let user = state.auth.user;
+		if(user){
+			let req = request.post('/upload'); // Post request to /upload
+	        files.forEach((file) => {
+	            req.attach(file.name, file);	// Attach each file to the request
+	        });
 
-        files.forEach((file) => {
-            req.attach(file.name, file);	// Attach each file to the request
-        });
+			// Add fields to the request
+	        req.field('hubid', hub.id);
+	        req.field('useruid', user.uid);
 
-		// Add fields to the request
-        req.field('hubid', hub.id);
-        req.field('useruid', uid);
-
-		// When the request is done
-        req.end((err, res) => {
-            (!err && res ? dispatch(action_UploadFile()) : dispatch(action_UploadFileError()));
-        });
+			// When the request is done
+	        req.end((err, res) => {
+	            (!err && res ? dispatch(action_UploadFile()) : dispatch(action_UploadFileError(err)));
+	        });
+		}else{
+			dispatch(action_UploadFileError("You need to be authenticated to upload a file"))
+		}
     }
 }
 export {
@@ -223,7 +246,8 @@ export {
 	signOutUser,
 	verifyAuth,
 	createHub,
-	uploadFiles
+	uploadFiles,
+	fetchHubByUrl
 }
 
 // export function createHub(data){

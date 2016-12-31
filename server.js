@@ -12,14 +12,14 @@ const formidable = require('formidable'),
 const gcs = require('@google-cloud/storage')({projectId: 'czernitzki-148120', keyFilename: './service.json'});
 
 // >>> Internal Modules
-const database = require("./server/database");
-
+import DatabaseServer from "./server/database";
+import {FileM, FileC} from './client/src/shared/models'
 
 
 
 // support json encoded bodies
 const app = express();
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 app.use(
 	bodyParser.json({limit: '50mb'})
 );
@@ -45,8 +45,8 @@ app.listen(app.get('port'), () => {
 });
 
 app.get('/files', (req, res, next) => {
-    database.getFilesOfHub(req.query.hubid).then((files) => {
-        var array = [];
+    DatabaseServer.getFilesOfHub(req.query.hubid).then((files) => {
+        let array = [];
         console.log(util.inspect(files, { showHidden: true, depth: null }));
         res.status(200).end(JSON.stringify(files));
 
@@ -58,47 +58,62 @@ app.get('/files', (req, res, next) => {
 });
 app.get('/file', (req, res, next) => {
 
-    var remoteReadStream = bucket.file(req.query.file).createReadStream();
+    let remoteReadStream = bucket.file(req.query.file).createReadStream();
     remoteReadStream.pipe(res);
-    remoteReadStream.on('error', function(err) {
-    res.end(err.toString());
-  });
+    remoteReadStream.on('error', (err) => res.end(err.toString()));
+  	);
 });
 
 app.post('/upload', (req, res, next) => {
 
-    var form = new formidable.IncomingForm();
+
+    let form = new formidable.IncomingForm();
     form.multiples = true;
-    form.parse(req, function(err, fields, files) {
-        for (var property in files) {
-            var id = shortid.generate();
+    form.parse(req, (err, fields, files) => {
+        for (let property in files) {
+
+
+
+
+			DatabaseUtil.createFile(
+				new FileM({
+					[FileC.NAME]: files[property].name
+
+				},
+				fields.hubid,
+				(reference) => {
+
+					let destinationName = files[property].name;
+		            destinationName = `/user/${fields.useruid}/files/${reference.key}${destinationName.substring(destinationName.indexOf('.'))}`;
+					let options = {
+		                destination: destinationName,
+		                resumable: true,
+		                validation: 'crc32c',
+		                metadata: {
+		                    "type": files[property].type
+		                }
+		            };
+
+					return new Promise(
+						(resolve, reject) => {
+
+							bucket.upload(files[property].path, options, (err, file) => {
+			                	if (!err)
+			                    	console.info("Successful uploaded file");
+			                	else {
+			                    	console.err(err);
+									reject(err);
+			                	}
+			            	});
+						}
+					)
+				}
+			);
             // files[property].path;
             // files[property].type;
             // files[property].lastModifiedDate;
-            var destinationName = files[property].name;
-            destinationName = `/user/${fields.useruid}/files/${id}${destinationName.substring(destinationName.indexOf('.'))}`;
-            var options = {
-                destination: destinationName,
-                resumable: true,
-                validation: 'crc32c',
-                metadata: {
-                    "type": files[property].type
-                }
-            };
-            bucket.upload(files[property].path, options, function(err, file) {
-                if (!err) {
-                    for (var property in file) {
-                        if (file.hasOwnProperty(property)) {
-                            console.log(property + ": " + file[property])
-                        }
-                    }
-                    database.addFileToHub(fields.useruid, fields.hubid, file);
-                    // "zebra.jpg" is now in your bucket.
-                } else {
-                    console.log('error');
-                    console.log(err);
-                }
-            });
+
+
         }
 
         res.writeHead(200, {'content-type': 'text/plain'});

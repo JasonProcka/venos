@@ -30,13 +30,23 @@ export default class HubM{
         this[DESCRIPTION] = hub[DESCRIPTION];
         this[IS_PUBLIC] = hub[IS_PUBLIC];
 		let date = hub[CREATION_DATE] ? hub[CREATION_DATE] : new Date();
-		this[CREATION] = date;
-		this[DESTRUCTION_TIME_IN_HOURS] = hub[DESTRUCTION_TIME_IN_HOURS] ? hub[DESTRUCTION_TIME_IN_HOURS] : 48;
-		date = {...date};
-		date.setHours(date.getHours() + destructionTimeInHours);
-		this[DESTRUCTION_DATE] = date;
-		this[MEMBERS] = hub[HUB_MEMBERS];
+		this[CREATION_DATE] = date;
+
+		this[DESTRUCTION_TIME_IN_HOURS] = hub[DESTRUCTION_TIME_IN_HOURS] === 0 ? undefined : (hub[DESTRUCTION_TIME_IN_HOURS] ? hub[DESTRUCTION_TIME_IN_HOURS]: 48);
+		this[DESTRUCTION_DATE] = hub[DESTRUCTION_DATE];
+		if(!DESTRUCTION_DATE)
+			if (hub[DESTRUCTION_TIME_IN_HOURS] !== undefined && hub[DESTRUCTION_TIME_IN_HOURS] === 0) {
+				var destructionDate = HubM.getDestructDate(hub[CREATION_DATE], hub[DESTRUCTION_TIME_IN_HOURS]);
+				hub[DESTRUCTION_DATE] = destructionDate.getTime();
+			}
+		this[MEMBERS] = hub[MEMBERS];
     }
+
+	static getDestructDate(date, hours){
+	    let inMilliseconds = date.getTime();
+	    inMilliseconds = inMilliseconds + (hours * 1000 /* * 60 * 60 */);
+	    return new Date(inMilliseconds);
+	}
 
 
 

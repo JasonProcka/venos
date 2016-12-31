@@ -9,6 +9,7 @@ const LOCATION = "fileLocation";
 const SIZE = "fileSize";
 const HUBS = "fileHubs";
 const OWNER = "fileOwner";
+const EXTRA = "fileExtra";
 
 
 
@@ -20,4 +21,4 @@ export default class FileM{
 
 }
 
-export {KEY, ID, NAME, DESCRIPTION, LOCATION, SIZE, HUBS, OWNER};
+export {KEY, EXTRA, ID, NAME, DESCRIPTION, LOCATION, SIZE, HUBS, OWNER};

@@ -29,7 +29,7 @@ class HubHeader extends React.Component {
                 <header className="hub-header">
                     <div>
                         <div className="hub-head-informations">
-                            <h3 className="hub-title">{this.props.name}</h3>
+                            <h3 className="hub-title">{this.props.title}</h3>
                             <p className="hub-description">{this.props.description}</p>
                         </div>
                         <div className="hub-buttons">

@@ -3,97 +3,139 @@
 // ---- Imports ---
 
 
+import {DatabaseUtil, Firebase} from '../client/src/shared/database'
 
-// >>> Consts
-
-
-import { FileC, UserC, HubC, Sep} from '../shared/models';
-import config from '../shared/config';
-import Firebase from 'firebase';
+import { FileC, UserC, HubC, Sep} from '../client/src/shared/models';
 import util from 'util';
 
-Firebase.initializeApp(config);
 const database = Firebase.database();
 
-const addFileToHub = (file, hubId) => {
-	// var fileRef = Firebase.database().ref(KEY_FILES).push();
-	// var promise1 = fileRef.set({name: file.name, owner: userid, [KEY_HUB]: {[hubid]: true}});
-	// var promise2 = Firebase.database().ref(KEY_USER + NODE_SEP + userid + NODE_SEP + KEY_FILES + NODE_SEP + fileRef.key).set(true);
-	// var promise3 = Firebase.database().ref(KEY_HUB + NODE_SEP + hubid + NODE_SEP + KEY_FILES + NODE_SEP + fileRef.key).set(true);
-	var fileRef = Firebase.database().ref(FilesC.KEY).push();
+class DatabaseServer{
 
-	var promise1 = fileRef.set(file);
+	static startAllHubDestructs() {
+		let reference = database.ref(HubC.KEY).orderByChild(HubC.DESTRUCTION_TIME_IN_HOURS);
+	    reference.on('child_added', (data) => {
+	        var milliseconds = data.val()[HubC.DESTRUCTION_DATE];
+	        if(milliseconds){
+	            DatabaseClient.startHubDesctruct(data.key, new Date(milliseconds));
+	        }
+	    });
+	}
 
-	var promise2 = Firebase.database().ref(`
-		${UserC.KEY}/
-			${file[FileC.OWNER]}/
-				${UserC.FILES}/
-					${fileRef.key}`
+	static isDateInPast(date){
+	    let now = new Date();
+	    let offset = 5000; // 5 seconds
+	    if(date.getTime() - offset <= now)   // returns a date in the future if the date passed in is not in the future
+	        return true;
+		else
+	        return false;
 
-	).set(true);
+	}
 
-	var promise3 = Firebase.database().ref(`
-		${HubC.KEY}/
-			${hubId}/
-				${HubC.FILES}/
-					${fileRef.key}`
+	static startHubDesctruct(hubId, date){
+	    console.info("startHubDestruct for " + hubId + " on " + date);
+	    let isPast = isDateInPast(date);
+	    if(!isPast)
+	        schedule.scheduleJob(date, () => {
+	            DatabaseClient.deleteHubById(hubId).then(() => console.info("worked"));
+	        });
+	    else
+	        DatabaseClient.deleteHubById(hubId).then(() => console.info("worked"));
 
-	).set(true);
+	}
+
+	static addFile(file){
+		return new Promise(
+			(resolve, reject) => {
+				let reference = database.ref(FileC.KEY).push();
+				Promise.all(
+					[
+						database.ref(`${UserC.KEY}/${file[FileC.OWNER]}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true);
+						reference.set(file);
+					]
+				).then(() => resolve()).catch((err) => reject(err))
+
+			}
+		)
+	}
 
 
-    return Promise.all([promise1, promise2, promise3]);
-};
+	static addFiles(files, userUid) {
 
-const getFilesOfHub = (hubId) => {
-    return new Promise((resolve, reject) => {
+		// return a Promise which resolves after every file has been added
+		return Promise.all(files.map((file, index) => {
+			return DatabaseUtil.addFile(file);
+		}));
+	}
 
-        var ref = Firebase.database().ref(`
-			${HubC.KEY}/${hubId}
-		`);
 
-        ref
-		.once('value')
-		.then((snapshot) => {
-            var promises = [];
-            var files = snapshot.val().files;
-            for(var fileid in files){
-                promises.push(new Promise(function(resolve, reject){
-                    Firebase.database().ref(`${FileC.KEY}/${fileid}`).once('value').then(function(snapshot) {
-                        console.log("value: " + snapshot.val());
-                        resolve(snapshot.val().name);
-                    });
-                }));
+	static addFileToHub(file, hubId, storePromise){	// storePromise is a promise that receives the reference of the files new location and is used to store the file
 
-            }
+		return new Promise(
+			(resolve, reject) => {
+				let reference = database.ref(FileC.KEY).push()
+				Promise.all(
+					[
+						storePromise(reference)
+						database.ref(`${UserC.KEY}/${file[FileC.OWNER]}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true);
+						database.ref(`${HubC.KEY}/${hubId}/${HubC.FILES}/${reference.key}`);
+						reference.set(file);
 
-            Promise.all(promises).then(function(values){
-                resolve(values);
-            });
+					]
+				).then(() => resolve()).catch((err) => reject(err))
+				}
+			}
+		)
 
-            //
-            // Firebase.database().ref(KEY_FILES + NODE_SEP).orderByChild(hubid).equalTo(true).limitToFirst(1).once('value').then(function(snapshot) {
-            //     if(snapshot == null || snapshot.val() == null){
-            //         reject("Fetched data is null, hub can't exist");
-            //     }
-            //     console.log(snapshot.val());
-            //
-            //     snapshot.forEach(function(childSnapshot){
-            //         console.log("child : " + childSnapshot);
-            //
-            //     });
-            //     resolve(snapshot);
-            // }).catch(err => {
-            //     reject(err);
-            // });
-            // console.log('naja');
 
-        }).catch((err) => {
-            reject(err);
-        });
-    });
-}
 
-module.exports = {
-    addFileToHub: addFileToHub,
-    getFilesOfHub: getFilesOfHub
+	}
+
+
+	static getFilesOfHub(hubId) {
+	    return new Promise((resolve, reject) => {
+
+	        let ref = database.ref(`${HubC.KEY}/${hubId}`);
+
+	        ref
+			.once('value')
+			.then((snapshot) => {
+	            let promises = [];
+	            let files = snapshot.val().files;
+	            for(let fileid in files){
+	                promises.push(new Promise((resolve, reject) => {
+	                    Firebase.database().ref(`${FileC.KEY}/${fileid}`).once('value').then( (snapshot) => {
+	                        console.log("value: " + snapshot.val());
+	                        resolve(snapshot.val().name);
+	                    });
+	                }));
+
+	            }
+
+	            Promise.all(promises).then(function(values){
+	                resolve(values);
+	            });
+
+	            //
+	            // Firebase.database().ref(KEY_FILES + NODE_SEP).orderByChild(hubid).equalTo(true).limitToFirst(1).once('value').then(function(snapshot) {
+	            //     if(snapshot == null || snapshot.val() == null){
+	            //         reject("Fetched data is null, hub can't exist");
+	            //     }
+	            //     console.log(snapshot.val());
+	            //
+	            //     snapshot.forEach(function(childSnapshot){
+	            //         console.log("child : " + childSnapshot);
+	            //
+	            //     });
+	            //     resolve(snapshot);
+	            // }).catch(err => {
+	            //     reject(err);
+	            // });
+	            // console.log('naja');
+
+	        }).catch((err) => {
+	            reject(err);
+	        });
+    	});
+	}
 }

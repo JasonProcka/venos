@@ -1,0 +1,42 @@
+.drop-appear {
+    opacity: 0.01;
+}
+
+.drop-appear.drop-appear-active {
+    opacity: 1;
+    transition: opacity 1.5s ease-in;
+}
+
+.drop-enter {
+    opacity: 0.01;
+}
+
+.drop-enter.drop-enter-active {
+    opacity: 1;
+    transition: opacity 1500ms ease-in;
+}
+
+.drop-leave {
+    opacity: 1;
+}
+
+.drop-leave.drop-leave-active {
+    opacity: 0.01;
+    transition: opacity 1500ms ease-in;
+}
+
+.drop {
+    margin-right: 25px !important;
+    margin-left: 25px !important;
+    width: 15em !important;
+    min-width: 5em;
+    display: inline-block;
+    height: 15em;
+    box-sizing: border-box;
+    background-position: center;
+    border-radius: 2px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 3em;
+}

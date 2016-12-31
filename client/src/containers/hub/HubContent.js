@@ -29,7 +29,7 @@ class HubContent extends React.Component {
   }
 
   render() {
-    
+
     const examples = this.examples(this.props.examples);
     return (
       <div className="lower-content">

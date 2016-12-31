@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as Actions from '../actions';
-import NavLink from '../components/NavLink';
-import NavLabel from '../components/NavLabel';
+import NavLink from '../components/nav/NavLink';
+import NavLabel from '../components/nav/NavLabel';
 import '../styles/footer.css';
 class Footer extends React.Component {
   handleSignout() {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import * as Actions from '../actions';
-import NavLink from '../components/nav/NavLink';
-import NavLabel from '../components/nav/NavLabel';
+import * as Actions from '../../actions';
+import NavLink from '../../components/nav/NavLink';
+import NavLabel from '../../components/nav/NavLabel';
 
 // Icons
 import IconHome from 'material-ui/svg-icons/action/home';
@@ -18,8 +18,7 @@ import IconTrendingUp from 'material-ui/svg-icons/action/trending-up';
 import IconLiveHelp from 'material-ui/svg-icons/communication/live-help';
 import IconMailOutline from 'material-ui/svg-icons/communication/mail-outline';
 import IconAccountCircle from 'material-ui/svg-icons/action/account-circle';
-import IconAdd from 'material-ui/svg-icons/action/add';
-import '../styles/nav.css';
+import '../../styles/nav.css';
 
 class Nav extends React.Component {
   handleSignout() {

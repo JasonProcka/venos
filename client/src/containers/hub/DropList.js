@@ -4,6 +4,7 @@ import Drop from './Drop';
 import Waypoint from 'react-waypoint';
 import CircularProgress from 'material-ui/CircularProgress';
 
+
 class DropList extends React.Component {
     constructor(props) {
         super(props);
@@ -24,16 +25,16 @@ class DropList extends React.Component {
         var itemsToAdd = 50;
         var secondsToWait = 1;
 		if(!this.state.isLoading){
-        this.setState({isLoading: true});
-        // fake an async. ajax call with setTimeout
-        window.setTimeout(() => {
-            // add datad
-            var currentItems = this.state.currentItems;
-            var newItems = this.props.drops.slice(currentItems.length - 1, currentItems.length + 49);
-            currentItems = currentItems.concat(newItems);
-            this.setState({currentItems: currentItems, isLoading: false});
-        }, secondsToWait * 1000);
-	}
+	        this.setState({isLoading: true});
+	        // fake an async. ajax call with setTimeout
+	        window.setTimeout(() => {
+	            // add datad
+	            var currentItems = this.state.currentItems;
+	            var newItems = this.props.drops.slice(currentItems.length - 1, currentItems.length + 49);
+	            currentItems = currentItems.concat(newItems);
+	            this.setState({currentItems: currentItems, isLoading: false});
+	        }, secondsToWait * 1000);
+		}
     }
 
     _renderWaypoint() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 class HubContent extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class HubContent extends React.Component {
                   <span className="demo-card-image__filename">Drop</span>
                 </div>
                 </div>
-             </div>
+              </div>
             </div>
           </div>
        );

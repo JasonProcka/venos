@@ -152,7 +152,7 @@
     font-weight: 300;
 }
 
-.nav-custom .upper-items .link button div {
+.nav-custom .upper-items .navLink button div {
     color: #BDBDBD;
     letter-spacing: .5px;
     border-radius: 0px;
@@ -161,17 +161,17 @@
     font-weight: 300;
 }
 
-.nav-custom .upper-items .link button div span {
+.nav-custom .upper-items .navLink button div span {
     font-weight: 300 !important;
     text-transform: none !important;
 }
 
-.nav-custom .upper-items .link a {
+.nav-custom .upper-items .navLink a {
     width: 100%;
     display: block;
 }
 
-.nav-custom .upper-items .link button {
+.nav-custom .upper-items .navLink button {
     color: #BDBDBD;
     width: 100%;
     text-decoration: none;
@@ -188,7 +188,7 @@
     position: relative;
 }
 
-.nav-custom .upper-items .link button:hover {
+.nav-custom .upper-items .navLink button:hover {
     color: #03A9F4;
     text-decoration: none;
     background-color: #E1F5FE;
@@ -199,7 +199,7 @@
     /*border-left: solid 2px rgba(3, 169, 244, 1) !important;*/
 }
 
-.nav-custom .upper-items .link svg {
+.nav-custom .upper-items .navLink svg {
     vertical-align: middle;
     margin: 10px 24px 10px 16px !important;
     font-size: 0.6em;
@@ -210,7 +210,7 @@
     width: 2.5em !important;
 }
 
-.nav-custom .upper-items .link button:hover>.nav-custom .upper-items .link i {
+.nav-custom .upper-items .navLink button:hover>.nav-custom .upper-items .link i {
     color: #03A9F4;
 }
 

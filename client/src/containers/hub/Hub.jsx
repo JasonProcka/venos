@@ -4,6 +4,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 // >>> Redux
 import {bindActionCreators} from 'redux'
@@ -208,7 +209,23 @@ class Hub extends React.Component {
                     <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
                         <div className='test'><div className="drop-container clearfix"><DropList drops={dummyData}/></div></div>
                         <div>
-                            gdfgdfg
+                          <Card className="dropCard">
+
+                            <div className="dropImage"></div>
+                            <CardTitle className="dropTitle" title="pic_02.png" />
+                          </Card>
+                          <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                              <img class="activator" src="http://www.unoosa.org/res/timeline/index_html/space-2.jpg" />
+                            </div>
+                            <div class="card-content">
+                              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                            </div>
+                            <div class="card-reveal">
+                              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            </div>
+                          </div>
                         </div>
                     </SwipeableViews>
                 </Dropzone>

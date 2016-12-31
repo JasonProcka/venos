@@ -5,8 +5,6 @@ import * as Actions from '../actions';
 import NavLink from '../components/NavLink';
 import NavLabel from '../components/NavLabel';
 
-
-
 // Icons
 import IconHome from 'material-ui/svg-icons/action/home';
 import IconFingerprint from 'material-ui/svg-icons/action/fingerprint';
@@ -86,12 +84,12 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <nav className="nav-custom shadow-light">
+      <div className="nav-custom shadow-light">
         <div className="inner-nav">
           { this.renderNavContent() }
         </div>
         <div className="nav-push-div"></div>
-      </nav>
+      </div>
     );
   }
 }

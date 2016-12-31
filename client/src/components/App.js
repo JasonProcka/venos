@@ -10,6 +10,7 @@ import Footer from '../containers/Footer';
 // >>> Styles/CSS
 import '../styles/index.css';
 import '../styles/components.css';
+import '../styles/materialize/css/materialize.min.css';
 import '../styles/material.min.css';
 
 // create default wrapper for our application which contains the <Nav>, the <Footer> and of course the content through {this.props.children}

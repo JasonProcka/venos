@@ -2,9 +2,6 @@ import React from 'react';
 import Drop from './Drop';
 import Waypoint from 'react-waypoint';
 
-
-
-
 class DropList extends React.Component{
 	constructor(props){
 		super(props);

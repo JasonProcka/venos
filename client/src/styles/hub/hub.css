@@ -321,3 +321,24 @@ Alerts .tile {
 .clearfix {
     display: block;
 }
+
+@media only screen and (max-width: 930px) {
+  .hubWrapper {
+    margin-left: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .hubJumboWrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .hubDrops {
+    margin-top: 20px;
+    padding-right: 20px;
+  }
+  .col {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+}

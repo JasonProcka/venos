@@ -12,9 +12,8 @@ class DropList extends React.Component {
         this._renderItems = this._renderItems.bind(this);
 
         this.state = {
-            loadedItems: 50,
             isLoading: false,
-            currentItems: this.props.drops.slice(0, 50)
+            currentItems: this.props.drops.slice(0, 20)
         }
     }
 

@@ -1,3 +1,7 @@
+/* Font import(s) */
+
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
 /* Essentials for Hub */
 
 * {
@@ -31,7 +35,7 @@ body::-webkit-scrollbar {
     padding: 0 30px 0 30px;
 }
 
-/* Styling for Drop Card*/
+/* Styling for Drop Card */
 
 .dropCard {
   width: 260px;
@@ -42,36 +46,9 @@ body::-webkit-scrollbar {
   font-size: 16px;
 }
 
-
-/* Image card */
-
-.demo-card-image.mdl-card {
-    width: 100%;
-    height: 180px;
-    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../../images/halloween.jpeg') center / cover;
-}
-
-.mdl-card__title {}
-
-.demo.cardimg {}
-
-.demo-card-image>.mdl-card__actions {
-    height: 52px;
-    padding: 16px;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.demo-card-image__filename {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* Hub Jumbo */
-
 /* Hub Content */
 
+/*
 .hub-content {
     min-width: calc(100% - 230px);
     margin-left: 230px;
@@ -108,14 +85,14 @@ body::-webkit-scrollbar {
     overflow: hidden;
 }
 
-.hub-jumbo .hub-title {
+.hub-jumbo .hubTitle {
     margin: 0 0 0px 0;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
     color: #FFF;
 }
 
-.hub-jumbo .hub-description {
+.hub-jumbo .hubDescription {
     text-align: center;
     margin: 0 0 20px 0;
     font-size: 16px;
@@ -189,8 +166,7 @@ Alerts .tile {
     transform: translateX(-50%);
     margin-top: 20px;
     -webkit-font-smoothing: antialiased;
-}
-
+} /*
 
 /* Advertisement */
 
@@ -229,64 +205,81 @@ Alerts .tile {
 
 /* End event card */
 
-header {
-    padding-top: 6em;
+.hubJumbo {
+    padding-top: 20px;
     background-size: cover;
     background-position: center;
     background-image: url('http://www.hdbloggers.net/wp-content/uploads/2016/07/Galaxy-Wallpaper-10.jpg');
 }
 
-header>div {
+.hubJumboWrapper {
+  padding: 0 40px;
+}
+
+.hubJumbo>div {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-header .hub-title {
-    font-family: "Roboto", sans-serif;
+.hubJumbo .hubTitle {
+    font-family: 'PT Sans', sans-serif;
+    color: #FFF;
+    margin-bottom: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
-header .hub-description {
-    font-family: "Raleway", sans-serif;
+.hubJumbo .hubDescription {
+    font-family: 'PT Sans', sans-serif;
     letter-spacing: 1px;
 }
 
-header .hub-buttons {
-    margin-top: 2em;
+.hubJumbo .hub-buttons {
+    margin-top: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
-header .tabs {
-    margin-top: 2em;
+.hubJumbo .hubTabs {
+    margin-top: 20px;
+    font-family: 'PT Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
 }
 
-header .tabs button {
+.hubJumbo .hubTabs button {
     width: 100px !important;
-    margin-right: 2em !important;
+    margin-right: 0 !important;
     border-radius: 5em !important;
     border-solid: 1px transparent solid !important;
 }
 
 .hub-grid {
     max-width: 1200px !important;
-    width: 1200px !important;
     margin: 0 auto !important;
-    padding: 2.5em 0em;
+    padding: 40px 0;
     display: block;
 }
 
 .drop-container {
     width: 100%;
     text-align: center;
-    padding: 2em;
-    background-color: #FFF;
+    padding: 0;
 }
 
-.small-wrapper>div>div>div>div {
-    position: relative;
-    overflow: visible !important;
+.hubWrapper {
+  margin-left: 260px;
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Hub drops */
+
+.hubDrops {
+  margin-top: 40px;
+  padding-right: 40px;
 }
 
 .drop-list {
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: center;
     position: relative;

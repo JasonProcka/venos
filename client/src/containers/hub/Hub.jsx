@@ -13,9 +13,7 @@ import * as Actions from '../../actions';
 // >>> Containers
 import HubHeader from './HubHeader';
 
-
-
-// >>> Drop
+// >>> Drops
 import DropList from './DropList';
 import Drop from './Drop';
 
@@ -37,6 +35,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 // >>> Styles
 import '../../styles/hub/hub.css';
+import '../../styles/grid.css';
 
 class Hub extends React.Component {
 
@@ -54,22 +53,6 @@ class Hub extends React.Component {
     }
 
     componentWillMount() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         // console.log(this.props.location.pathname);
         // let req = request.get('/files').query({'url': this.props.location.pathname}).end((err, res) => {
@@ -155,16 +138,6 @@ class Hub extends React.Component {
 		this.setState({currentTab: e})
 	}
 
-    makeFiles() {
-        console.log("kp: " + this.state.files.length)
-        var i = 0;
-
-        return (
-            <div className="hub-grid"></div>
-        );
-
-    }
-
     handleChange = (value) => {
         this.setState({
             ...this.state,
@@ -199,36 +172,18 @@ class Hub extends React.Component {
         console.log("h" + this.props.hub);
 		if(this.props.hub != null)
         return (
-            <div className="small-wrapper">
-                <Dropzone disableClick={true} style={{
-                    width: '100%'
+            <div className="hubWrapper">
+              <HubHeader title={this.props.hub.name} description={this.props.hub.description} currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} location={this.props.location.pathname} />
+              <Dropzone disableClick={true} style={{
+                  width: '100%'
                 }} ref={(node) => {
                     this.dropzone = node;
                 }} onDrop={this.onDrop}>
-                    <HubHeader title={this.props.hub.name } description={this.props.hub.description } currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} location={this.props.location.pathname}/>
-                    <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
-                        <div className='test'><div className="drop-container clearfix"><DropList drops={dummyData}/></div></div>
-                        <div>
-                          <Card className="dropCard">
-
-                            <div className="dropImage"></div>
-                            <CardTitle className="dropTitle" title="pic_02.png" />
-                          </Card>
-                          <div class="card">
-                            <div class="card-image waves-effect waves-block waves-light">
-                              <img class="activator" src="http://www.unoosa.org/res/timeline/index_html/space-2.jpg" />
-                            </div>
-                            <div class="card-content">
-                              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            </div>
-                            <div class="card-reveal">
-                              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                            </div>
-                          </div>
-                        </div>
-                    </SwipeableViews>
-                </Dropzone>
+                  <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
+                      <DropList drops={dummyData} />
+                      <div className="hubBio">this is random text</div>
+                  </SwipeableViews>
+              </Dropzone>
             </div>
         )
 		else

@@ -51,40 +51,44 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="loginWrapper">
-          <div className="loginContent">
-              { this.renderAuthenticationError() }
-              <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-                <Field
-                  key={1}
-                  placeholder="Email"
-                  className="loginEmail"
-                  id="sample3"
-                  name="email"
-                  component={TextField}
-                  type="text"
-                  /><br />
-                <Field
-                  key={2}
-                  placeholder="Password"
-                  className="loginPassword"
-                  id="sample4"
-                  name="password"
-                  component={TextField}
-                  type="password"
-                  /><br />
-                <RaisedButton
-                  className="loginSubmit"
-                  type="submit"
-                  label="Login"
-                  secondary={true} />
-                  <Checkbox
-                    className="loginRemember"
-                    label="Remember me"
-                  />
-            </form>
-          </div>
+      <div className="loginWrapper blue">
+        <Link to="/join">
+          <FlatButton label="Join" className="changePortal" href="/join" />
+        </Link>
+        <div className="loginContent">
+            { this.renderAuthenticationError() }
+            <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+              <Field
+                key={1}
+                placeholder="Email"
+                className="loginEmail"
+                id="sample3"
+                name="email"
+                component={TextField}
+                type="text"
+                /><br />
+              <Field
+                key={2}
+                placeholder="Password"
+                className="loginPassword"
+                id="sample4"
+                name="password"
+                component={TextField}
+                type="password"
+                /><br />
+              <RaisedButton
+                className="loginSubmit pink"
+                type="submit"
+                label="Login"
+              />
+                <Checkbox
+                  className="loginRemember"
+                  labelPosition="left"
+                  label="Remember me"
+                />
+          </form>
         </div>
+      </div>
     );
   }
 

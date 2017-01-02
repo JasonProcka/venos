@@ -131,6 +131,7 @@ class HubCreate extends React.Component {
                           <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
                             <Field
                               className="hubNamer hubFields"
+                              autoComplete="off"
                               key={1}
                               name="name"
                               placeholder="Name your Hub"
@@ -141,6 +142,7 @@ class HubCreate extends React.Component {
                             />
             								<Field
                               className="hubDescriptor hubFields"
+                              autoComplete="off"
             									key={2}
             									name="description"
                               placeholder="Describe your Hub"
@@ -180,7 +182,7 @@ class HubCreate extends React.Component {
                     </div>
                 );
 
-			// TODO, moving to the hub when a hub got successfully created show this:
+			// TODO, moving to the hub when a hub gets successfully created show this:
             case STATUS_CREATED_HUB:
                 return (
                     <div className="dialog-special created shadow">

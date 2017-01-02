@@ -16,19 +16,24 @@
     "babel-preset-es2015": "6.18.0",
     "babel-preset-stage-0": "6.16.0",
     "body-parser": "^1.15.2",
+    "cookies": "^0.6.2",
     "express": "4.14.0",
     "firebase": "^3.6.1",
+    "firebase-admin": "^4.0.4",
     "formidable": "^1.0.17",
     "fs": "0.0.2",
+    "node-localstorage": "^1.3.0",
     "shortid": "^2.2.6"
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-node server.js",
+    "server": "babel-watch server.js",
     "client": "babel-node start-client.js",
     "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1"
   },
   "devDependencies": {
-    "concurrently": "^3.1.0"
+    "babel-watch": "^2.0.5",
+    "concurrently": "^3.1.0",
+    "nodemon": "^1.11.0"
   }
 }

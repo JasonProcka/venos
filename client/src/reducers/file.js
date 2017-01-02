@@ -21,7 +21,7 @@ export default function file(state = initialState, action) {
         ...state,
 		files: null,
         successful: false,
-        error: action.payload.message
+        error: action.payload
       };
     default:
       return state;

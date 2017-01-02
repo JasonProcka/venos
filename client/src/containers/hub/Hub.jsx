@@ -42,8 +42,7 @@ class Hub extends React.Component {
 
     constructor(props) {
         super(props);
-		this.props.action.fetchHubByUrl(this.props.routeParams.name);
-        console.log("e:" + this.props.hub);
+
         this.state = {
 			hub: null,
             files: new Map(),
@@ -56,7 +55,7 @@ class Hub extends React.Component {
     componentWillMount() {
 
 
-
+		this.props.action.fetchHubByUrl(this.props.routeParams.name);
 
 
 
@@ -95,6 +94,9 @@ class Hub extends React.Component {
     componentDidMount() {
 
 
+		if(this.props.hub)
+			console.log('mount: ' + util.inspect(this.props.hub));
+
         // request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
         //     console.log("err: " + err);
         //     console.log("resp: " + res);
@@ -120,7 +122,8 @@ class Hub extends React.Component {
 
     onDrop(acceptedFiles) {
         console.log(acceptedFiles);
-        this.props.actions.uploadFiles(acceptedFiles, this.props.hub);
+		console.log("t" + util.inspect(acceptedFiles, {showHidden: false, depth: 0}));
+        this.props.action.uploadFiles(acceptedFiles, this.props.hub);
         // var e = [];
         // for (var i = 0; i < acceptedFiles.length; i++) {
         //     e.push(acceptedFiles[i]);
@@ -204,7 +207,7 @@ class Hub extends React.Component {
                     width: '100%'
                 }} ref={(node) => {
                     this.dropzone = node;
-                }} onDrop={this.onDrop}>
+                }} onDrop={this.onDrop.bind(this)}>
                     <HubHeader title={this.props.hub.name } description={this.props.hub.description } currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} location={this.props.location.pathname}/>
                     <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
                         <div className='test'><div className="drop-container clearfix"><DropList drops={dummyData}/></div></div>
@@ -214,15 +217,15 @@ class Hub extends React.Component {
                             <div className="dropImage"></div>
                             <CardTitle className="dropTitle" title="pic_02.png" />
                           </Card>
-                          <div class="card">
-                            <div class="card-image waves-effect waves-block waves-light">
-                              <img class="activator" src="http://www.unoosa.org/res/timeline/index_html/space-2.jpg" />
+                          <div className="card">
+                            <div className="card-image waves-effect waves-block waves-light">
+                              <img className="activator" src="http://www.unoosa.org/res/timeline/index_html/space-2.jpg" />
                             </div>
-                            <div class="card-content">
-                              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                            <div className="card-content">
+                              <span className="card-title activator grey-text text-darken-4">Card Title<i className="material-icons right">more_vert</i></span>
                             </div>
-                            <div class="card-reveal">
-                              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <div className="card-reveal">
+                              <span className="card-title grey-text text-darken-4">Card Title<i className="material-icons right">close</i></span>
                               <p>Here is some more information about this product that is only revealed once clicked on.</p>
                             </div>
                           </div>
@@ -243,7 +246,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state);
+
 	return {
 		hub: state.hub.hub
 	}

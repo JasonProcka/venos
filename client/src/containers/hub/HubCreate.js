@@ -35,6 +35,8 @@ import HubContent from './HubContent.js';
 import { RaisedButton } from 'material-ui';
 import {Checkbox, RadioButtonGroup, SelectField, TextField, Toggle} from 'redux-form-material-ui'
 
+
+
 // >>> Styles/CSS
 import '../../styles/app.css'
 import '../../styles/create-hub.css';
@@ -92,6 +94,7 @@ class HubCreate extends React.Component {
 
 	}
 
+
 	required(value){
 		return value == null ? 'Required' : undefined
 	}
@@ -103,6 +106,7 @@ class HubCreate extends React.Component {
 
 
     handleFormSubmit = (values) => {
+		console.log('kp');
 		//{name, description, url, (user.uid - passed by method), isPublicHub, destructionTimeInHours}
 		this.props.actions.createHub(
 			{
@@ -112,6 +116,7 @@ class HubCreate extends React.Component {
 				[HubC.DESTRUCTION_TIME_IN_HOURS]: 48
 			}
 		);
+
     };
 
     renderAuthenticationError() {

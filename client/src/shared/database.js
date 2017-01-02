@@ -1,9 +1,9 @@
 import {HubM, HubC, UserC, UrlC} from './models'
-import config from './config';
-import Firebase from 'firebase';
-
-Firebase.initializeApp(config);
-var database = Firebase.database();
+import util from 'util';
+// import Firebase from 'firebase';
+//
+// Firebase.initializeApp(config);
+// var database = Firebase.database();
 
 
 // ------------------- Hub Methods ---------------------------
@@ -12,11 +12,16 @@ var database = Firebase.database();
 
 class DatabaseUtil{
 
-	static findHubByUrl(url) {
+	constructor(_database){
+		this.database = _database;
+	}
+
+
+	findHubByUrl(url) {
 	    return new Promise(
 	        (resolve, reject) => {
 
-	            Firebase.database().ref(`${HubC.KEY}/`).orderByChild(HubC.URL).equalTo(url).limitToFirst(1).once('value').then(function(snapshot) {
+	            this.ref(`${HubC.KEY}/`).orderByChild(HubC.URL).equalTo(url).limitToFirst(1).once('value').then(function(snapshot) {
 	                // current snapshot contains 'hub' as key and the hub object as value but we can't access it so we need to get it somehow:
 	                if(snapshot == null || snapshot.val() == null)
 	                    reject("Fetched data is null, hub can't exist");
@@ -48,11 +53,11 @@ class DatabaseUtil{
 
 
 
-	static createHub(data) {
+	createHub(data) {
 		return new Promise(
-	        function(resolve, reject){
-
-	            var reference = database.ref(HubC.KEY).push();
+	        (resolve, reject) => {
+				console.log(util.inspect(this));
+	            var reference = this.database.ref(HubC.KEY).push();
 
 
 
@@ -63,8 +68,8 @@ class DatabaseUtil{
 	                        	reject(error);
 	                    	// startHubDesctruct(reference.key, destructionDate);
 	                	}),
-	             		database.ref(`${UserC.KEY}/${data[HubC.OWNER]}/${UserC.OWNS}/${UserC.HUBS}/${reference.key}`).set(true),
-						database.ref(`${UrlC.KEY}/${data[HubC.URL]}`).set(
+	             		this.database.ref(`${UserC.KEY}/${data[HubC.OWNER]}/${UserC.OWNS}/${UserC.HUBS}/${reference.key}`).set(true),
+						this.database.ref(`${UrlC.KEY}/${data[HubC.URL]}`).set(
 							{
 								[UrlC.ID]: reference.key,
 								[UrlC.TYPE]: UrlC.TYPE_HUB
@@ -75,20 +80,20 @@ class DatabaseUtil{
 	    });
 	}
 
-	static deleteHubByIdAndUid(hubId, ownerUid) {
+	deleteHubByIdAndUid(hubId, ownerUid) {
 	    var promises = [];
-	    promises.push(database.ref(`${HubC.KEY}/${hubId}`).remove());
-	    promises.push(database.ref(`${UserC.KEY}/${ownerUid}/${UserC.OWNS}/${UserC.HUBS}/${hubId}`).remove());
+	    promises.push(this.database.ref(`${HubC.KEY}/${hubId}`).remove());
+	    promises.push(this.database.ref(`${UserC.KEY}/${ownerUid}/${UserC.OWNS}/${UserC.HUBS}/${hubId}`).remove());
 	    return Promise.all(promises);
 	};
 
-	static deleteHubById(hubId){
+	deleteHubById(hubId){
 
 	    return new Promise(
 	        (resolve, reject) => {
-	            DatabaseUtil.getHubById(hubId).then(
+	            this.getHubById(hubId).then(
 					(hub) => {
-	                	DatabaseUtil.deleteHubByIdAndUid(hubId, hub.ownerUid).then(
+	                	this.deleteHubByIdAndUid(hubId, hub.ownerUid).then(
 							() => resolve()
 						)
 	            	},	() => reject()
@@ -101,15 +106,15 @@ class DatabaseUtil{
 	static addMemberToHubByUsername(hubId, uid, accessRights) {
 		return Promise.all(
 			[
-				database.ref(`${HubC.KEY}/${HubC.MEMBERS}/${uid}/$`).set(true)
+				this.database.ref(`${HubC.KEY}/${HubC.MEMBERS}/${uid}/$`).set(true)
     			// TODO add Access Rights database.ref(`${UserC.KEY}/${uid}/${KEY_HUB_MEMBER + NODE_SEP + KEY_USER + uid`).set(true)
 			]);
 	}
 
-	static getHubById(hubId){
+	getHubById(hubId){
     	return new Promise(
 	        (resolve, reject) => {
-	            database.ref(`${HubC.KEY}/${hubId}`).once('value').then(
+	            this.database.ref(`${HubC.KEY}/${hubId}`).once('value').then(
 					(snapshot) => {
 		                if (snapshot === null || snapshot.val() === null)
 		                    reject();
@@ -124,26 +129,26 @@ class DatabaseUtil{
     	);
 	}
 
-	static getHubByUrl(url){
+	getHubByUrl(url){
 		return new Promise(
 			(resolve, reject) => {
 
-				database.ref(`${UrlC.KEY}/${url}`).once('value').then(
+				this.database.ref(`${UrlC.KEY}/${url}`).once('value').then(
 					(snapshot) => {
 						if (snapshot === null || snapshot.val() === null)
 		                    reject();
 		                else
-							DatabaseUtil.getHubById(snapshot.val()[UrlC.ID]).then((hub) => resolve(hub)).catch((err) => reject(err));
+							this.getHubById(snapshot.val()[UrlC.ID]).then((hub) => resolve(hub)).catch((err) => reject(err));
 					}
 				)
 			}
 		)
 	}
 
- 	static getMyOwnedHubIds(uid){
+ 	getMyOwnedHubIds(uid){
 	    return new Promise(
 	        (resolve, reject) => {
-	            database.ref(`${UserC.KEY}/${uid}/${UserC.OWNS}/${UserC.HUBS}`).once('value').then(
+	            this.database.ref(`${UserC.KEY}/${uid}/${UserC.OWNS}/${UserC.HUBS}`).once('value').then(
 					(snapshot) => {
 		                if (snapshot === null || snapshot.val() === null)
 		                    reject();
@@ -156,13 +161,13 @@ class DatabaseUtil{
 	}
 
 	static updateHub(id, updates){
-    	return database.ref(`${HubC.KEY}/${id}`).update(updates);
+    	return this.database.ref(`${HubC.KEY}/${id}`).update(updates);
 	}
 
-	static getMyHubs(ownerUid) {
+	getMyHubs(ownerUid) {
 	    return new Promise(
 	        function (resolve, reject) {
-	            DatabaseUtil.getMyOwnedHubIds(ownerUid).then(
+	            this.getMyOwnedHubIds(ownerUid).then(
 					(hubIds) => {
 		                var promises = [];
 		                hubIds.forEach(
@@ -183,5 +188,4 @@ class DatabaseUtil{
 
 }
 
-export {Firebase};
 export default DatabaseUtil;

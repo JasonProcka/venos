@@ -6,16 +6,25 @@
 import {browserHistory} from 'react-router';
 
 // >>> react-router-redux
-import { push } from 'react-router-redux'
+import { push,go } from 'react-router-redux'
 
 // >>> Modules
-import DatabaseUtil, {Firebase} from '../shared/database'
+import Firebase from 'firebase';
+
+import config from '../shared/config'
+Firebase.initializeApp(config);
+import DatabaseUtil  from '../shared/database';
+
+const database = new DatabaseUtil(Firebase.database());
 import {HubC} from '../shared/models';
 import request from 'superagent';
 import util from 'util';
 
 // >>> Material-UI
 import Snackbar from 'material-ui/Snackbar';
+
+
+
 
 
 
@@ -37,6 +46,8 @@ export const HUB_FETCH_ERROR = 'HUB_FETCH_ERROR';
 // >>> Files
 export const FILE_UPLOAD_SUCCESS = 'FILE_UPLOAD_SUCCESS';
 export const FILE_UPLOAD_ERROR = 'FILE_UPLOAD_ERROR';
+
+
 
 
 
@@ -66,7 +77,7 @@ function action_FetchHub(hub) {
     return {type: HUB_FETCH_SUCCESS, hub}
 }
 function action_FetchHubError(error) {
-	
+
     return {type: HUB_CREATE_ERROR, payload: error}
 }
 
@@ -94,21 +105,31 @@ export {
 
 // Action to sign in a user
 function signInUser(credentials) {
+	console.log('2');
     return (dispatch, getState) => {
 		let user = getState().auth.user;
-		if(user && user.isAnonymous){
 
-        	Firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-			.then(user => {
-	            dispatch(
-					action_AuthUser(user)		// Action that submits Auth Event
-				).
-				then(
-					() => dispatch(push('/dashboard')) // after user got successfully signed in move him to /dashboard
-				);
-	        }).catch(error => {
-	            dispatch(action_AuthError(error)); // If an error appears while signing in do dispatch an error
-	        });
+		if((user && user.isAnonymous) || user === null){
+
+			request
+			.post('/signin')
+			.send({email: credentials ? credentials.email : undefined , password: credentials ? credentials.password : undefined})
+			.end((err, res) => {
+				console.log("user: " + util.inspect(res));
+				if(err || !res.ok)
+					dispatch(action_AuthError(err)); // If an error appears while signing in do dispatch an error
+				else {
+					console.log("user: " + util.inspect(res));
+					if(res.text)
+						dispatch(action_AuthUser(JSON.parse(res.text)));		// Action that submits Auth Event
+					else {
+						dispatch(action_AuthError(err));
+					}
+
+					dispatch(push('/dashboard')) // after user got successfully signed in move him to /dashboard
+
+				}
+			})
 
 		} else {
 			dispatch(action_AuthError("Already signed up")); // User is already signed in, send error for signing in again
@@ -140,53 +161,75 @@ function signUpUser(credentials) {
 		}
 
 		// Take credentials.email and credentials.password and create a new user
-        Firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-		.then(user => {
-            dispatch(
-				action_AuthUser(user)	// Action that submits Auth Event
-			).then(
-				() => dispatch(push('/dashboard'))	 // after user got successfully signed in move him to /dashboard
-			);
-        }).catch(error => {
-            dispatch(action_AuthError(error));
-        });
+		request
+		.post('/signup')
+		.send({email: credentials ? credentials.email : undefined , password: credentials ? credentials.password : undefined})
+		.end((err, res) => {
+			if(err || !res.ok)
+				dispatch(action_AuthError(err)); // If an error appears while signing in do dispatch an error
+			else {
+				console.log("user: " + util.inspect(res));
+				dispatch(action_AuthUser(JSON.parse(res.text)))		// Action that submits Auth Event
+
+			}
+		})
 	}
 }
 
 
 
-// Action To Sign Out A User and Redirect him to the Dashboard
-function signOutUser(){
-	return (dispatch) => {
-		Firebase.auth().signOut().then(() => dispatch(action_AuthSignOut()).then(() => dispatch(push('/dashboard'))));
-	}
-}
+
 
 
 
 // checks on every page call if the user is signed in and returns the corresponding Action to the Reducers otherwise we would loose our authenticated state if we visit a new page after login
 function verifyAuth() {
 	return (dispatch) => {
-    	Firebase.auth().onAuthStateChanged(user => {
-        	if (user) {
-                	dispatch(action_AuthUser(user));
-        	} else {  // if a user is not signed in, sign in anonymously (everyone should always be registered)
-            	Firebase.auth().signInAnonymously().then(user => {
-                	dispatch(action_AuthUser(user));
-            	})
-				.catch(error => {
-                	dispatch(action_AuthError(error));
-            	});
-      		}
-    	});
-  	}
+		console.log('test');
+		request
+		.post('/isauthenticated')
+		.end((err, res) => {
+
+			if(err || !res.ok)
+				dispatch(action_AuthError(err ? err : "something wrong in verifyAuth")); // If an error appears while signing in do dispatch an error
+			else {
+				if(res.text){
+					console.log("user: " + util.inspect(res));
+					dispatch(action_AuthUser(JSON.parse(res.text)))		// Action that submits Auth Event
+					dispatch(push('/dashboard')); // after user got successfully signed up move him to /dashboard
+
+				}
+				else {
+					console.log('h');
+					dispatch(signUpUser());
+				}
+			}
+		});
+	}
 }
 
+
+
 function fetchHubByUrl(url) {
-	return (dispatch) => {
-		DatabaseUtil.getHubByUrl(url)
-		.then((hub) => dispatch(action_FetchHub(hub)))
-		.catch((err) => dispatch(action_FetchHubError(err)));
+	return (dispatch, getState) => {
+		request
+		.post('/gethubbyurl')
+		.send({url: getState().routing.locationBeforeTransitions.pathname.substring(1)})
+		.end((err, res) => {
+			if(err || !res.ok)
+				dispatch(action_FetchHubError(err ? err.message : "something wrong in fetchHubByUrl")); // If an error appears while signing in do dispatch an error
+			else {
+				if(res.text){
+					console.log("user: " + util.inspect(res));
+					dispatch(action_CreateHub(JSON.parse(res.text)))		// Action that submits Auth Event
+
+				}
+				else {
+					console.log('h');
+					dispatch(action_FetchHubError("response is empty"));
+				}
+			}
+		});
 	}
 }
 
@@ -197,21 +240,39 @@ function createHub(data) {
     return (dispatch, getState) => {
 
 		let user = getState().auth.user;
-		data[HubC.OWNER] = user.uid;
+
         if(user && user.uid){
 
-			// Method for creating the hub
-            DatabaseUtil.createHub(data)
-            .then(hub => dispatch(action_CreateHub(hub))) // dispatch create hub action to reducers
-			.then(() => dispatch(push(`/${data.url}`)))
-			.catch((error) => {
-				dispatch(action_CreateHubError(new Error("Here: " + error.message)));
+
+			data[HubC.OWNER] = user.uid;
+			console.log("obj" + util.inspect(data));
+			request
+			.post('/create')
+			.send(data)
+			.end((err, res) => {
+
+				if(err || !res.ok)
+					dispatch(action_CreateHubError(err)); // If an error appears while signing in do dispatch an error
+				else {
+					console.log(res.text);
+					if(res.text){
+						let hub = JSON.parse(res.text);
+						dispatch(action_CreateHub())		// Action that submits Auth Event
+						console.log(hub.url);
+						dispatch(push(`/${hub.url}`))
+
+					}
+					else {
+						dispatch(action_CreateHubError("Something wrong in create hub"));
+					}
+				}
 			});
 
         }else{
-            dispatch(action_CreateHubError(new Error("User not authenticated"))); // send Error Action if hub can't be created
+            dispatch(action_CreateHubError("User not authenticated")); // send Error Action if hub can't be created
 			// TODO maybe add an action that can be used to show that the attempt requires authentication
         }
+
     }
 }
 
@@ -219,8 +280,8 @@ function createHub(data) {
 
 // Upload Files to an hub
 function uploadFiles(files, hub) {
-    return (dispatch, state) => {
-        let user = state.auth.user;
+    return (dispatch, getState) => {
+        let user = getState().auth.user;
 		if(user){
 			let req = request.post('/upload'); // Post request to /upload
 	        files.forEach((file) => {
@@ -240,6 +301,51 @@ function uploadFiles(files, hub) {
 		}
     }
 }
+
+
+
+// Action To Sign Out A User and Redirect him to the Dashboard
+function signOutUser(){
+	return (dispatch) => {
+		request
+		.post('/signout')
+		.send()
+		.end(
+			(err, res) => {
+				if(err || !res.ok){
+					dispatch(action_AuthError()); // could not signout for a weird reason
+				}else{
+					dispatch(action_AuthSignOut())
+					.then(() => dispatch(push('/dashboard')));
+				}
+			}
+		);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export {
 	signInUser,
 	signUpUser,

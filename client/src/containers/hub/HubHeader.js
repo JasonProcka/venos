@@ -31,7 +31,7 @@ class HubHeader extends React.Component {
                 <h3 className="hubTitle">{this.props.title}</h3>
                 <p className="hubDescription">{this.props.description}</p>
               </div>
-              <div className="hub-buttons">
+              <div className="hubButtons">
                 <RaisedButton style={{
                     marginRight: "1em"
                 }} id="button-create-drop" secondary={true} label="Create Drop" onClick={() => {

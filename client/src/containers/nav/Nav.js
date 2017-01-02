@@ -30,7 +30,7 @@ class Nav extends React.Component {
     console.log(this.props.authenticated);
     if (this.props.authenticated) {
       return [
-        <ul key={1} className="upper-items smooth">
+        <ul key={1} className="navItems">
           <NavLabel>NAVIGATE</NavLabel>
           <NavLink key={1} to="dashboard" icon={<IconHome />}> Dashboard</NavLink>
           <NavLink key={2} to="creations"  icon={<IconFingerprint />}>Creations</NavLink>
@@ -38,17 +38,17 @@ class Nav extends React.Component {
           <NavLink key={4}  icon={<IconCloud />}>Synced Files</NavLink>
           <NavLink key={5} to="create"  icon={<IconCreate />}>Create Hub</NavLink>
         </ul>,
-        <ul key={2} className="upper-items smooth">
+        <ul key={2} className="navItems">
           <NavLabel>RECENT</NavLabel>
           <NavLink key={1}  icon={<IconFolder />}>Jason&#39;s Vacation 2016</NavLink>
           <NavLink key={2}  icon={<IconFolder />}>San Haven Roadtrip</NavLink>
           <NavLink key={3}  icon={<IconFolder />}>Bismarck Roadtrip</NavLink>
         </ul>,
-        <ul  key={3} className="upper-items smooth">
+        <ul key={3} className="navItems">
           <NavLabel>ACCESS</NavLabel>
           <NavLink to="/"  icon={<IconAssignmentReturn />} onClick={() => this.handleSignout()}>Logout</NavLink>
         </ul>,
-        <ul key={4} className="upper-items smooth">
+        <ul key={4} className="navItems">
           <NavLabel>TRENDING</NavLabel>
           <NavLink key={1}  icon={<IconTrendingUp />}>Shocking HRC Leak</NavLink>
           <NavLink key={2}  icon={<IconTrendingUp />}>WikiLeaks Drop 4</NavLink>
@@ -59,18 +59,17 @@ class Nav extends React.Component {
       ]
     } else {
       return [
-        <ul key={1} className="upper-items smooth">
-          <NavLabel>NAVIGATE</NavLabel>
-          <NavLink to="create" key={1}  icon={<IconHome />}>Create Hub</NavLink>
-          <NavLink key={2}  icon={<IconLiveHelp />}>What&#39;s Venos?</NavLink>
-          <NavLink key={3}  icon={<IconMailOutline />}>Contact</NavLink>
+        <ul key={1} className="navItems">
+          <NavLabel>ACTIONS</NavLabel>
+          <NavLink to="create" key={1}  icon={<IconCreate />}>Create Hub</NavLink>
+          <NavLink key={2}  icon={<IconTrendingUp />}>Trending</NavLink>
         </ul>,
-        <ul key={2} className="upper-items smooth">
+        <ul key={2} className="navItems">
           <NavLabel>ACCESS</NavLabel>
           <NavLink key={1} to="join"  icon={<IconAssignment />}>Join / Register</NavLink>
           <NavLink key={2} to="login"  icon={<IconAccountCircle />}>Login</NavLink>
         </ul>,
-        <ul key={3} className="upper-items smooth">
+        <ul key={3} className="navItems">
           <NavLabel>TRENDING</NavLabel>
           <NavLink key={1}   icon={<IconTrendingUp />}>Shocking HRC Leak</NavLink>
           <NavLink key={2}  icon={<IconTrendingUp />}>WikiLeaks Drop 4</NavLink>
@@ -84,11 +83,11 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <div className="nav-custom shadow-light">
-        <div className="inner-nav">
+      <div className="navCustom shadow-light">
+        <div className="innerNav">
           { this.renderNavContent() }
         </div>
-        <div className="nav-push-div"></div>
+        <div className="navPushDiv"></div>
       </div>
     );
   }

@@ -33,6 +33,9 @@ import HubContent from './HubContent.js';
 
 // >>> Material-UI and redux-form-material-ui
 import { RaisedButton } from 'material-ui';
+import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
+import IconCreate from 'material-ui/svg-icons/content/create';
 import {Checkbox, RadioButtonGroup, SelectField, TextField, Toggle} from 'redux-form-material-ui'
 
 // >>> Styles/CSS
@@ -43,7 +46,6 @@ import '../../styles/create-hub.css';
 const STATUS_ENTER_DETAILS = 1;
 const STATUS_CREATED_HUB = 2;
 const STATUS_CREATED_ERROR = 3;
-
 
 // function for validating the inputs
 const validation = (values) => {
@@ -60,9 +62,6 @@ const validation = (values) => {
     // }
     return errors;
 }
-
-
-
 
 // onToggle={
 // 	(e) => {
@@ -87,8 +86,6 @@ class HubCreate extends React.Component {
 	    	submitDisabled: true,
 	    	status: this.props.hubcreated ? STATUS_CREATED_HUB : STATUS_ENTER_DETAILS
 	    }
-
-
 
 	}
 
@@ -129,72 +126,56 @@ class HubCreate extends React.Component {
             case STATUS_ENTER_DETAILS:
                 return (
                     <div className="dialog-special created shadow">
-                        <div className="foyer-header">
-                            <h3>Create Hub Now</h3>
-                        </div>
                         <div className="clearfix foyer-wrapper">
                             {this.renderAuthenticationError()}
-                            <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-
-
-                                <Field
-									key={1}
-									name="name"
-									component={TextField}
-									hintText="AwesomeHub"
-									floatingLabelText="Name"
-									type="text"
-									validate={this.required}
-								/>
-
-
-								<Field
-									key={2}
-									name="description"
-									component={TextField}
-									hintText="A cool hub that is cool"
-									floatingLabelText="Description"
-									type="text"
-									validate={this.required}
-								/>
-
-
-								<div id="optional" className="clearfix">
-
-
-									<Field
-										name="isUrlWriteable"
-										component={Toggle}
-										style={{
-											width: "auto",
-											display: "inline-block"
-										}}
-									/>
-
-
-									<span style={{fontFamily: "Roboto"}}>{`hubs.venos.co/`}</span>
-
-
-									<Field
-										key={3}
-										name="url"
-										component={TextField}
-										hintText={this.props.isUrlWriteable ? "your-custom-url" : this.state.hub.url}
-										disabled={!this.props.isUrlWriteable}
-										type="text"
-
-										validate={this.requiredUrl}
-									/>
-
-								</div>
-
-                            	<RaisedButton
-
-									disabled={this.props.submitDisabled}
-									type="submit"
-									label="Submit"
-									primary={true}/>
-                            </form>
+                          <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+                            <Field
+                              className="hubNamer hubFields"
+                              key={1}
+                              name="name"
+                              placeholder="Name your Hub"
+                              component={TextField}
+                              hintText="Name your Hub"
+                              type="text"
+                              validate={this.required}
+                            />
+            								<Field
+                              className="hubDescriptor hubFields"
+            									key={2}
+            									name="description"
+                              placeholder="Describe your Hub"
+            									component={TextField}
+            									hintText="Describe your Hub"
+            									type="text"
+            									validate={this.required}
+            								/>
+                            <div id="urlOptional" className="clearfix">
+              								<Field
+                                className="urlToggle"
+              									name="isUrlWriteable"
+              									component={Toggle}
+              								/>
+              								<span className="urlLabel">{`hubs.venos.co/ `}</span>
+              								<Field
+                                className="urlInput"
+              									key={3}
+              									name="url"
+              									component={TextField}
+              									hintText={this.props.isUrlWriteable ? "your-custom-url" : this.state.hub.url}
+              									disabled={!this.props.isUrlWriteable}
+              									type="text"
+              									validate={this.requiredUrl}
+              								/>
+              							</div>
+                            <br />
+                            <RaisedButton
+                            className="createHub"
+                							disabled={this.props.submitDisabled}
+                							type="submit"
+                							label="Create Hub"
+                							secondary={true} />
+                            <FlatButton className="showCustomUrl" label="Custom URL" secondary={true} />
+                          </form>
                         </div>
                     </div>
                 );
@@ -244,13 +225,18 @@ class HubCreate extends React.Component {
     render() {
         const dialog = this.renderDialogSpecificToStatus(this.state.status);
         return (
-            <div id="create-wrapper" className="wrapper">
-                <ReactCSSTransitionGroup transitionName="dialog" transitionEnterTimeout={1000} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={1000}>
-                    {dialog}
-                    <div className="overlay"></div>
-                </ReactCSSTransitionGroup>
-            </div>
-
+          <div className="createHubWrapper" id="create-wrapper">
+              <ReactCSSTransitionGroup transitionName="dialog" transitionEnterTimeout={1000} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={1000}>
+                  {dialog}
+              </ReactCSSTransitionGroup>
+              <div className="demoDrops">
+                <div className="dropGrid grid-full">
+                  <div className="col col-4">
+                    <div className="demoDrop"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
         );
     }
 }

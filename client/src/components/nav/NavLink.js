@@ -16,9 +16,9 @@ import FontIcon from 'material-ui/FontIcon';
 export default class NavLink extends React.Component {
     render() {
         return (
-            <li className="navLink smooth">
+            <li className="navLink">
               <Link activeClassName="selected" {...this.props}>
-                  <FlatButton className="learn" label={this.props.children} icon={this.props.icon}>
+                  <FlatButton className="navLinkButton" label={this.props.children} icon={this.props.icon}>
 				          </FlatButton>
               </Link>
             </li>

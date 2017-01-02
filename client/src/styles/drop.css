@@ -14,6 +14,7 @@
   background: rgba(0, 0, 0, 0.4);
   position: absolute;
   bottom: 0;
+  font-family: 'PT Sans', sans-serif;
 }
 .demo-card-image__filename {
   color: #fff;
@@ -23,7 +24,56 @@
   position: relative;
 }
 
-/* other */
+/* Main drop */
+
+.drop {
+  width: 100% !important;
+  height: 12em;
+  display: inline-block;
+  background-position: center;
+  border-radius: 2px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+
+.dropName {
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.dropExtension {
+display: inline-block;
+}
+
+*/
+
+.dropOptions {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  vertical-align: middle;
+  float: right;
+  margin-top: 1px;
+  margin-right: -20px;
+  overflow: none;
+}
+
+.dropOptions MenuItem {
+  font-family: 'PT Sans', sans-serif !important;
+  font-size: 14px !important;
+}
+
+.dropOptions svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Drop Animations */
 
 .drop-appear {
     opacity: 0.01;
@@ -50,42 +100,4 @@
 .drop-leave.drop-leave-active {
     opacity: 0.01;
     transition: opacity 1500ms ease-in;
-}
-
-/* Main drop */
-
-.drop {
-  width: 100% !important;
-  height: 12em;
-  display: inline-block;
-  background-position: center;
-  border-radius: 2px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-size: cover;
-  -webkit-font-smoothing: antialiased;
-}
-
-.dropName {
-  text-overflow: ellipsis;
-}
-
-.dropOptions {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  vertical-align: middle;
-  float: right;
-  margin-top: 1px;
-  margin-right: -20px;
-}
-
-.dropOptions MenuItem {
-  font-family: 'PT Sans', sans-serif !important;
-  font-size: 14px !important;
-}
-
-.dropOptions svg {
-  color: rgba(255, 255, 255, 0.7) !important;
-  -webkit-font-smoothing: antialiased;
 }

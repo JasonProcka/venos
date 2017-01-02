@@ -52,7 +52,6 @@ ReactDOM.render(
 	    <MuiThemeProvider>
 	        <Router history={browserHistory}>
 	            <Route path="/" component={App}>
-
 	                <IndexRoute component={Home}/>
 	                <Route path="signin" component={SignIn}/>
 	                <Route path="login" component={SignIn}/>
@@ -64,7 +63,7 @@ ReactDOM.render(
 	                <Route path="myhubs" component={MyHubs}/>
 	                <Route path="noaccess" component={NoAccess}/>
 					<Route path=":name" component={Hub}/>
-					
+
 	            </Route>
 
 	        </Router>

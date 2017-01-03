@@ -1,124 +1,128 @@
 .createHubWrapper {
-  margin-left: 260px;
+    margin-left: 260px;
 }
 
 .foyer-wrapper {
     margin-top: 0em !important;
     padding: 0 40px 40px;
-    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url(../images/desert-night.png);
-    background-position: center;
-    background-size: cover;
+    background: #29B6F6 !important;
 }
+
 
 /* Hub fields */
 
 .hubNamer {
-  margin-top: 60px;
-  margin-bottom: 4px;
-  height: 32px !important;
+    margin-top: 60px;
+    margin-bottom: 4px;
+    height: 32px !important;
 }
 
 .hubNamer input {
-  max-height: 32px !important;
-  font-size: 32px !important;
-  margin-bottom: 0 !important;
-  color: rgb(255, 255, 255) !important;
+    max-height: 32px !important;
+    font-size: 32px !important;
+    margin-bottom: 0 !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .hubDescriptor {
-  height: 16px !important;
-  margin-top: 0;
-  margin-bottom: 40px !important;
+    height: 16px !important;
+    margin-top: 0;
+    margin-bottom: 40px !important;
 }
 
 .hubDescriptor input {
-  height: 16px !important;
-  font-size: 16px !important;
-  color: rgb(255, 255, 255) !important;
+    height: 16px !important;
+    font-size: 16px !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .hubFields {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 .hubFields input {
-  font-weight: 400;
-  font-family: 'PT Sans', sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  outline: 0 !important;
-  border: 0 !important;
-  box-shadow: none !important;
+    font-weight: 400;
+    font-family: 'PT Sans', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    outline: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
 }
 
 .hubFields input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 
 .hubFields input[value] {
-  color: #FFF;
+    color: #FFF;
 }
 
 .hubFields input::-webkit-input-placeholder {
-   color: #FFF;
+    color: #FFF;
 }
 
-.hubFields input:-moz-placeholder { /* Firefox 18- */
-   color: #FFF;
+.hubFields input:-moz-placeholder {
+    /* Firefox 18- */
+    color: #FFF;
 }
 
-.hubFields input::-moz-placeholder {  /* Firefox 19+ */
-   color: #FFF;
+.hubFields input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #FFF;
 }
 
 .hubFields input:-ms-input-placeholder {
-   color: #FFF;
+    color: #FFF;
 }
 
 .hubFields div {
-  display: none !important;
+    display: none !important;
 }
+
 
 /* Custom URL */
 
 .showCustomUrl {
-  font-family: 'PT Sans', sans-serif !important;
-  color: #FFF !important;
-  -webkit-font-smoothing: antialiased;
+    font-family: 'PT Sans', sans-serif !important;
+    color: #FFF !important;
+    -webkit-font-smoothing: antialiased;
 }
 
 #urlOptional {
-  display: inline-block;
-  font-family: 'PT Sans', sans-serif;
+    display: inline-block;
+    font-family: 'PT Sans', sans-serif;
 }
 
 .urlToggle {
-  width: auto !important;
-  display: none !important; /* inline-block */
-  margin-right: 20px;
+    width: auto !important;
+    display: none !important;
+    /* inline-block */
+    margin-right: 20px;
 }
 
 .urlLabel {
-  display: none; /* inline-block */
-  margin-bottom: 5px;
-  margin-right: 5px;
-  font-size: 16px;
-  color: #FFF;
-  -webkit-font-smoothing: antialiased;
-  vertical-align: middle;
+    display: none;
+    /* inline-block */
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    color: #FFF;
+    -webkit-font-smoothing: antialiased;
+    vertical-align: middle;
 }
 
 .urlInput {
-  display: none !important;
-  font-size: 16px;
+    display: none !important;
+    font-size: 16px;
 }
 
 .createHub {
-  margin-right: 10px;
-  font-family: 'PT Sans', sans-serif !important;
-  -webkit-font-smoothing: antialiased;
+    margin-right: 10px;
+    font-family: 'PT Sans', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
 }
 
-#optional > * {
+#optional>* {
     float: left;
     height: 3em !important;
     font-size: 16px;
@@ -223,22 +227,23 @@ form>div:nth-child(2) {
     transition: opacity 500ms ease-in;
 }
 
+
 /* Demo drops */
 
 .demoDrops {
-  width: 100%;
-  height: 1000px;
+    width: 100%;
+    height: 1000px;
 }
 
 .dropGrid {
-  margin-top: 40px;
-  padding-right: 40px;
+    margin-top: 40px;
+    padding-right: 40px;
 }
 
 .demoDrop {
-  height: 200px;
-  background-color: #E0E0E0;
-  border-radius: 3px;
+    height: 200px;
+    background-color: #E0E0E0;
+    border-radius: 3px;
 }
 
 @media only screen and (max-width: 930px) {

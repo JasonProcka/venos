@@ -1,54 +1,57 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import {Field, reduxForm, formValueSelector} from 'redux-form';
 import { connect } from 'react-redux';
-import * as Actions from '../actions';
+import * as action from '../actions';
 import '../styles/join.css';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
 import FontIcon from 'material-ui/FontIcon';
+import {bindActionCreators} from 'redux';
+import {Checkbox, TextField} from 'redux-form-material-ui'
 
-const validate = values => {
-  const errors = {};
 
-  if(!values.email) {
-    errors.email = "Please enter an email.";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
 
-  if(!values.password) {
-    errors.password = "Please enter a password.";
-  }
 
-  return errors;
+const validation = (values) => {
+    const errors = {};
+
+	if(!values.email) {
+    	errors.email = "Please enter an email.";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    	errors.email = 'Invalid email address'
+    }
+
+    if(!values.password) {
+    	errors.password = "Please enter a password.";
+    }
+	if(!values.passwordRepeat) {
+    	errors.passwordRepeat = "Please repeat your password.";
+    }
+
+
+    // if(!values.customurl || !(/\S/.test(values.customurl)) ) {
+    //   errors.customurl = "Please enter a custom url.";
+    // }
+    return errors;
 }
+
+
 
 
 class SignUp extends React.Component {
   handleFormSubmit = (values) => {
       console.log('test');
       console.log(values);
-    this.props.signUpUser(values);
+    this.props.action.signUpUser(values);
   };
 
-
-  renderField = ({ id, input, label, type, meta: { touched, error } }) => (
-    <div className={`mdl-textfield mdl-js-textfield mdl-textfield--floating-label ${touched && error ? 'has-error' : ''}`}>
-        <input {...input} className="mdl-textfield__input" type={type} id={id} />
-        <label className="mdl-textfield__label" htmlFor={id}>{label}</label>
-        {touched && error && <div className="help-block">{error}</div>}
-    </div>
-  );
-
-  renderAuthenticationError() {
-    if(this.props.authenticationError) {
-      return <div className="alert alert-danger">{ this.props.authenticationError }</div>
-    }
-    return <div></div>
+  required(value){
+	  console.log("test");
+  	return value == null ? 'Required' : undefined
   }
+
+
 
 
   render() {
@@ -58,7 +61,6 @@ class SignUp extends React.Component {
             <FlatButton label="Login" className="changePortal" />
           </Link>
           <div className="loginContent">
-              { this.renderAuthenticationError() }
               <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
                 <div className=""><Field
                   key={1}
@@ -68,6 +70,7 @@ class SignUp extends React.Component {
                   name="email"
                   component={TextField}
                   type="text"
+				  validate={this.required}
                   /><br />
                 <Field
                   key={2}
@@ -77,25 +80,34 @@ class SignUp extends React.Component {
                   name="password"
                   component={TextField}
                   type="password"
+				  validate={this.required}
                   /><br />
                 <Field
                   key={3}
                   placeholder="Repeat Password"
                   className="loginPassword repeatPassword"
                   id="sample4"
-                  name="password"
+                  name="passwordRepeat"
                   component={TextField}
                   type="password"
+				  validate={this.required}
                   /></div><br />
                 <RaisedButton
                   className="loginSubmit blue"
                   type="submit"
                   label="Join"
+				  disabled={this.props.submitDisabled}
                 />
-                  <Checkbox
-                    className="loginRemember"
-                    labelPosition="left"
-                    label="Remember me"
+
+				<Field
+                  key={4}
+
+                  className="loginRemember"
+                  name="remember"
+                  component={Checkbox}
+				  label="Remember me"
+				  iconStyle={{fill: "#FFF"}}
+				  labelPosition="left"
                   />
             </form>
           </div>
@@ -131,15 +143,44 @@ class SignUp extends React.Component {
     </div>
   </div>
 */
-
+const selector = formValueSelector('signup') // <-- same as form name
 
 function mapStateToProps(state) {
+
+
+
+
+	// or together as a group
+	const { email, password, passwordRepeat } = selector(state, 'email', 'password', 'passwordRepeat')
+	return {
+		email,
+		password,
+		passwordRepeat,
+		submitDisabled: (() => {
+			if (email && email.trim().length > 0 && password && password.trim().length > 0 && passwordRepeat && passwordRepeat.trim().length > 0 && password.trim().length === passwordRepeat.trim().length)
+					return false;
+			return true;
+
+	  })()
+  }
+
+
+
+
+
   return {
     authenticationError: state.auth.error
   }
 }
+function mapDispatchToProps(dispatch){
+	return {
+		action: bindActionCreators(action, dispatch)
+	}
+}
 
-export default connect(mapStateToProps, Actions)(reduxForm({
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'signup',
-  validate
+  validation
 })(SignUp));

@@ -13,6 +13,7 @@ const DESTRUCTION_DATE = "destructionDate";
 const MEMBERS = "member";
 const CREATION_DATE = "creationDate";
 const FILES = "files";
+const ID = "id";
 
 // >>>>> Hub Access Consts
 const ACCESS_EVERYONE = "everyone"; // hub access for everyone
@@ -24,6 +25,7 @@ const ACCESS_MEMBERS = "members" // hub access only for one's self and all white
 export default class HubM{
 
     constructor(hub){
+		this[ID] = hub[ID];
 		this[URL] = hub[URL]; // Also used as UID for the hub
 		this[OWNER] = hub[OWNER];
 		this[NAME] = hub[NAME];
@@ -55,4 +57,4 @@ export default class HubM{
 
 
 // >> Hub Exports
-export { KEY, NAME, DESCRIPTION, URL, IS_PUBLIC, OWNER, DESTRUCTION_TIME_IN_HOURS, DESTRUCTION_DATE, MEMBERS, CREATION_DATE, FILES, ACCESS_EVERYONE, ACCESS_ACCOUNT, ACCESS_MEMBERS }
+export { KEY, ID, NAME, DESCRIPTION, URL, IS_PUBLIC, OWNER, DESTRUCTION_TIME_IN_HOURS, DESTRUCTION_DATE, MEMBERS, CREATION_DATE, FILES, ACCESS_EVERYONE, ACCESS_ACCOUNT, ACCESS_MEMBERS }

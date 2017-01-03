@@ -11,7 +11,7 @@ class Footer extends React.Component {
   }
 
   renderFooterContent() {
-    if (this.props.authenticated) {
+    if (this.props.user && !this.props.user.anon) {
       return [
           <div key={1} className="mdl-mini-footer__left-section">
             <ul className="mdl-mini-footer__link-list">
@@ -58,7 +58,7 @@ class Footer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    authenticated: state.auth.authenticated
+    user: state.auth.user
   }
 }
 

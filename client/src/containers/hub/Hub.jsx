@@ -41,8 +41,7 @@ class Hub extends React.Component {
 
     constructor(props) {
         super(props);
-		this.props.action.fetchHubByUrl(this.props.routeParams.name);
-        console.log("e:" + this.props.hub);
+
         this.state = {
 			hub: null,
             files: new Map(),
@@ -53,6 +52,19 @@ class Hub extends React.Component {
     }
 
     componentWillMount() {
+
+
+
+		this.props.action.fetchHubByUrl(this.props.routeParams.name);
+
+
+
+
+
+
+
+
+
 
         // console.log(this.props.location.pathname);
         // let req = request.get('/files').query({'url': this.props.location.pathname}).end((err, res) => {
@@ -77,6 +89,9 @@ class Hub extends React.Component {
 
     componentDidMount() {
 
+
+		if(this.props.hub)
+			console.log('mount: ' + util.inspect(this.props.hub));
 
         // request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
         //     console.log("err: " + err);
@@ -103,7 +118,8 @@ class Hub extends React.Component {
 
     onDrop(acceptedFiles) {
         console.log(acceptedFiles);
-        this.props.actions.uploadFiles(acceptedFiles, this.props.hub);
+		console.log("t" + util.inspect(acceptedFiles, {showHidden: false, depth: 0}));
+        this.props.action.uploadFiles(acceptedFiles, this.props.hub);
         // var e = [];
         // for (var i = 0; i < acceptedFiles.length; i++) {
         //     e.push(acceptedFiles[i]);
@@ -198,7 +214,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state);
+
 	return {
 		hub: state.hub.hub
 	}

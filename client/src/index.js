@@ -53,6 +53,7 @@ ReactDOM.render(
 	        <Router history={browserHistory}>
 	            <Route path="/" component={App}>
 	                <IndexRoute component={Home}/>
+					<Route path="dashboard" component={Home}/>
 	                <Route path="signin" component={SignIn}/>
 	                <Route path="login" component={SignIn}/>
 	                <Route path="join" component={SignUp}/>

@@ -1,198 +1,196 @@
 #app {
-  margin-top: -24px !important;
+    margin-top: -24px !important;
 }
+
 
 /* Background color */
 
 .pink {
-  background-color: #ff4081;
+    background-color: #ff4081;
 }
 
 .blue {
-  background-color: #29B6F6;
+    background-color: #29B6F6;
 }
 
 .loginWrapper {
-  margin-left: 260px;
-  height: calc(100vh + 24px);
+    margin-left: 260px;
+    height: calc(100vh + 24px);
 }
 
 .loginContent {
-  padding: 0 14%;
-  position: relative;
-  top: calc(50% + 56px);
-  transform: translateY(-50%);
+    padding: 0 14%;
+    position: relative;
+    top: calc(50% + 56px);
+    transform: translateY(-50%);
 }
 
 .loginHeader {
-  font-family: 'PT Sans', sans-serif;
-  color: #FFF;
-  margin-bottom: 20px;
+    font-family: 'PT Sans', sans-serif;
+    color: #FFF;
+    margin-bottom: 20px;
 }
 
-.loginEmail, .loginPassword {
-
-}
+.loginEmail, .loginPassword {}
 
 .loginEmail {
-  width: 100% !important;
-  margin-bottom: 0 !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
 }
 
 .loginEmail label {
-  display: none !important;
+    /* TODO make errors visible display: none !important; */
 }
 
 .loginEmail input {
-  height: 32px !important;
-  color: #FFF !important;
-  font-size: 28px !important;
-  border: 0 !important;
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-  -webkit-font-smoothing: antialiased;
+    height: 32px !important;
+    color: #FFF !important;
+    font-size: 28px !important;
+    border: 0 !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    -webkit-font-smoothing: antialiased;
 }
 
 .loginEmail input:focus {
-  box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 .loginEmail input[value] {
-  color: #FFF !important;
+    color: #FFF !important;
 }
 
-.loginEmail input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+.loginEmail input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #FFF;
 }
 
 .loginEmail input::-webkit-input-placeholder {
-   color: #FFF;
+    color: #FFF;
 }
 
-.loginEmail input:-moz-placeholder { /* Firefox 18- */
-   color: #FFF;
+.loginEmail input:-moz-placeholder {
+    /* Firefox 18- */
+    color: #FFF;
 }
 
-.loginEmail input::-moz-placeholder {  /* Firefox 19+ */
-   color: #FFF;
+.loginEmail input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #FFF;
 }
 
 .loginEmail input:-ms-input-placeholder {
-   color: #FFF;
+    color: #FFF;
 }
 
 .loginEmail input:focus {
-  outline: 0 !important;
+    outline: 0 !important;
 }
 
 .loginEmail div {
-  display: none !important;
+    /* TODO make errors visible display: none !important;*/
 }
 
 .loginPassword {
-  width: 100% !important;
-  height: auto !important;
-  margin-bottom: 0;
+    width: 100% !important;
+    height: auto !important;
+    margin-bottom: 0;
 }
 
 .loginPassword input {
-  color: #FFF !important;
-  height: 22px !important;
-  font-size: 18px !important;
-  border: 0 !important;
-  margin-bottom: 0 !important;
-  -webkit-box-shadow: 0 0 0px 1000px white inset;
-  -webkit-font-smoothing: antialiased;
+    color: #FFF !important;
+    height: 22px !important;
+    font-size: 18px !important;
+    border: 0 !important;
+    margin-bottom: 0 !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    -webkit-font-smoothing: antialiased;
 }
 
 .loginPassword input:focus {
-  box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 .loginPassword input[value] {
-  color: #FFF !important;
+    color: #FFF !important;
 }
 
-.loginPassword input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+.loginPassword input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #FFF;
 }
 
 .loginPassword input::-webkit-input-placeholder {
-   color: #FFF;
+    color: #FFF;
 }
 
-.loginPassword input:-moz-placeholder { /* Firefox 18- */
-   color: #FFF;
+.loginPassword input:-moz-placeholder {
+    /* Firefox 18- */
+    color: #FFF;
 }
 
-.loginPassword input::-moz-placeholder {  /* Firefox 19+ */
-   color: #FFF;
+.loginPassword input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #FFF;
 }
 
 .loginPassword input:-ms-input-placeholder {
-   color: #FFF;
+    color: #FFF;
 }
 
 .loginPassword input:focus {
-  outline: 0 !important;
+    outline: 0 !important;
 }
 
 .loginPassword div {
-  display: none;
+    display: none;
 }
 
 .loginSubmit {
-  margin-top: 20px;
-  -webkit-font-smoothing: antialiased;
+    margin-top: 20px;
+    -webkit-font-smoothing: antialiased;
 }
 
 .repeatPassword {
-  margin-top: 6px;
-  margin-bottom: 0 !important;
+    margin-top: 6px;
+    margin-bottom: 0 !important;
 }
 
 .loginRemember {
-  width: auto !important;
-  display: inline-block !important;
-  vertical-align: middle;
-  margin-left: 0 !important;
+    width: auto !important;
+    display: inline-block !important;
+    vertical-align: middle;
+    margin-left: 0 !important;
 }
 
 .loginRemember label {
-  width: auto !important;
-  padding-left: 0 !important;
-  margin-left: 20px !important;
-  margin-right: 10px;
-  font-size: 16px;
-  color: #FFF !important;
-  -webkit-font-smoothing: antialiased;
+    width: auto !important;
+    padding-left: 0 !important;
+    margin-left: 20px !important;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #FFF !important;
+    -webkit-font-smoothing: antialiased;
 }
 
 .loginRemember div {
-  color: #FFF !important;
-  margin-left: 0 !important;
+    color: #FFF !important;
+    margin-left: 0 !important;
 }
 
 .changePortal {
-  top: 20px !important;
-  right: 20px !important;
-  position: absolute !important;
-  margin: 20px;
-  color: #FFF !important;
-  -webkit-font-smoothing: antialiased;
+    top: 20px !important;
+    right: 20px !important;
+    position: absolute !important;
+    margin: 20px;
+    color: #FFF !important;
+    -webkit-font-smoothing: antialiased;
 }
+
 
 /* Errors */
 
 .help-block {
-  position: absolute;
+    position: absolute;
 }
 
 @media only screen and (max-width: 930px) {

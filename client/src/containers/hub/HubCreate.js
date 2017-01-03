@@ -176,7 +176,7 @@ class HubCreate extends React.Component {
                 							type="submit"
                 							label="Create Hub"
                 							secondary={true} />
-                            <FlatButton className="showCustomUrl" label="Custom URL" secondary={true} />
+                            <FlatButton className="showCustomUrl" label="More Options" />
                           </form>
                         </div>
                     </div>

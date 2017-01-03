@@ -35,9 +35,10 @@ import {FileM, FileC, SessionM} from './client/src/shared/models';
 import DatabaseUtil from './client/src/shared/database';
 import cookieParser from 'cookie-parser';
 import Auth from './server/auth';
+import CookieBuilder from './server/cookiebuilder'
 // support json encoded bodies
 const app = express();
-app.use(cookieParser(null, {httpOnly: true, secure: true}));
+app.use(cookieParser());
 let bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
 
@@ -45,6 +46,16 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 
 app.use((req, res, next) => {
+
+	res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+
+	console.log("Cookies:");
+	console.log(util.inspect(req.cookies));
+
+
 	Auth.verifyAuth(req.cookies.sessionId).then((data) => {
 		if(data.isSuccessful){
 			req.isAuthenticated = true;
@@ -94,40 +105,49 @@ app.get('/file', (req, res, next) => {
 
 
 app.post("/signup", (req, res) => {
-	let obj = undefined;
-		if(req.body && req.body.email && req.body.password)
-			obj = {email: req.body.email, password: req.body.password}
-	Auth.signUp(obj).then((data) => {
-		res.cookie('sessionId', data.token, { expires: new Date(Date.now() + 2592000000), httpOnly: true, secure: true /*, domain: ".venos.co"*/ });
+	console.info("/signup");
+		Auth.signUpUser(req.body).then((data) => {
+			CookieBuilder.send(res, data.token, req.body.remember ? req.body.remember : false);
+			res.status(200).send(data.user);
+		}).catch((err) => {
+			res.status(500).send(undefined);
+			console.error(err);
+		});
+});
+
+app.post("/signupanon", (req, res) => {
+	console.info("/signupanon");
+	Auth.signUpAnon(req.body).then((data) => {
+		CookieBuilder.send(res, data.token, true);
 		res.status(200).send(data.user);
 	}).catch((err) => {
 		console.error(err);
 		res.status(500).send(undefined);
 	});
-});
-
+})
 
 app.post("/signin", (req, res) => {
-	Auth.signIn({email: req.body.email, password: req.body.password}).then((data) => {
-		res.cookie('sessionId', data.token, { expires: new Date(Date.now() + 2592000000), httpOnly: true, secure: true /*, domain: ".venos.co"*/ });
-		if(data.isSuccessful)
-			res.status(200).send(data.user);
-		else {
-			res.status(200).send(undefined);
-		}
+console.info("/signin");
+	Auth.signInUser(req.body).then((data) => {
+		CookieBuilder.send(res, data.token, req.body.remember ? req.body.remember : false);
+		res.status(200).send(data.user);
 	}).catch((err) => {
-		res.status(500)
+		res.status(500).send(undefined);
 		console.error(err);
 	});
 });
 
 
 app.post("/signout", (req, res) => {
-	res.cookie('sessionId', "", { expires: new Date(), httpOnly: true, secure: true /*, domain: ".venos.co"*/ });
+	console.info("/signout");
+	let d = new Date();
+	CookieBuilder.delete(res);
+	res.status(200).send();
 });
 
 
 app.post('/isauthenticated', (req, res) => {
+	console.info(`/isauthenticated: ${req.isAuthenticated}`);
 	if(req.isAuthenticated){
 		res.status(200).send(req.user);
 	}else{

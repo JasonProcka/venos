@@ -1,58 +1,201 @@
-.switch-method-sign-in-link {
-    text-decoration: none;
+#app {
+    margin-top: -24px !important;
 }
 
-.join {
-    width: 400px;
-    padding: 0;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    background-color: #FFF;
-    border-radius: 2px;
+
+/* Background color */
+
+.pink {
+    background-color: #ff4081;
 }
 
-.foyer-header {
-    width: 100%;
-    padding: 1% 0 12% 0;
-    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/hub-2.png');
-    background-size: cover;
-    background-position: center;
+.blue {
+    background-color: #29B6F6;
 }
 
-.foyer-header .form-join {
-    margin: 0 0 1% 1%;
+.loginWrapper {
+    margin-left: 260px;
+    height: calc(100vh + 24px);
+}
+
+.loginContent {
+    padding: 0 14%;
+    position: relative;
+    top: calc(50% + 56px);
+    transform: translateY(-50%);
+}
+
+.loginHeader {
+    font-family: 'PT Sans', sans-serif;
     color: #FFF;
-    display: block;
+    margin-bottom: 20px;
 }
 
-.foyer-header h4 {
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFF;
+.loginEmail, .loginPassword {}
+
+.loginEmail {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+.loginEmail label {
+    /* TODO make errors visible display: none !important; */
+}
+
+.loginEmail input {
+    height: 32px !important;
+    color: #FFF !important;
+    font-size: 28px !important;
+    border: 0 !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
     -webkit-font-smoothing: antialiased;
-    font-size: 2em;
-    margin: 0;
-    font-weight: 400;
 }
 
-.foyer-wrapper {
-    width: 100%;
+.loginEmail input:focus {
+    box-shadow: none !important;
+}
+
+.loginEmail input[value] {
+    color: #FFF !important;
+}
+
+.loginEmail input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #FFF;
+}
+
+.loginEmail input::-webkit-input-placeholder {
+    color: #FFF;
+}
+
+.loginEmail input:-moz-placeholder {
+    /* Firefox 18- */
+    color: #FFF;
+}
+
+.loginEmail input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #FFF;
+}
+
+.loginEmail input:-ms-input-placeholder {
+    color: #FFF;
+}
+
+.loginEmail input:focus {
+    outline: 0 !important;
+}
+
+.loginEmail div {
+    /* TODO make errors visible display: none !important;*/
+}
+
+.loginPassword {
+    width: 100% !important;
+    height: auto !important;
+    margin-bottom: 0;
+}
+
+.loginPassword input {
+    color: #FFF !important;
+    height: 22px !important;
+    font-size: 18px !important;
+    border: 0 !important;
+    margin-bottom: 0 !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    -webkit-font-smoothing: antialiased;
+}
+
+.loginPassword input:focus {
+    box-shadow: none !important;
+}
+
+.loginPassword input[value] {
+    color: #FFF !important;
+}
+
+.loginPassword input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #FFF;
+}
+
+.loginPassword input::-webkit-input-placeholder {
+    color: #FFF;
+}
+
+.loginPassword input:-moz-placeholder {
+    /* Firefox 18- */
+    color: #FFF;
+}
+
+.loginPassword input::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #FFF;
+}
+
+.loginPassword input:-ms-input-placeholder {
+    color: #FFF;
+}
+
+.loginPassword input:focus {
+    outline: 0 !important;
+}
+
+.loginPassword div {
+    display: none;
+}
+
+.loginSubmit {
     margin-top: 20px;
+    -webkit-font-smoothing: antialiased;
 }
 
-.foyer-wrapper .mdl-textfield {
-    width: 80%;
-    margin-left: 10%;
+.repeatPassword {
+    margin-top: 6px;
+    margin-bottom: 0 !important;
 }
 
-.foyer-wrapper .mdl-checkbox {
-    margin: 2% 0 0 10%;
-    width: 200px;
+.loginRemember {
+    width: auto !important;
+    display: inline-block !important;
+    vertical-align: middle;
+    margin-left: 0 !important;
 }
 
-.foyer-wrapper .form-login {
-    float: right;
-    margin: 0 10% 5% 0;
+.loginRemember label {
+    width: auto !important;
+    padding-left: 0 !important;
+    margin-left: 20px !important;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #FFF !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+.loginRemember div {
+    color: #FFF !important;
+    margin-left: 0 !important;
+}
+
+.changePortal {
+    top: 20px !important;
+    right: 20px !important;
+    position: absolute !important;
+    margin: 20px;
+    color: #FFF !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* Errors */
+
+.help-block {
+    position: absolute;
+}
+
+@media only screen and (max-width: 930px) {
+    .loginWrapper {
+        min-width: 100%;
+        margin-left: 0;
+    }
 }

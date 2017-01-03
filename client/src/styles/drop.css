@@ -1,3 +1,80 @@
+/* MDL card for Drops */
+
+.mdl-card__title, .mdl-card--expand {
+  display: none !important;
+}
+
+.demo-card-image.mdl-card {
+  background-position: center;
+  background-size: cover;
+}
+.demo-card-image > .mdl-card__actions {
+  height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 0;
+  font-family: 'PT Sans', sans-serif;
+}
+.demo-card-image__filename {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  bottom: 0;
+  position: relative;
+}
+
+/* Main drop */
+
+.drop {
+  width: 100% !important;
+  height: 12em;
+  display: inline-block;
+  background-position: center;
+  border-radius: 2px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+
+.dropName {
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.dropExtension {
+display: inline-block;
+}
+
+*/
+
+.dropOptions {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  vertical-align: middle;
+  float: right;
+  margin-top: 1px;
+  margin-right: -20px;
+  overflow: none;
+}
+
+.dropOptions MenuItem {
+  font-family: 'PT Sans', sans-serif !important;
+  font-size: 14px !important;
+}
+
+.dropOptions svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Drop Animations */
+
 .drop-appear {
     opacity: 0.01;
 }
@@ -23,20 +100,4 @@
 .drop-leave.drop-leave-active {
     opacity: 0.01;
     transition: opacity 1500ms ease-in;
-}
-
-.drop {
-    margin-right: 25px !important;
-    margin-left: 25px !important;
-    width: 15em !important;
-    min-width: 5em;
-    display: inline-block;
-    height: 15em;
-    box-sizing: border-box;
-    background-position: center;
-    border-radius: 2px;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-bottom: 3em;
 }

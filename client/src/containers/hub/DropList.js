@@ -4,7 +4,6 @@ import Drop from './Drop';
 import Waypoint from 'react-waypoint';
 import CircularProgress from 'material-ui/CircularProgress';
 
-
 class DropList extends React.Component {
     constructor(props) {
         super(props);
@@ -13,11 +12,9 @@ class DropList extends React.Component {
         this._renderItems = this._renderItems.bind(this);
 
         this.state = {
-            loadedItems: 50,
             isLoading: false,
-            currentItems: this.props.drops.slice(0, 50)
+            currentItems: this.props.drops.slice(0, 20)
         }
-
     }
 
     _loadMoreItems() {
@@ -53,15 +50,12 @@ class DropList extends React.Component {
     }
 
     render() {
-
         return (
-            <div ref="parent" className="drop-list clearfix">
-                {this._renderItems()}
-
-				<div>
-					{this.state.isLoading ? <CircularProgress size={40} thickness={4} /> : null}
-				</div>
-
+            <div className="hubDrops grid-full clearfix" ref="parent">
+              {this._renderItems()}
+      				<div>
+      					{this.state.isLoading ? <CircularProgress size={40} thickness={4} /> : null}
+      				</div>
             </div>
         )
 

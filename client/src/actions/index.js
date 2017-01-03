@@ -33,9 +33,11 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 // >>> Auth Consts
+export const AUTH_ANON = 'AUTH_ANON';
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
+export const AUTH_ALREADY_SIGNED_IN = "AUTH_ALREADY_SIGNED_IN";
 
 // >>> Hub Consts
 export const HUB_CREATE_SUCCESS = 'HUB_CREATE_SUCCESS';
@@ -53,7 +55,9 @@ export const FILE_UPLOAD_ERROR = 'FILE_UPLOAD_ERROR';
 
 // --- Action Functions ----
 
-
+function action_AuthAnon(user) {
+    return {type: AUTH_ANON, user}
+}
 function action_AuthUser(user) {
     return {type: AUTH_USER, user}
 }
@@ -63,6 +67,10 @@ function action_AuthSignOut() {
 function action_AuthError(error) {
     return {type: AUTH_ERROR, payload: error}
 }
+function action_AuthAlreadySignedIn(error) {
+    return {type: AUTH_ALREADY_SIGNED_IN, payload: error}
+}
+
 
 
 function action_CreateHub(hub) {
@@ -96,7 +104,9 @@ export {
 	action_CreateHub,
 	action_CreateHubError,
 	action_UploadFile,
-	action_UploadFileError
+	action_UploadFileError,
+	action_AuthAlreadySignedIn,
+	action_AuthAnon
 }
 
 
@@ -108,35 +118,57 @@ function signInUser(credentials) {
 	console.log('2');
     return (dispatch, getState) => {
 		let user = getState().auth.user;
-
-		if((user && user.isAnonymous) || user === null){
-
-			request
-			.post('/signin')
-			.send({email: credentials ? credentials.email : undefined , password: credentials ? credentials.password : undefined})
-			.end((err, res) => {
-				console.log("user: " + util.inspect(res));
-				if(err || !res.ok)
-					dispatch(action_AuthError(err)); // If an error appears while signing in do dispatch an error
-				else {
-					console.log("user: " + util.inspect(res));
-					if(res.text)
-						dispatch(action_AuthUser(JSON.parse(res.text)));		// Action that submits Auth Event
+		console.log('u' + user);
+		if(user && user.anon){
+			if(credentials && credentials.email && credentials.password)
+				request
+				.post('/signin')
+				.send(credentials)
+				.end((err, res) => {
+					if(err || !res.ok)
+						dispatch(action_AuthError(err)); // If an error appears while signing in do dispatch an error
 					else {
-						dispatch(action_AuthError(err));
+						dispatch(action_AuthUser(JSON.parse(res.text)));		// Action that submits Auth Event
+						dispatch(push('/dashboard')) // after user got successfully signed in move him to /dashboard
+
 					}
-
-					dispatch(push('/dashboard')) // after user got successfully signed in move him to /dashboard
-
-				}
-			})
+				})
+			else {
+				dispatch(action_AuthError("Credentials not specified"));
+			}
 
 		} else {
-			dispatch(action_AuthError("Already signed up")); // User is already signed in, send error for signing in again
+			dispatch(action_AuthAlreadySignedIn()); // User is already signed in, send error for signing in again
 		}
     }
 }
 
+
+
+
+function signUpAnon(){
+	return (dispatch, getState) => {
+
+		// TODO take old hubs and assign them the new user so that they are not lost from an anonymous account
+
+		let user = getState().auth.user;
+		if(user === null){
+			// Take credentials.email and credentials.password and create a new user
+			request
+			.post('/signupanon')
+			.send()
+			.end((err, res) => {
+				if(err || !res.ok)
+					dispatch(action_AuthError(err)); // If an error appears while signing in do dispatch an error
+				else {
+					dispatch(action_AuthAnon(JSON.parse(res.text)))		// Action that submits Auth Event
+				}
+			})
+		}else{
+			dispatch(action_AuthAlreadySignedIn());
+		}
+	}
+}
 
 
 
@@ -149,30 +181,27 @@ function signUpUser(credentials) {
 
 		let user = getState().auth.user;
 
-		if(user && user.isAnonymous){
-			// If user is Anonymous then delete his current account
-	        var auth = Firebase.auth();
-			auth.signOut();
-			auth.currentUser.delete();
-		}
-
-		if(user && !user.isAnonymous){ // he has an account which is not anonymous, we know his email
-			return; // we don't need to do something here, the user is already signed up so why should we sign him up again.
-		}
-
-		// Take credentials.email and credentials.password and create a new user
-		request
-		.post('/signup')
-		.send({email: credentials ? credentials.email : undefined , password: credentials ? credentials.password : undefined})
-		.end((err, res) => {
-			if(err || !res.ok)
-				dispatch(action_AuthError(err)); // If an error appears while signing in do dispatch an error
+		if(user && user.anon){
+			// Take credentials.email and credentials.password and create a new user
+			if(credentials && credentials.email && credentials.password)
+				request
+				.post('/signup')
+				.send(credentials)
+				.end((err, res) => {
+					if(err || !res.ok)
+						dispatch(action_AuthError(err)); // If an error appears while signing in do dispatch an error
+					else {
+						console.log("user: " + util.inspect(res));
+						dispatch(action_AuthUser(JSON.parse(res.text)))		// Action that submits Auth Event
+						dispatch(push('/dashboard'))
+					}
+				})
 			else {
-				console.log("user: " + util.inspect(res));
-				dispatch(action_AuthUser(JSON.parse(res.text)))		// Action that submits Auth Event
-
+				dispatch(action_AuthError("No credentials specified"));
 			}
-		})
+		}else{
+			dispatch(action_AuthAlreadySignedIn());
+		}
 	}
 }
 
@@ -188,6 +217,7 @@ function verifyAuth() {
 		console.log('test');
 		request
 		.post('/isauthenticated')
+		.withCredentials()
 		.end((err, res) => {
 
 			if(err || !res.ok)
@@ -195,13 +225,16 @@ function verifyAuth() {
 			else {
 				if(res.text){
 					console.log("user: " + util.inspect(res));
-					dispatch(action_AuthUser(JSON.parse(res.text)))		// Action that submits Auth Event
+					let user = JSON.parse(res.text);
+					if(user.email) // if user is persistent
+						dispatch(action_AuthUser(user))
+					else // if user is anon
+						dispatch(action_AuthAnon(user))
 					dispatch(push('/dashboard')); // after user got successfully signed up move him to /dashboard
-
 				}
 				else {
-					console.log('h');
-					dispatch(signUpUser());
+					console.log('heeeeeeeeeeeee');
+					dispatch(signUpAnon());
 				}
 			}
 		});
@@ -307,16 +340,22 @@ function uploadFiles(files, hub) {
 // Action To Sign Out A User and Redirect him to the Dashboard
 function signOutUser(){
 	return (dispatch) => {
+		console.log('test2');
+
+
 		request
 		.post('/signout')
 		.send()
 		.end(
 			(err, res) => {
 				if(err || !res.ok){
+					console.log('t2');
 					dispatch(action_AuthError()); // could not signout for a weird reason
 				}else{
+					console.log('t3');
 					dispatch(action_AuthSignOut())
-					.then(() => dispatch(push('/dashboard')));
+					dispatch(push('/dashboard'));
+					dispatch(action_AuthAnon());
 				}
 			}
 		);

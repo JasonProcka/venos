@@ -52,7 +52,6 @@ ReactDOM.render(
 	    <MuiThemeProvider>
 	        <Router history={browserHistory}>
 	            <Route path="/" component={App}>
-
 	                <IndexRoute component={Home}/>
 					<Route path="dashboard" component={Home}/>
 	                <Route path="signin" component={SignIn}/>

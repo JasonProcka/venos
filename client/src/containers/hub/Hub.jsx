@@ -20,6 +20,7 @@ import Drop from './Drop';
 // >>> Modules
 import request from 'superagent';
 import util from 'util';
+import {FileC} from '../../shared/models';
 
 // >>> Material-UI
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -44,7 +45,7 @@ class Hub extends React.Component {
 
         this.state = {
 			hub: null,
-            files: new Map(),
+            files: null,
             currentTab: 0
         };
 
@@ -91,7 +92,8 @@ class Hub extends React.Component {
 
 
 		if(this.props.hub)
-			console.log('mount: ' + util.inspect(this.props.hub));
+			this.setState({files: this.props.hub.files})
+		console.log('mount: ' + util.inspect(this.props.hub));
 
         // request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
         //     console.log("err: " + err);
@@ -114,7 +116,11 @@ class Hub extends React.Component {
         //         depth: null
         //     }));
         // });
+
     }
+	  componentDidUpdate(){
+
+ 	}
 
     onDrop(acceptedFiles) {
         console.log(acceptedFiles);
@@ -174,13 +180,26 @@ class Hub extends React.Component {
 
 
 
+		// let dummyData = (() => {
+		// 	var array = [];
+		// 	for(let i = 0; i < 3000; i++)
+		// 		array.push({id: i, src: `https://unsplash.it/200/300/?random&x=${i}`})
+		// 	return array;
+		// })()
+
 		let dummyData = (() => {
-			var array = [];
-			for(let i = 0; i < 3000; i++)
-				array.push({id: i, src: `https://unsplash.it/200/300/?random&x=${i}`})
+			let array = [];
+
+			if(this.props.hub && this.props.hub.files){
+				console.log(util.inspect(this.props.hub.files));
+				for(let property in this.props.hub.files){
+					array.push({id: 1, src: `/downloadfile?file=/url/user/${this.props.user.uid}/files/${property}.JPG`})
+				}
+
+			}
 			return array;
-		})()
-		console.log(dummyData.length);
+		})();
+		console.log(util.inspect(dummyData[0]));
 
 
 
@@ -194,9 +213,9 @@ class Hub extends React.Component {
                   width: '100%'
                 }} ref={(node) => {
                     this.dropzone = node;
-                }} onDrop={this.onDrop}>
+                }} onDrop={this.onDrop.bind(this)}>
                   <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
-                      <DropList drops={dummyData} />
+                       <DropList drops={dummyData}></DropList>
                       <div className="hubBio">this is random text</div>
                   </SwipeableViews>
               </Dropzone>
@@ -216,7 +235,8 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = (state, ownProps) => {
 
 	return {
-		hub: state.hub.hub
+		hub: state.hub.hub,
+		user: state.auth.user
 	}
  }
 

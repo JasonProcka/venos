@@ -230,7 +230,7 @@ function verifyAuth() {
 						dispatch(action_AuthUser(user))
 					else // if user is anon
 						dispatch(action_AuthAnon(user))
-					dispatch(push('/dashboard')); // after user got successfully signed up move him to /dashboard
+					 // after user got successfully signed up move him to /dashboard
 				}
 				else {
 					console.log('heeeeeeeeeeeee');
@@ -254,7 +254,7 @@ function fetchHubByUrl(url) {
 			else {
 				if(res.text){
 					console.log("user: " + util.inspect(res));
-					dispatch(action_CreateHub(JSON.parse(res.text)))		// Action that submits Auth Event
+					dispatch(action_FetchHub(JSON.parse(res.text)))		// Action that submits Auth Event
 
 				}
 				else {
@@ -315,19 +315,22 @@ function createHub(data) {
 function uploadFiles(files, hub) {
     return (dispatch, getState) => {
         let user = getState().auth.user;
+		console.log('he');
 		if(user){
 			let req = request.post('/upload'); // Post request to /upload
-	        files.forEach((file) => {
-	            req.attach(file.name, file);	// Attach each file to the request
+	        files.forEach((file, index) => {
+	            req.attach(index, file);	// Attach each file to the request
 	        });
 
 			// Add fields to the request
 	        req.field('hubid', hub.id);
-	        req.field('useruid', user.uid);
 
 			// When the request is done
 	        req.end((err, res) => {
-	            (!err && res ? dispatch(action_UploadFile()) : dispatch(action_UploadFileError(err)));
+				if(err || !res.ok){
+					action_UploadFileError(err ? err : "Something went wrong while uploading files")
+				}else
+					dispatch(action_UploadFile(JSON.parse(res.text)));
 	        });
 		}else{
 			dispatch(action_UploadFileError("You need to be authenticated to upload a file"))

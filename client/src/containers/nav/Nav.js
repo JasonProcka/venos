@@ -71,8 +71,8 @@ class Nav extends React.Component {
         </ul>,
         <ul key={3} className="navItems">
           <NavLabel>TRENDING</NavLabel>
-          <NavLink key={1}   icon={IconTrendingUp}>Shocking HRC Leak</NavLink>
-          <NavLink key={2}  icon={IconTrendingUp}>WikiLeaks Drop 4</NavLink>
+          <NavLink key={1}  icon={IconTrendingUp} to="/test1">Shocking HRC Leak</NavLink>
+          <NavLink key={2}  icon={IconTrendingUp} to="/jason">WikiLeaks Drop 4</NavLink>
           <NavLink key={3}  icon={IconTrendingUp}>Julian Assange Email</NavLink>
           <NavLink key={4}  icon={IconTrendingUp}>Leonardo DiCaprio Pics</NavLink>
         </ul>

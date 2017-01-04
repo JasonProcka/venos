@@ -28,6 +28,7 @@ import util from 'util';
 import {HubC} from '../../shared/models';
 
 // >>> Containers
+import CreateHubMoreOptions from '../createhub/MoreOptions.js';
 import Footer from '../Footer';
 import HubContent from './HubContent.js';
 
@@ -184,6 +185,7 @@ class HubCreate extends React.Component {
                             <FlatButton className="showCustomUrl" label="More Options" />
                           </form>
                         </div>
+                        <CreateHubMoreOptions />
                     </div>
                 );
 
@@ -233,7 +235,7 @@ class HubCreate extends React.Component {
         const dialog = this.renderDialogSpecificToStatus(this.state.status);
         return (
           <div className="createHubWrapper" id="create-wrapper">
-              <ReactCSSTransitionGroup transitionName="dialog" transitionEnterTimeout={1000} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={1000}>
+              <ReactCSSTransitionGroup transitionName="dialog" transitionEnterTimeout={0} transitionLeaveTimeout={0} transitionAppear={true} transitionAppearTimeout={0}>
                   {dialog}
               </ReactCSSTransitionGroup>
               <div className="demoDrops">
@@ -250,8 +252,8 @@ class HubCreate extends React.Component {
 
 function mapStateToProps(state) {
     return {
-		authenticationError: state.auth.error,
-		hubCreated: state.hub.created
+  		authenticationError: state.auth.error,
+  		hubCreated: state.hub.created
 	}
 }
 

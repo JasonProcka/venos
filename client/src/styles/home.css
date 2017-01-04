@@ -1,28 +1,19 @@
-.home {
-    box-sizing: none;
-    height: 100%;
-    font-size: 0.875em;
-}
-
-.introWrap {
-    margin-left: 260px;
-    height: 100%;
+.homeWrapper {
+  margin-left: 260px;
 }
 
 .introTop {
-    height: 100%;
+    height: calc(100vh + 24px);
     width: 100%;
     background-image: url('http://www.hdbloggers.net/wp-content/uploads/2016/06/Nebula-Space-Wallpaper.jpg');
     background-size: cover;
     background-position: center;
-    background-color: rgb(0, 188, 212);
-    overflow: auto;
 }
 
 .introContent {
     position: relative;
-    top: 46.5%;
-    transform: translateY(-46.5%);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .introContent h3, p {
@@ -36,30 +27,28 @@
     margin-bottom: 0;
     text-align: center;
     font-size: 3.5em;
-    font-family: "Roboto", sans-serif;
-    line-height: 1.8;
+    font-family: 'PT Sans', sans-serif;
     font-weight: 400;
     text-shadow: 0px 0px 40px rgba(30, 62, 44, 0.54), 0px 0px 20px rgba(49, 62, 46, 0.72);
 }
 
 .introContent p {
-    text-align: center;
-    font-size: 1.5em;
-    font-family: "Raleway", sans-serif;
-    line-height: 1;
-    font-weight: 400;
-    text-shadow: 0px 0px 40px rgba(30, 62, 44, 0.54), 0px 0px 5px rgba(55, 76, 50, 0.63);
-    letter-spacing: 1px;
+  padding: 0 40px;
+  margin-top: 6px;
+  text-align: center;
+  font-size: 20px;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+  text-shadow: 0px 0px 40px rgba(30, 62, 44, 0.54), 0px 0px 5px rgba(55, 76, 50, 0.63);
 }
 
 .introButtons {
-    margin-top: 3.5em;
+    margin-top: 20px;
     text-align: center;
     -webkit-font-smoothing: antialiased;
 }
 
 .introButtons button div span {
-    letter-spacing: 1px !important;
     font-family: "Roboto", sans-serif !important;
     font-weight: 500 !important;
     padding-right: 3em !important;

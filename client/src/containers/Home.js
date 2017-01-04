@@ -1,13 +1,11 @@
 // --- Imports ----
 
-
-
 // >>> React
 import React from 'react';
 import {browserHistory} from 'react-router';
 import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 // >>> Material-UI
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,19 +21,17 @@ class Home extends React.Component {
     }
     render() {
         return (
-            <div className="home">
-                <div className="introWrap">
-                    <div className="introTop">
-                        <div className="introContent">
-                            <h3>Venos</h3>
-                            <p>Store valuable resources in a collaborative location</p>
-                            <div className="introButtons">
-                                <FlatButton className="learn" label="Learn More"></FlatButton>
-                                <RaisedButton className="button-create-hub" onClick={() => this.props.dispatch(push('/create'))} label="Create Hub" secondary={true}/>
-                            </div>
-                        </div>
-                    </div>
+            <div className="homeWrapper">
+              <div className="introTop">
+                <div className="introContent">
+                  <h3>Hubs</h3>
+                  <p>Publically and anonymously store valuable resources in a collaborative location</p>
+                  <div className="introButtons">
+                    <FlatButton className="learn" label="Learn More"></FlatButton>
+                    <RaisedButton className="button-create-hub" onClick={() => this.props.dispatch(push('/create'))} label="Create Hub" secondary={true}/>
+                  </div>
                 </div>
+              </div>
             </div>
         );
     }

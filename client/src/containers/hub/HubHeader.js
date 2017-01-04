@@ -27,6 +27,10 @@ class HubHeader extends React.Component {
         return (
           <header className="hubJumbo">
             <div className="hubJumboWrapper">
+							<div className="hubCreator">
+								<div className="hubCreatorPicture"></div>
+								<span className="hubCreatorName">Anonymous Bear</span>
+							</div>
               <div className="hub-head-informations">
                 <h3 className="hubTitle">{this.props.title}</h3>
                 <p className="hubDescription">{this.props.description}</p>

@@ -96,17 +96,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.navItems .navLink .navLinkButton:hover {
-    color: #03A9F4;
-    text-decoration: none;
-    background-color: #b3d4fc;
-    -webkit-box-shadow: inset 2px 0px 0px 0px rgba(3, 169, 244, 1);
-    -moz-box-shadow: inset 2px 0px 0px 0px rgba(3, 169, 244, 1);
-    box-shadow: inset 2px 0px 0px 0px rgba(3, 169, 244, 1);
-    border-radius: 0 !important;
-    /*border-left: solid 2px rgba(3, 169, 244, 1) !important;*/
-}
-
 .navItems .navLink svg {
     vertical-align: middle;
     margin: 10px 24px 10px 16px !important;
@@ -118,6 +107,35 @@
     width: 2.5em !important;
 }
 
+.navItems .navLink .navLinkButton:hover {
+  background-color: #E0E0E0 !important;
+  /*border-left: solid 2px rgba(3, 169, 244, 1) !important;*/
+}
+
+.navItems .navLink .selected > .navLinkButton {
+  color: #03A9F4 !important;
+  background-color: #EEEEEE !important;
+  border-radius: 0 !important;
+  -webkit-box-shadow: inset 2px 0px 0px 0px rgba(41, 182, 246, 1);
+  -moz-box-shadow: inset 2px 0px 0px 0px rgba(41, 182, 246, 1);
+  box-shadow: inset 2px 0px 0px 0px rgba(41, 182, 246, 1);
+}
+
+.navItems .navLink .selected > .navLinkButton svg {
+  fill: #03A9F4 !important;
+}
+
+.navItems .navLink .selected > .navLinkButton span {
+  color: #03A9F4 !important;
+}
+
+/* Badges */
+
+.navLink button span span {
+  top: calc(50% - 12px) !important;
+  right: -50px !important;
+  background-color: #FF4081 !important;
+}
 
 @media only screen and (max-width: 930px) {
     .navCustom {

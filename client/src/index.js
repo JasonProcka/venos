@@ -1,7 +1,4 @@
-
 // --- Imports ----
-
-
 
 // >>> React
 import React from 'react';
@@ -18,6 +15,7 @@ import Admin from './containers/Admin';
 import SignIn from './containers/SignIn';
 import SignUp from './containers/SignUp';
 import Home from './containers/Home';
+import Creations from './containers/creations/Creations';
 
 // >>>>> Hubs
 import {MyHubs, Hub, HubCreateDialog, HubChecker} from './containers/hub';
@@ -29,16 +27,12 @@ import NoAccess from './components/NoAccess';
 // >>> Material-UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-
-
-
 // >>> react-router-redux
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 import injectTapEventPlugin from 'react-tap-event-plugin'; // makes MUI work correctly
 
 injectTapEventPlugin(); // call the function which makes MUI working correctly
-
 
 // configure the store for future use
 const store = configureStore(); // retrieve the store from our awesome method 'configureStore'
@@ -49,26 +43,24 @@ store.dispatch(actions.verifyAuth()); // verify Authentication after every whole
 // render the App inside the div with ID #app
 ReactDOM.render(
 	<Provider store={store}>
-	    <MuiThemeProvider>
-	        <Router history={browserHistory}>
-	            <Route path="/" component={App}>
-	                <IndexRoute component={Home}/>
+    <MuiThemeProvider>
+      <Router history={browserHistory}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Home}/>
 					<Route path="dashboard" component={Home}/>
-	                <Route path="signin" component={SignIn}/>
-	                <Route path="login" component={SignIn}/>
-	                <Route path="join" component={SignUp}/>
-	                <Route path="signup" component={SignUp}/>
-	                <Route path="register" component={SignUp}/>
-	                <Route path="create" component={HubCreateDialog}/>
-	                <Route path="admin" component={Admin}/>
-	                <Route path="myhubs" component={MyHubs}/>
-	                <Route path="noaccess" component={NoAccess}/>
+          <Route path="signin" component={SignIn}/>
+          <Route path="login" component={SignIn}/>
+          <Route path="join" component={SignUp}/>
+          <Route path="signup" component={SignUp}/>
+          <Route path="register" component={SignUp}/>
+          <Route path="create" component={HubCreateDialog}/>
+          <Route path="admin" component={Admin}/>
+          <Route path="creations" component={Creations}/>
+          <Route path="noaccess" component={NoAccess}/>
 					<Route path=":name" component={Hub}/>
-
-	            </Route>
-
-	        </Router>
-	    </MuiThemeProvider>
+        </Route>
+      </Router>
+    </MuiThemeProvider>
 	</Provider>,
     document.getElementById('app')
 );

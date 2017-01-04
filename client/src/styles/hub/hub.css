@@ -35,13 +35,39 @@ body::-webkit-scrollbar {
 
 .hubJumbo {
     padding-top: 40px;
-    background-size: cover;
-    background-position: center;
-    background-image: url('http://www.hipsthetic.com/wp-content/uploads/2016/04/Desert-Night-Desktop-Wallpaper.png');
+    background-color: #29B6F6 !important;
 }
 
 .hubJumboWrapper {
   padding: 0 40px;
+}
+
+.hubCreator {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+
+}
+
+.hubCreatorPicture {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-image: url('https://image.freepik.com/free-vector/triangle-bear-design_23-2147495368.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: white;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.hubCreatorName {
+  font-size: 16px;
+  font-family: 'PT Sans', sans-serif;
+  line-height: 28px;
+  color: #FFF;
+  -webkit-font-smoothing: antialiased;
 }
 
 .hubJumbo > div {

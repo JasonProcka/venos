@@ -153,15 +153,9 @@ class Hub extends React.Component {
     };
 
 
-	componentWillUpdate(){
-		console.log('juhu');
-
-
-
-	}
 
 	componentWillReceiveProps(nextProps) {
-		let array = [];
+		let array1 = [];
 		if(nextProps.file && nextProps.file.files)
 			for(let property in nextProps.file.files){
 
@@ -169,13 +163,13 @@ class Hub extends React.Component {
 					id: property,
 					file: nextProps.file.files[property]
 				};
-				console.log("insert" + util.inspect(x));
-				array.push(x);
-			}
 
+				array1.push(x);
+			}
+let array2 = [];
 		if(nextProps.hub && nextProps.hub.files){
 			for(let property in nextProps.hub.files){
-				array.push(
+				array2.push(
 					{
 						id: property,
 						file: nextProps.hub.files[property]
@@ -183,7 +177,7 @@ class Hub extends React.Component {
 				)
 			}
 		}
-		this.setState({files: array});
+		this.setState({files: array2, newFiles: array1});
 
 
   }
@@ -237,7 +231,7 @@ class Hub extends React.Component {
                     this.dropzone = node;
                 }} onDrop={this.onDrop.bind(this)}>
                   <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
-                       <DropList drops={this.state.files}></DropList>
+                       <DropList newDrops={this.state.newFiles} drops={this.state.files}></DropList>
                       <div className="hubBio">this is random text</div>
                       <div className="hubQuickShare">This is the quickshare page.</div>
                   </SwipeableViews>

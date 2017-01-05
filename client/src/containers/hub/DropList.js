@@ -16,13 +16,23 @@ class DropList extends React.Component {
             isLoading: false,
 			drops: this.props.drops,
             currentItems: this.props.drops.slice(0, 20)
+		
         }
     }
+
+	componentWillReceiveProps(nextProps) {
+
+
+
+
+		this.setState({newDrops: nextProps.newDrops})
+
+
+	}
 
 
 
     _loadMoreItems() {
-		console.log("waypoint");
         var itemsToAdd = 50;
         var secondsToWait = 1;
 		if(!this.state.isLoading){
@@ -47,10 +57,18 @@ class DropList extends React.Component {
 
     _renderItems() {
 
+
         let x = this.state.currentItems.map(function(drop, index) {
-			console.log('he2?');
             return (<Drop key={index} file={drop.file}/>);
         });
+		if(this.state.newDrops){
+			let y = this.state.newDrops.map(function(drop, index) {
+            	return (<Drop key={`n-${index}`} file={drop.file}/>);
+        	});
+			x = y.concat(x);
+		}
+
+		if(this.state.currentItems.length !== this.state.drops.length)
 			x.splice(x.length - 20, 0, <Waypoint ref="waypoint" key={`${x-20}w`} scrollableAncestor={window} debug={false} onEnter={this._loadMoreItems}/>);
 		return x;
 

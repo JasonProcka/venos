@@ -26,6 +26,7 @@
 // import RaisedButton from 'material-ui/RaisedButton';
 // import Checkbox from 'material-ui/Checkbox';
 // import Toggle from 'material-ui/Toggle';
+// import Snackbar from 'material-ui/Snackbar';
 //
 // // >>> Styles/CSS
 // import '../../styles/app.css'
@@ -149,24 +150,14 @@
 //             case STATUS_CREATED_HUB:
 //
 //                 return (
-//                     <div className="dialog-special created shadow">
-//                         <div className="foyer-header">
-//                             <div className="linkarea">
-//                                 <input className="copy-hublink mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" value="Copy"/>
-//                                 <span className="hublink">
-//                                     <a href="#">venos.co/yournewhub</a>
-//                                 </span>
-//                             </div>
-//                         </div>
-//                         <div className="foyer-wrapper">
-//                             <h4>Hub Creation Successful</h4>
-//
-//                             <div className="foyer-interior">
-//                                 <p>Congrats, your hub was successfully created.</p>
-//                                 <input className="panel-finish mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Okay"/>
-//                             </div>
-//                         </div>
-//                     </div>
+//                      <Snackbar
+//                        open={this.state.open}
+//                        message="Hub successfully created!"
+//                        action="OKAY"
+//                        autoHideDuration={this.state.autoHideDuration}
+//                        onActionTouchTap={this.handleActionTouchTap}
+//                        onRequestClose={this.handleRequestClose}
+//                      />
 //                 )
 //             case STATUS_CREATED_ERROR:
 //                 return (

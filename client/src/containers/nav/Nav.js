@@ -32,7 +32,7 @@ class Nav extends React.Component {
       return [
         <ul key={1} className="navItems">
           <NavLabel>NAVIGATE</NavLabel>
-          <NavLink key={1} to="dashboard" icon={IconHome}> Dashboard</NavLink>
+          <NavLink key={1} to="dashboard" icon={IconHome}>Dashboard</NavLink>
           <NavLink key={2} to="creations"  icon={IconFingerprint}>Creations</NavLink>
           <NavLink key={3}  icon={IconNotifications} notifycount="2">Notifications</NavLink>
           <NavLink key={4}  icon={IconCloud}>Synced Files</NavLink>

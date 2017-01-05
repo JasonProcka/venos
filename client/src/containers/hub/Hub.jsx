@@ -54,22 +54,10 @@ class Hub extends React.Component {
 
     componentWillMount() {
 
-
-
 		this.props.action.fetchHubByUrl(this.props.routeParams.name);
-
-
-
-
-
-
-
-
-
 
         // console.log(this.props.location.pathname);
         // let req = request.get('/files').query({'url': this.props.location.pathname}).end((err, res) => {
-		//
         //     let array = JSON.parse(res.text);
         //     let fileMap = new Map();
         //     for (var i = 0; i < array.length; i++) {
@@ -89,7 +77,6 @@ class Hub extends React.Component {
     }
 
     componentDidMount() {
-
 
 		if(this.props.hub)
 			this.setState({files: this.props.hub.files})
@@ -252,12 +239,19 @@ class Hub extends React.Component {
                   <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
                        <DropList drops={this.state.files}></DropList>
                       <div className="hubBio">this is random text</div>
+                      <div className="hubQuickShare">This is the quickshare page.</div>
                   </SwipeableViews>
               </Dropzone>
             </div>
         )
 		else
-			return  <CircularProgress size={500} thickness={30} />
+			return(
+        <div className="loadingWrapper">
+          <div className="hubLoadingWrapper">
+            <CircularProgress className="hubLoading" size={40} thickness={4} />
+          </div>
+        </div>
+      );
     }
 }
 

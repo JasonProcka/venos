@@ -1,0 +1,47 @@
+.creationsWrapper {
+  min-height: 100vh;
+  margin-top: 24px;
+  margin-left: 260px;
+}
+
+.creationsWrapper .createHub {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.creationsHeader {
+
+}
+
+.creationsHeader h4 {
+  color: #9E9E9E;
+  font-family: 'PT Sans', sans-serif;
+  margin-top: 80px;
+  margin-bottom: 0;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Created Hubs */
+
+.createdHubsWrapper {
+  padding: 30px 40px 0;
+  max-width: 520px;
+  margin: auto;
+}
+
+.createdHub {
+  width: 100%;
+  margin-bottom: 40px;
+  background-color: #29B6F6;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+@media only screen and (max-width: 930px) {
+    .creationsWrapper {
+        min-width: 100%;
+        margin-left: 0;
+    }
+}

@@ -19,12 +19,11 @@ export default class NavLink extends React.Component {
             <li className="navLink">
               <Link activeClassName="selected" {...this.props}>
                   <FlatButton className="navLinkButton" label={this.props.notifycount ? <Badge
-					  badgeContent={4}
-					  primary={true}
-					  style={{padding: 0}}
-				  >{this.props.children}</Badge> : this.props.children}
-					  icon={<this.props.icon />}>
-
+        					  badgeContent={4}
+        					  primary={true}
+        					  style={{padding: 0}}
+        				  >{this.props.children}</Badge> : this.props.children}
+        					  icon={<this.props.icon />}>
 				          </FlatButton>
 
               </Link>

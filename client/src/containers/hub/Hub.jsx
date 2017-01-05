@@ -93,7 +93,6 @@ class Hub extends React.Component {
 
 		if(this.props.hub)
 			this.setState({files: this.props.hub.files})
-		console.log('mount: ' + util.inspect(this.props.hub));
 
         // request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
         //     console.log("err: " + err);
@@ -118,14 +117,13 @@ class Hub extends React.Component {
         // });
 
     }
-	  componentDidUpdate(){
 
- 	}
+
 
     onDrop(acceptedFiles) {
-        console.log(acceptedFiles);
-		console.log("t" + util.inspect(acceptedFiles, {showHidden: false, depth: 0}));
+		this.setState({fetching: acceptedFiles})
         this.props.action.uploadFiles(acceptedFiles, this.props.hub);
+
         // var e = [];
         // for (var i = 0; i < acceptedFiles.length; i++) {
         //     e.push(acceptedFiles[i]);
@@ -167,6 +165,42 @@ class Hub extends React.Component {
         });
     };
 
+
+	componentWillUpdate(){
+		console.log('juhu');
+
+
+
+	}
+
+	componentWillReceiveProps(nextProps) {
+		let array = [];
+		if(nextProps.file && nextProps.file.files)
+			for(let property in nextProps.file.files){
+
+				let x = {
+					id: property,
+					file: nextProps.file.files[property]
+				};
+				console.log("insert" + util.inspect(x));
+				array.push(x);
+			}
+
+		if(nextProps.hub && nextProps.hub.files){
+			for(let property in nextProps.hub.files){
+				array.push(
+					{
+						id: property,
+						file: nextProps.hub.files[property]
+					}
+				)
+			}
+		}
+		this.setState({files: array});
+
+
+  }
+
     render() {
 
         const styles = {
@@ -187,27 +221,28 @@ class Hub extends React.Component {
 		// 	return array;
 		// })()
 
-		let dummyData = (() => {
-			let array = [];
-
-			if(this.props.hub && this.props.hub.files){
-				console.log(util.inspect(this.props.hub.files));
-				for(let property in this.props.hub.files){
-					array.push({id: 1, src: `/downloadfile?file=/url/user/${this.props.user.uid}/files/${property}.JPG`})
-				}
-
-			}
-			return array;
-		})();
-		console.log(util.inspect(dummyData[0]));
 
 
 
 
-        console.log("h" + this.props.hub);
-		if(this.props.hub != null)
+
+
+
+
+
+
+
+
+
+
+
+
+		if(this.props.hub)
         return (
+
             <div className="hubWrapper">
+
+				{this.props.file.uploading ? <CircularProgress size={500} thickness={30} /> : undefined}
               <HubHeader title={this.props.hub.name} description={this.props.hub.description} currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} location={this.props.location.pathname} />
               <Dropzone disableClick={true} style={{
                   width: '100%'
@@ -215,7 +250,7 @@ class Hub extends React.Component {
                     this.dropzone = node;
                 }} onDrop={this.onDrop.bind(this)}>
                   <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
-                       <DropList drops={dummyData}></DropList>
+                       <DropList drops={this.state.files}></DropList>
                       <div className="hubBio">this is random text</div>
                   </SwipeableViews>
               </Dropzone>
@@ -236,7 +271,8 @@ const mapStateToProps = (state, ownProps) => {
 
 	return {
 		hub: state.hub.hub,
-		user: state.auth.user
+		user: state.auth.user,
+		file: state.file
 	}
  }
 

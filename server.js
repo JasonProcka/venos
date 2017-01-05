@@ -29,16 +29,18 @@ let logger = new(winston.Logger)({
 
 // >>> Internal Modules
 import Admin from './server/admin';
-import GCS from './server/gcs'
 import DatabaseServer from "./server/database";
 import {FileM, FileC, SessionM} from './client/src/shared/models';
 import DatabaseUtil from './client/src/shared/database';
 import cookieParser from 'cookie-parser';
 import Auth from './server/auth';
 import CookieBuilder from './server/cookiebuilder'
+import FileManager from './server/filemanager';
+import compression from 'compression';
 // support json encoded bodies
 const app = express();
 app.use(cookieParser());
+app.use(compression());
 let bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
 
@@ -68,7 +70,7 @@ app.use((req, res, next) => {
 
 });
 
-let bucket = GCS.bucket('czernitzki-148120.appspot.com');
+
 app.set('port', (process.env.PORT || 3100));
 
 // Express only serves static assets in production
@@ -88,76 +90,154 @@ app.post('/files', (req, res, next) => {
     });
 
 });
-app.get('/displayfile', (req, res, next) => {
 
+// // Example /displayfile?file=/user/YFp5Xl5eJoQf6RfNg5MH44ZsZgm1/files/-K_eLou0qsMvL6mIUcbT.JPG
+// app.get('/displayfile', (req, res, next) => {
+//
+//     let destinationName = req.query.file;
+//     if (destinationName && destinationName.trim().length > 0) {
+//         let remoteFile = bucket.file(`${req.query.file}`);
+//         let id = destinationName.substring(destinationName.lastIndexOf('/') + 1)
+//         id = id.substring(0, id.indexOf('.'));
+//
+//         DatabaseServer.getFileFromId(id).then((file) => {
+//             res.set('Content-Type', `${file[FileC.TYPE]
+//                 ? file[FileC.TYPE]
+//                 : 'application/octet-stream'}`)
+//             res.set('Content-Disposition', `inline; filename="${file[FileC.NAME]}`);
+//             remoteFile.createReadStream().on('error', (err) => {
+//                 console.log(error);
+//                 res.status(500).send();
+//             }).on('response', (response) => {
+//                 res.status(200)
+//             }).pipe(res);
+//         }).catch((err) => {
+//             console.error(err);
+//             res.status(500).send(err)
+//         })
+//     } else {
+//         console.error(err);
+//         res.status(500).send();
+//     }
+//
+// });
+//
+// // Example /downloadfile?file=/user/YFp5Xl5eJoQf6RfNg5MH44ZsZgm1/files/-K_eLou0qsMvL6mIUcbT.JPG
+// app.get('/downloadfile', (req, res, next) => {
+//
+//     //res.download(bucket.file(`${req.query.file}`).download(undefined, function(err) {console.error(err); res.status(500).send();}));
+//
+//     let destinationName = req.query.file;
+//     if (destinationName && destinationName.trim().length > 0) {
+//         let remoteFile = bucket.file(`${req.query.file}`);
+//         let id = destinationName.substring(destinationName.lastIndexOf('/') + 1)
+//         id = id.substring(0, id.indexOf('.'));
+//
+//         DatabaseServer.getFileFromId(id).then((file) => {
+//             console.log(file[FileC.TYPE]);
+//             res.set('Content-Type', `${file[FileC.TYPE]
+//                 ? file[FileC.TYPE]
+//                 : 'application/octet-stream'}`)
+//             res.set('Content-Disposition', `attachment; filename="${file[FileC.NAME]}`);
+//             remoteFile.createReadStream().on('error', (err) => {
+//                 console.error(err);
+//                 res.status(500).send();
+//             }).on('response', (response) => {
+//                 res.status(200)
+//             }).pipe(res);
+//         }).catch((err) => {
+//             console.error(err);
+//             res.status(500).send(err)
+//         })
+//     } else {
+//         console.error(err);
+//         res.status(500).send();
+//     }
+// });
+//
+// app.get('/downloadfile2', (req, res, next) => {
+//
+//     //res.download(bucket.file(`${req.query.file}`).download(undefined, function(err) {console.error(err); res.status(500).send();}));
+//
+//     let id = req.query.id;
+//     if (id && id.trim().length > 0) {
+//
+//         DatabaseServer.getFileFromId(id).then(() => {
+//
+//             let remoteFile = bucket.file(`${req.query.file}`);
+//             let id = destinationName.substring(destinationName.lastIndexOf('/') + 1)
+//             id = id.substring(0, id.indexOf('.'));
+//
+//             DatabaseServer.getFileFromId(id).then((file) => {
+//                 console.log(file[FileC.TYPE]);
+//                 res.set('Content-Type', `${file[FileC.TYPE]
+//                     ? file[FileC.TYPE]
+//                     : 'application/octet-stream'}`)
+//                 res.set('Content-Disposition', `attachment; filename="${file[FileC.NAME]}`);
+//                 remoteFile.createReadStream().on('error', (err) => {
+//                     console.error(err);
+//                     res.status(500).send();
+//                 }).on('response', (response) => {
+//                     res.status(200)
+//                 }).pipe(res);
+//             }).catch((err) => {
+//                 console.error(err);
+//                 res.status(500).send(err)
+//             })
+//
+//         })
+//
+//     } else {
+//         console.error(err);
+//         res.status(500).send();
+//     }
+//
+// });
 
-
-	let destinationName = req.query.file;
-	if(destinationName && destinationName.trim().length > 0){
-		let remoteFile = bucket.file(`${req.query.file}`);
-		let id = destinationName.substring(destinationName.lastIndexOf('/') + 1)
-		id = id.substring(0, id.indexOf('.'));
-
-		DatabaseServer.getFileFromId(id).then((file) => {
-			res.set('Content-Type', `${file[FileC.TYPE] ? file[FileC.TYPE] : 'application/octet-stream'}`)
-			res.set('Content-Disposition', `inline; filename="${file[FileC.NAME]}`);
-			remoteFile.createReadStream()
-			.on('error', (err) => {console.log(error); res.status(500).send();})
-			.on('response', (response)  => { res.status(200)})
-			.pipe(res);
-		}).catch((err) => { console.error(err); res.status(500).send(err)})
-	}
-	else {
-		console.error(err);
-		res.status(500).send();
-	}
-
-
-});
 
 app.get('/downloadfile', (req, res, next) => {
-
-	//res.download(bucket.file(`${req.query.file}`).download(undefined, function(err) {console.error(err); res.status(500).send();}));
-
-	let destinationName = req.query.file;
-	if(destinationName && destinationName.trim().length > 0){
-		let remoteFile = bucket.file(`${req.query.file}`);
-		let id = destinationName.substring(destinationName.lastIndexOf('/') + 1)
-		id = id.substring(0, id.indexOf('.'));
-
-		DatabaseServer.getFileFromId(id).then((file) => {
-			console.log(file[FileC.TYPE]);
-			res.set('Content-Type', `${file[FileC.TYPE] ? file[FileC.TYPE] : 'application/octet-stream'}`)
-			res.set('Content-Disposition', `attachment; filename="${file[FileC.NAME]}`);
-			remoteFile.createReadStream()
-			.on('error', (err) => {console.log(error); res.status(500).send();})
-			.on('response', (response)  => { res.status(200)})
-			.pipe(res);
-		}).catch((err) => { console.error(err); res.status(500).send(err)})
-	}
-	else {
-		console.error(err);
-		res.status(500).send();
-	}
-
-
-
-
-
-
-	// .on('error', function(err) { console.error(err); res.status(500).send(); })
-	// .on('response', function(response) {
-	// 	// Server connected and responded with the specified status and headers.
-	// 	res.attachment(response);
-	// 	res.status(200);
-	// 	res.download(response);
-	// })
-	// .on('end', function() {
-	// 	// The file is fully downloaded.
-	// }).pipe(fs.createWriteStream("/"));;
-
-
+//
+    	if(req.query.id){
+			FileManager.download(res, req.query.id).catch(() => res.status(500).send());
+		}else{
+			res.status(500).send();
+		}
+//
+//     let id = req.query.id;
+//     if (id && id.trim().length > 0) {
+//
+//         DatabaseServer.getFileFromId(id).then(() => {
+//
+//             let remoteFile = bucket.file(`${req.query.file}`);
+//             let id = destinationName.substring(destinationName.lastIndexOf('/') + 1)
+//             id = id.substring(0, id.indexOf('.'));
+//
+//             DatabaseServer.getFileFromId(id).then((file) => {
+//                 console.log(file[FileC.TYPE]);
+//                 res.set('Content-Type', `${file[FileC.TYPE]
+//                     ? file[FileC.TYPE]
+//                     : 'application/octet-stream'}`)
+//                 res.set('Content-Disposition', `attachment; filename="${file[FileC.NAME]}`);
+//                 remoteFile.createReadStream().on('error', (err) => {
+//                     console.error(err);
+//                     res.status(500).send();
+//                 }).on('response', (response) => {
+//                     res.status(200)
+//                 }).pipe(res);
+//             }).catch((err) => {
+//                 console.error(err);
+//                 res.status(500).send(err)
+//             })
+//
+//         })
+//
+//     } else {
+//         console.error(err);
+//         res.status(500).send();
+//     }
+//
 });
+
 
 
 app.post('/file', (req, res, next) => {
@@ -259,42 +339,23 @@ app.post('/upload', (req, res, next) => {
         let form = new formidable.IncomingForm();
         form.multiples = true;
         form.parse(req, (err, fields, fileList) => {
-            console.log(util.inspect(fileList));
             let files = [];
             for (let fileIndex in fileList) {
                 files.push(fileList[fileIndex]);
             }
-            console.log(util.inspect(req.user));
-            DatabaseServer.addFilesToHub(files, req.user.uidInternal, fields.hubid, (file) => {
-                return new Promise((resolve, reject) => {
-                    console.log(util.inspect(file))
-                    let destinationName = file[FileC.NAME];
-                    destinationName = `/user/${req.user.uidInternal}/files/${file[FileC.ID]}${destinationName.substring(destinationName.indexOf('.'))}`;
-                    let options = {
-                        destination: destinationName,
-                        resumable: true,
-                        validation: 'crc32c',
-                        metadata: {
-                            "type": file[FileC.TYPE]
-                        }
-                    };
 
-                    bucket.upload(file[FileC.PATH], options, (err, file) => {
-                        if (!err)
-                            console.info("Successful uploaded file");
-                        else {
-                            console.error(err);
-                            reject(err);
-                        }
-                    });
-                })
-            }).then(files => {
-                res.status(200).send(files);
-            }).catch(err => {
-                console.error(err);
-                res.status(500).send();
-            });
+			console.log(util.inspect(req.user));
+			FileManager.uploadFilesToHub(files, fields['hubid'], req.user.uidInternal).then((files) => {
+				console.info("uploaded files successfully");
+				res.status(200).send(files);
+			}).catch((error) => {
+				console.error(error);
+			});
         });
     }
+	else{
+		console.error("User not authenticated, file could not be uploaded");
+		res.status(500).send();
+	}
 
 });

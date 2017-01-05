@@ -1,11 +1,10 @@
-import Firebase from 'firebase';
-import config from '../client/src/shared/config'
+import Firebase from './firebase';
 import Admin from './admin';
 import {SessionM} from '../client/src/shared/models';
 import DatabaseServer from './database'
 import util from 'util';
 
-Firebase.initializeApp(config);
+
 
 
 export default class Auth {
@@ -71,7 +70,7 @@ export default class Auth {
 						else
 							reject("No user found")
 					}).catch((err) => reject(err));
-				});
+				}).catch((err) => reject(err));
 			else {
 
 				reject("No token to look up for verify Auth")

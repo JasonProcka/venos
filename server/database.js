@@ -58,9 +58,44 @@ export default class DatabaseServer{
 			.once('value')
 			.then((snapshot) => {
 				snapshot.exists() ? resolve(snapshot.val()) : reject("Snapshot does not exist, session token can't be resolved to user uid");
-			});
+			}).catch((err) => reject(err));
 		})
 	}
+
+
+
+	static initUniqueFileId(){
+		return database.ref(FileC.KEY).push().key;
+	}
+
+
+
+	static setFileAtSpecificId(file, fileId){
+		return Promise.all(
+			[
+				database.ref(`${UserC.KEY}/${file[FileC.OWNER]}/${UserC.OWNS}/${UserC.FILES}/${fileId}`).set(true),
+				new Promise(
+					(resolve, reject) =>
+						{
+							let ref = database.ref(`${FileC.KEY}/${fileId}`);
+							resolve(ref.set(file))
+						}
+				)
+			]
+		);
+	}
+
+	static addFileToHub(file, hubId){
+		return database.ref(`${HubC.KEY}/${hubId}/${HubC.FILES}/${file[FileC.ID]}`).set({
+			...file
+		});
+	}
+
+
+
+
+
+
 
 	static addFile(file){
 		return new Promise(
@@ -87,42 +122,42 @@ export default class DatabaseServer{
 	}
 
 
-	static addFileToHub(file, userUid, hubId, storePromise){	// storePromise is a promise that receives the reference of the files new location and is used to store the file
+	// static addFileToHub(hubId, file, userUid, storePromise){	// storePromise is a promise that receives the reference of the files new location and is used to store the file
+	//
+	//
+	// 	return new Promise(
+	// 		(resolve, reject) => {
+	// 			let reference = database.ref(FileC.KEY).push()
+	// 			file = new FileM(file, userUid,[hubId]);
+	// 			file[FileC.ID] = reference.key;
+	// 			console.log('db: ' + util.inspect(file));
+	// 			Promise.all(
+	// 				[
+	// 					storePromise(file),
+	// 					database.ref(`${UserC.KEY}/${userUid}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true),
+	// 					database.ref(`${HubC.KEY}/${hubId}/${HubC.FILES}/${reference.key}`).set(true),
+	// 					reference.set(file)
+	//
+	// 				]
+	// 			).then(() => resolve()).catch((err) => reject(err))
+	//
+	// 		}
+	// 	)
+	// }
 
-
-		return new Promise(
-			(resolve, reject) => {
-				let reference = database.ref(FileC.KEY).push()
-				file = new FileM(file, userUid,[hubId]);
-				file[FileC.ID] = reference.key;
-				console.log('db: ' + util.inspect(file));
-				Promise.all(
-					[
-						storePromise(file),
-						database.ref(`${UserC.KEY}/${userUid}/${UserC.OWNS}/${UserC.FILES}/${reference.key}`).set(true),
-						database.ref(`${HubC.KEY}/${hubId}/${HubC.FILES}/${reference.key}`).set(true),
-						reference.set(file)
-
-					]
-				).then(() => resolve()).catch((err) => reject(err))
-
-			}
-		)
-	}
-
-	static addFilesToHub(files, userUid, hubId, storePromise){
-		console.log('-------------------------------------------------------- what');
-		console.log('db2: ' + util.inspect(files));
-
-		return new Promise(
-			(resolve, reject) => {
-				let promises = files.map((file, index) => {
-					return DatabaseServer.addFileToHub(file, userUid, hubId, storePromise);
-				})
-				resolve(Promise.all(promises));
-			}
-		)
-	}
+	// static addFilesToHub(files, userUid, hubId, storePromise){
+	// 	console.log('-------------------------------------------------------- what');
+	// 	console.log('db2: ' + util.inspect(files));
+	//
+	// 	return new Promise(
+	// 		(resolve, reject) => {
+	// 			let promises = files.map((file, index) => {
+	// 				return DatabaseServer.addFileToHub(file, userUid, hubId, storePromise);
+	// 			})
+	// 			resolve(Promise.all(promises));
+	// 		}
+	// 	)
+	// }
 
 
 	static getFilesOfHub(hubId) {

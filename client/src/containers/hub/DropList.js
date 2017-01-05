@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Drop from './Drop';
 import Waypoint from 'react-waypoint';
 import CircularProgress from 'material-ui/CircularProgress';
-
+import util from 'util';
 class DropList extends React.Component {
     constructor(props) {
         super(props);
@@ -11,11 +11,15 @@ class DropList extends React.Component {
         this._renderWaypoint = this._renderWaypoint.bind(this);
         this._renderItems = this._renderItems.bind(this);
 
+		console.log("happens");
         this.state = {
             isLoading: false,
+			drops: this.props.drops,
             currentItems: this.props.drops.slice(0, 20)
         }
     }
+
+
 
     _loadMoreItems() {
 		console.log("waypoint");
@@ -27,7 +31,7 @@ class DropList extends React.Component {
 	        window.setTimeout(() => {
 	            // add datad
 	            var currentItems = this.state.currentItems;
-	            var newItems = this.props.drops.slice(currentItems.length - 1, currentItems.length + 49);
+	            var newItems = this.state.drops.slice(currentItems.length, currentItems.length + 49);
 	            currentItems = currentItems.concat(newItems);
 	            this.setState({currentItems: currentItems, isLoading: false});
 	        }, secondsToWait * 1000);
@@ -40,11 +44,14 @@ class DropList extends React.Component {
         }
     }
 
+
     _renderItems() {
+
         let x = this.state.currentItems.map(function(drop, index) {
-            return (<Drop key={index} src={drop.src}/>);
+			console.log('he2?');
+            return (<Drop key={index} file={drop.file}/>);
         });
-		x.splice(x.length - 20, 0, <Waypoint ref="waypoint" key={`${x-20}w`} scrollableAncestor={window} debug={false} onEnter={this._loadMoreItems}/>);
+			x.splice(x.length - 20, 0, <Waypoint ref="waypoint" key={`${x-20}w`} scrollableAncestor={window} debug={false} onEnter={this._loadMoreItems}/>);
 		return x;
 
     }

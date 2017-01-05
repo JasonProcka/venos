@@ -48,7 +48,7 @@ export const HUB_FETCH_ERROR = 'HUB_FETCH_ERROR';
 // >>> Files
 export const FILE_UPLOAD_SUCCESS = 'FILE_UPLOAD_SUCCESS';
 export const FILE_UPLOAD_ERROR = 'FILE_UPLOAD_ERROR';
-
+export const FILE_UPLOAD_START = 'FILE_UPLOAD_START';
 
 
 
@@ -90,11 +90,14 @@ function action_FetchHubError(error) {
 }
 
 
-function action_UploadFile() {
-    return {type: FILE_UPLOAD_SUCCESS}
+function action_UploadFile(files) {
+    return {type: FILE_UPLOAD_SUCCESS, files}
 }
 function action_UploadFileError() {
     return {type: FILE_UPLOAD_ERROR}
+}
+function action_UploadFileStart() {
+    return {type: FILE_UPLOAD_START}
 }
 
 // Export the action functions
@@ -105,6 +108,7 @@ export {
 	action_CreateHubError,
 	action_UploadFile,
 	action_UploadFileError,
+	action_UploadFileStart,
 	action_AuthAlreadySignedIn,
 	action_AuthAnon
 }
@@ -314,6 +318,7 @@ function createHub(data) {
 // Upload Files to an hub
 function uploadFiles(files, hub) {
     return (dispatch, getState) => {
+		dispatch(action_UploadFileStart());
         let user = getState().auth.user;
 		console.log('he');
 		if(user){
@@ -329,8 +334,10 @@ function uploadFiles(files, hub) {
 	        req.end((err, res) => {
 				if(err || !res.ok){
 					action_UploadFileError(err ? err : "Something went wrong while uploading files")
-				}else
+				}else{
+
 					dispatch(action_UploadFile(JSON.parse(res.text)));
+				}
 	        });
 		}else{
 			dispatch(action_UploadFileError("You need to be authenticated to upload a file"))

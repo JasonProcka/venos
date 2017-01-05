@@ -4,7 +4,8 @@ class CreatedHub extends React.Component {
   render() {
     return (
       <div className="createdHub">
-        Created hub data
+        <h4>Jason's Hub</h4>
+        <p>Random description</p>
       </div>
     );
   }

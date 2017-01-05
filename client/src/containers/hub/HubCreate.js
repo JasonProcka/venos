@@ -18,9 +18,6 @@ import Firebase from 'firebase';
 // >>> ShortId
 import shortid from 'shortid';
 
-// >>> Components
-import CreateDialog from '../../components/CreateDialog';
-
 // >>> util
 import util from 'util';
 
@@ -185,7 +182,6 @@ class HubCreate extends React.Component {
                             <FlatButton className="showCustomUrl" label="More Options" />
                           </form>
                         </div>
-                        <CreateHubMoreOptions />
                     </div>
                 );
 

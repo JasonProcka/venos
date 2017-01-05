@@ -60,6 +60,9 @@ class HubHeader extends React.Component {
                 <Tab style={{
                     fontWeight: 400
                 }} label="Bio" value={1} />
+								<Tab style={{
+										fontWeight: 400
+								}} label="Quick Share" value={2} />
               </Tabs>
 						</div>
           </header>

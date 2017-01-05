@@ -150,6 +150,24 @@ body::-webkit-scrollbar {
     display: block;
 }
 
+/* Hub loading */
+
+.loadingWrapper {
+  margin-left: 260px;
+  min-height: calc(100vh + 24px);
+  padding-top: 60px;
+}
+
+.hubLoadingWrapper {
+  display: inline-block;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hubLoading {
+
+}
+
 /* Scaling */
 
 @media only screen and (max-width: 930px) {

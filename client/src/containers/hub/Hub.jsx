@@ -20,7 +20,7 @@ import Drop from './Drop';
 // >>> Modules
 import request from 'superagent';
 import util from 'util';
-import {FileC} from '../../shared/models';
+import {FileC, HubC} from '../../shared/models';
 
 // >>> Material-UI
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -33,7 +33,7 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import SwipeableViews from 'react-swipeable-views'; // From https://github.com/oliviertassinari/react-swipeable-views
 import CircularProgress from 'material-ui/CircularProgress';
 
-
+import VRequest from '../../libs2/vrequest';
 // >>> Styles
 import '../../styles/hub/hub.css';
 import '../../styles/grid.css';
@@ -46,7 +46,8 @@ class Hub extends React.Component {
         this.state = {
 			hub: null,
             files: null,
-            currentTab: 0
+            currentTab: 0,
+			quickShareKey: null
         };
 
 
@@ -76,10 +77,7 @@ class Hub extends React.Component {
         // });
     }
 
-    componentDidMount() {
 
-		if(this.props.hub)
-			this.setState({files: this.props.hub.files})
 
         // request.get('/files').query({'hubid': this.props.hub.id}).end((err, res) => {
         //     console.log("err: " + err);
@@ -103,13 +101,15 @@ class Hub extends React.Component {
         //     }));
         // });
 
-    }
+
 
 
 
     onDrop(acceptedFiles) {
 		this.setState({fetching: acceptedFiles})
         this.props.action.uploadFiles(acceptedFiles, this.props.hub);
+
+
 
         // var e = [];
         // for (var i = 0; i < acceptedFiles.length; i++) {
@@ -143,6 +143,7 @@ class Hub extends React.Component {
     }
 	onTabChange = (e) => {
 		this.setState({currentTab: e})
+
 	}
 
     handleChange = (value) => {
@@ -155,6 +156,7 @@ class Hub extends React.Component {
 
 
 	componentWillReceiveProps(nextProps) {
+
 		let array1 = [];
 		if(nextProps.file && nextProps.file.files)
 			for(let property in nextProps.file.files){
@@ -177,10 +179,26 @@ let array2 = [];
 				)
 			}
 		}
-		this.setState({files: array2, newFiles: array1});
+
+		let newState = {files: array2, newFiles: array1};
+		if(nextProps.hub)
+			newState.hub = nextProps.hub;
+		this.setState(newState);
 
 
   }
+
+  getQuickShareKeyForHub(){
+	  console.log('ahja: ' + this.props.hub[HubC.ID]);
+	  VRequest.post('/generatequicksharekey', {hubid: this.props.hub[HubC.ID]}).then((res) => {
+		  console.log(util.inspect(res));
+		  this.setState({quickShareKey: res.body})
+	  }).catch(err => {
+		console.error(err);
+	  })
+
+  }
+
 
     render() {
 
@@ -218,13 +236,13 @@ let array2 = [];
 
 
 
-		if(this.props.hub)
+		if(this.state.hub)
         return (
 
             <div className="hubWrapper">
 
 				{this.props.file.uploading ? <CircularProgress size={500} thickness={30} /> : undefined}
-              <HubHeader title={this.props.hub.name} description={this.props.hub.description} currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} location={this.props.location.pathname} />
+              <HubHeader  title={this.state.hub[HubC.NAME]} description={this.state.hub[HubC.DESCRIPTION]} currentTab={this.state.currentTab} onTabChange={this.onTabChange} onAddFileClick={() => this.dropzone.open()} />
               <Dropzone disableClick={true} style={{
                   width: '100%'
                 }} ref={(node) => {
@@ -233,7 +251,11 @@ let array2 = [];
                   <SwipeableViews index={this.state.currentTab} onChangeIndex={this.handleChange}>
                        <DropList newDrops={this.state.newFiles} drops={this.state.files}></DropList>
                       <div className="hubBio">this is random text</div>
-                      <div className="hubQuickShare">This is the quickshare page.</div>
+                      <div className="hubQuickShare">
+
+							<RaisedButton label="Default" onClick={() => this.getQuickShareKeyForHub()}/>
+							{this.state.quickShareKey ? this.state.quickShareKey.id : undefined}
+					  </div>
                   </SwipeableViews>
               </Dropzone>
             </div>

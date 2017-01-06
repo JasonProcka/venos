@@ -238,6 +238,35 @@ app.get('/downloadfile', (req, res, next) => {
 //
 });
 
+app.post('/gettohubbyquickshare', (req, res, next) => {
+	if(req.body.key){
+		DatabaseServer.getHubFromQuickShareKey(req.body.key).then((data) => {
+			res.status(200).send(data);
+		}).catch((err) => {
+			console.error(err);
+			res.status(500).send();
+		})
+	}else{
+		console.error('Key not found');
+		res.status(500).send();
+	}
+});
+
+app.post('/generatequicksharekey', (req, res, next) => {
+	if(req.body.hubid){
+		console.log('test');
+		DatabaseServer.generateNewQuickShareKeyForHub(req.body.hubid).then((data) => {
+			res.status(200).send(data);
+		}).catch((err) => {
+			console.error(err);
+			res.status(500).send();
+		})
+	}else{
+		console.log('Hubid not provided');
+		res.status(500).send();
+	}
+});
+
 
 
 app.post('/file', (req, res, next) => {

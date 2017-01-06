@@ -5,9 +5,10 @@
 
 
 
-import { FileC, FileM, UserC, UrlC, HubC, SessionC, Sep} from '../client/src/shared/models';
+import { FileC, FileM, UserC, UrlC, HubC, SessionC, QuickShareKeyC, Sep} from '../client/src/shared/models';
 import util from 'util';
 import Admin from './admin';
+import shortid from 'shortid';
 
 const database = Admin.database();
 import DatabaseU from '../client/src/shared/database';
@@ -89,6 +90,55 @@ export default class DatabaseServer{
 		return database.ref(`${HubC.KEY}/${hubId}/${HubC.FILES}/${file[FileC.ID]}`).set({
 			...file
 		});
+	}
+
+
+	static generateNewQuickShareKeyForHub(hubid){
+		return new Promise(
+			(resolve, reject) => {
+				let id = shortid.generate().substring(0, 4);
+				let expirationDate = new Date(Date.now() + 1000 * 60 * 5);
+
+				console.log(util.inspect({
+					[QuickShareKeyC.HUB]: hubid,
+					[QuickShareKeyC.EXPIRATION_DATE]: expirationDate
+
+				}));
+				// 5 minutes
+				database.ref(`${QuickShareKeyC.KEY}/${id}`).set({
+					[QuickShareKeyC.HUB]: hubid,
+					[QuickShareKeyC.EXPIRATION_DATE]: expirationDate
+
+				}).then(() => {
+					resolve({id, expirationDate});
+				}).catch((err) => reject(err))
+			}
+		)
+	}
+	static getHubFromQuickShareKey(id){
+		return new Promise(
+			(resolve, reject) => {
+				database.ref(`${QuickShareKeyC.KEY}/${id}`)
+				.once('value')
+				.then((snapshot) => {
+					if(snapshot && snapshot.exists()){
+						database.ref(`${HubC.KEY}/${snapshot.val()[QuickShareKeyC.HUB]}/`).once('value').then(
+							(snapshot) => {
+								if(snapshot && snapshot.exists()){
+									console.log("e: " + util.inspect(snapshot.val()))
+									resolve(snapshot.val());
+								}else {
+									reject("Snapshot2 does not exist");
+								}
+							}
+						)
+
+					}else{
+						reject("Snapshot1 does not exist");
+					}
+				})
+			}
+		)
 	}
 
 

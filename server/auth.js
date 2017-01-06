@@ -3,6 +3,7 @@ import Admin from './admin';
 import {SessionM} from '../client/src/shared/models';
 import DatabaseServer from './database'
 import util from 'util';
+import anonnames from './anonnames';
 
 
 
@@ -14,7 +15,13 @@ export default class Auth {
 			if(!data && !data.email && !data.password)
 				reject("No data specified");
 
-			Admin.auth().createUser(data).then((user) => {
+			Admin.auth().createUser(
+				{
+					email: data.email,
+					displayName: data.username ? data.username : anonnames[Math.floor(Math.random() * anonnames.length)],
+					password: data.password
+				}
+			).then((user) => {
 
 				let token = SessionM.createSessionToken();
 

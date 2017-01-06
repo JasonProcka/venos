@@ -6,11 +6,12 @@
 import {browserHistory} from 'react-router';
 
 // >>> react-router-redux
-import { push,go } from 'react-router-redux'
+import { push,go, replace} from 'react-router-redux'
 
 // >>> Modules
 import Firebase from 'firebase';
 
+import VRequest from '../libs2/vrequest';
 import config from '../shared/config'
 Firebase.initializeApp(config);
 import DatabaseUtil  from '../shared/database';
@@ -22,7 +23,6 @@ import util from 'util';
 
 // >>> Material-UI
 import Snackbar from 'material-ui/Snackbar';
-
 
 
 
@@ -44,6 +44,8 @@ export const HUB_CREATE_SUCCESS = 'HUB_CREATE_SUCCESS';
 export const HUB_CREATE_ERROR = 'HUB_CREATE_ERROR';
 export const HUB_FETCH_SUCCESS = 'HUB_FETCH_SUCCESS';
 export const HUB_FETCH_ERROR = 'HUB_FETCH_ERROR';
+export const HUB_QUICK_SHARE_KEY = 'HUB_QUICK_SHARE_KEY';
+export const HUB_QUICK_SHARE_KEY_ERROR = 'HUB_QUICK_SHARE_KEY_ERROR';
 
 // >>> Files
 export const FILE_UPLOAD_SUCCESS = 'FILE_UPLOAD_SUCCESS';
@@ -79,6 +81,12 @@ function action_CreateHub(hub) {
 function action_CreateHubError(error) {
 
     return {type: HUB_CREATE_ERROR, payload: error}
+}
+function action_HubQuickShareKey(key) {
+    return {type: HUB_QUICK_SHARE_KEY, key}
+}
+function action_HubQuickShareKeyError(err) {
+    return {type: HUB_QUICK_SHARE_KEY_ERROR, payload: err}
 }
 
 function action_FetchHub(hub) {
@@ -246,6 +254,20 @@ function verifyAuth() {
 }
 
 
+function enterQuickShareKey(key){
+	return (dispatch, getState) => {
+		console.log(key);
+		VRequest.post('/gettohubbyquickshare', {key} ).then(res => {
+			console.log(util.inspect(res))
+			dispatch(action_FetchHub(res.body));
+			dispatch(push(`/${res.body[HubC.URL]}`));
+		}).catch(err => {
+			dispatch(action_FetchHubError(err));
+		})
+	}
+}
+
+
 
 function fetchHubByUrl(url) {
 	return (dispatch, getState) => {
@@ -269,6 +291,9 @@ function fetchHubByUrl(url) {
 		});
 	}
 }
+
+
+
 
 
 
@@ -396,6 +421,7 @@ function signOutUser(){
 
 
 export {
+	enterQuickShareKey,
 	signInUser,
 	signUpUser,
 	signOutUser,

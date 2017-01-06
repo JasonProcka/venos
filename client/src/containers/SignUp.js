@@ -62,7 +62,7 @@ class SignUp extends React.Component {
           </Link>
           <div className="loginContent">
               <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-                <div className=""><Field
+                <Field
                   key={1}
                   placeholder="Email"
                   className="loginEmail"
@@ -72,8 +72,18 @@ class SignUp extends React.Component {
                   type="text"
 				  validate={this.required}
                   /><br />
+				<Field
+					key={2}
+					placeholder="Username"
+					className="loginUsername"
+					id="sample3"
+					name="username"
+					component={TextField}
+					type="text"
+					
+					/><br />
                 <Field
-                  key={2}
+                  key={3}
                   placeholder="Password"
                   className="loginPassword"
                   id="sample4"
@@ -83,7 +93,7 @@ class SignUp extends React.Component {
 				  validate={this.required}
                   /><br />
                 <Field
-                  key={3}
+                  key={4}
                   placeholder="Repeat Password"
                   className="loginPassword repeatPassword"
                   id="sample4"
@@ -91,7 +101,7 @@ class SignUp extends React.Component {
                   component={TextField}
                   type="password"
 				  validate={this.required}
-                  /></div><br />
+                  /><br />
                 <RaisedButton
                   className="loginSubmit blue"
                   type="submit"
@@ -100,7 +110,7 @@ class SignUp extends React.Component {
                 />
 
 				<Field
-                  key={4}
+                  key={5}
 
                   className="loginRemember"
                   name="remember"
@@ -151,13 +161,14 @@ function mapStateToProps(state) {
 
 
 	// or together as a group
-	const { email, password, passwordRepeat } = selector(state, 'email', 'password', 'passwordRepeat')
+	const { email, username, password, passwordRepeat } = selector(state, 'email', 'username', 'password', 'passwordRepeat')
 	return {
 		email,
+		username,
 		password,
 		passwordRepeat,
 		submitDisabled: (() => {
-			if (email && email.trim().length > 0 && password && password.trim().length > 0 && passwordRepeat && passwordRepeat.trim().length > 0 && password.trim().length === passwordRepeat.trim().length)
+			if (email && email.trim().length > 5 && password && password.trim().length > 5 && passwordRepeat && passwordRepeat.trim().length > 5 && password.trim().length === passwordRepeat.trim().length && ((username && username.trim().length > 4) || !username))
 					return false;
 			return true;
 

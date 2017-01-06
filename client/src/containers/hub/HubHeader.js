@@ -12,15 +12,23 @@ import * as Actions from '../../actions';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-
+import util from 'util';
 class HubHeader extends React.Component {
 
 
 	constructor(props){
 		super(props);
 		this.state = {
-			slideIndex: 0
+			slideIndex: 0,
+			user: null
 		}
+	}
+
+	componentWillReceiveProps(newProps){
+		console.log('wasssssssssssss');
+		console.log("drei: " + util.inspect(newProps));
+		if(newProps.user)
+			this.setState({user: newProps.user})
 	}
 
     render() {
@@ -29,7 +37,7 @@ class HubHeader extends React.Component {
             <div className="hubJumboWrapper">
 							<div className="hubCreator">
 								<div className="hubCreatorPicture"></div>
-								<span className="hubCreatorName">Anonymous Bear</span>
+								<span className="hubCreatorName">{this.props.user ? this.props.user.displayName : "Anon User"}</span>
 							</div>
               <div className="hub-head-informations">
                 <h3 className="hubTitle">{this.props.title}</h3>
@@ -77,10 +85,15 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-function mapStateToProps(state, ownProps) {
-    return {
-        routing: state.routing
-    };
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(HubHeader);
+const mapStateToProps = (state, ownProps) => {
+	console.log("inspect" + util.inspect(state));
+	return {
+		user: state.auth.user
+	}
+ }
+
+
+
+
+export default connect(mapStateToProps)(HubHeader);

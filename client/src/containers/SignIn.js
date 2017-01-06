@@ -51,7 +51,7 @@ class Login extends React.Component {
             <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
               <Field
                 key={1}
-                placeholder="Email"
+                placeholder="Email/Username"
                 className="loginEmail"
                 id="sample3"
                 name="email"

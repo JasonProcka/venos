@@ -14,6 +14,7 @@ const MEMBERS = "member";
 const CREATION_DATE = "creationDate";
 const FILES = "files";
 const ID = "id";
+const QUICK_SHARE_KEYS = "quickShareKeys";
 
 // >>>>> Hub Access Consts
 const ACCESS_EVERYONE = "everyone"; // hub access for everyone
@@ -29,6 +30,7 @@ export default class HubM{
 		this[URL] = hub[URL]; // Also used as UID for the hub
 		this[OWNER] = hub[OWNER];
 		this[NAME] = hub[NAME];
+		this[QUICK_SHARE_KEYS] = hub[QUICK_SHARE_KEYS];
         this[DESCRIPTION] = hub[DESCRIPTION];
         this[IS_PUBLIC] = hub[IS_PUBLIC];
 		let date = hub[CREATION_DATE] ? hub[CREATION_DATE] : new Date();

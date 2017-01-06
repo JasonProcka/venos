@@ -2,23 +2,46 @@
 
 // >>> React
 import React from 'react';
-import {browserHistory} from 'react-router';
+
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 // >>> Material-UI
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+
+
+import VRequest from '../libs2/vrequest';
 
 // >>> Styles
 import '../styles/home.css';
 import '../styles/grid.css';
-
 class Home extends React.Component {
     constructor(props) {
         super(props);
+
+		this.onTextChange.bind(this);
     }
+
+
+
+
+
+	onTextChange(event){
+
+		let value = event.target.value;
+		if(value && value.trim().length === 4){
+			this.props.dispatch(actions.enterQuickShareKey(value));
+		}
+		this.setState({quickShareKey: value});
+	}
+
+
+
+
     render() {
         return (
             <div className="homeWrapper">
@@ -29,6 +52,11 @@ class Home extends React.Component {
                   <div className="introButtons">
                     <FlatButton className="learn" label="Learn More"></FlatButton>
                     <RaisedButton className="button-create-hub" onClick={() => this.props.dispatch(push('/create'))} label="Create Hub" secondary={true}/>
+						<TextField
+	      					hintText="Your code"
+	      					floatingLabelText="Your code"
+							onChange={(e) => {this.onTextChange(e)}}
+	    				/>
                   </div>
                 </div>
               </div>
@@ -37,4 +65,12 @@ class Home extends React.Component {
     }
 }
 
-export default connect()(Home);
+let mapDispatchToProps = (dispatch) => {
+	return {
+		action: bindActionCreators(actions, dispatch)
+	}
+}
+
+
+
+export default connect(undefined)(Home);
